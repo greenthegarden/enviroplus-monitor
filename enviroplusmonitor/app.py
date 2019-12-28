@@ -78,7 +78,7 @@ def main(argv):
     # from enviroplusmonitor.sensors import weather
     # weather.publish_influx_measurement()
     
-    jobhanderl.tl.start(block=True)
+    jobhandler.tl.start(block=True)
 
 
 if __name__ == "__main__":
