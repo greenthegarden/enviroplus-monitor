@@ -74,6 +74,8 @@ def main(argv):
     mqttclienthandler.connect_to_broker()
 
     from enviroplusmonitor.sensors import weather
+    weather.publish_influx_measurement()
+    
     # tl.start(block=True)
 
 

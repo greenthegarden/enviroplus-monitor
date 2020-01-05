@@ -5,6 +5,7 @@ import logging
 
 import enviroplusmonitor.utilities.configurationhandler as configurationhandler
 import enviroplusmonitor.utilities.mqttclienthandler as mqttclienthandler
+
 from bme280 import BME280
 
 try:
@@ -50,4 +51,4 @@ def publish_influx_measurement():
         + str(round(bme280.get_humidity(), 2))
     )
     module_logger.info("Data: {data}".format(data=data))
-    mqtthandler.client.publish(TOPIC_STR, data)
+    mqttclienthandler.client.publish(TOPIC_STR, data)
