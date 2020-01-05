@@ -73,10 +73,12 @@ def main(argv):
     mqttclienthandler.configure_client()
     mqttclienthandler.connect_to_broker()
 
-    from enviroplusmonitor.sensors import weather
-    weather.publish_influx_measurement()
+    from enviroplusmonitor.utilities import jobhandler
+
+    # from enviroplusmonitor.sensors import weather
+    # weather.publish_influx_measurement()
     
-    # tl.start(block=True)
+    jobhanderl.tl.start(block=True)
 
 
 if __name__ == "__main__":
