@@ -11,17 +11,14 @@ import logging
 import os
 import sys
 import time
+from datetime import datetime, timedelta
 
+from timeloop import Timeloop
 from enviroplusmonitor.sensors import weather
-from enviroplusmonitor.utilities import (configurationhandler, logginghandler,
-                                         mqttclienthandler)
-
-# from datetime import datetime, timedelta
-# from timeloop import Timeloop
+from enviroplusmonitor.utilities import (configurationhandler, logginghandler)
 
 
-
-logger = logging.getLogger(__name__)
+# logger = logging.getLogger(__name__)
 
 # https://medium.com/greedygame-engineering/an-elegant-way-to-run-periodic-tasks-in-python-61b7c477b679
 # tl = Timeloop()
@@ -70,11 +67,10 @@ def main(argv):
     logginghandler.setup_logging(
         configurationhandler.config["logging"]["LOG_CFG_FILE"],
         configurationhandler.config["logging"]["LOG_CFG_VAR"],
-        default_level=configurationhandler.config["logging"][
-            "LOG_DEFAULT_LEVEL"
-        ],
+        default_level=configurationhandler.config["logging"]["LOG_DEFAULT_LEVEL"],
     )
 
+    from enviroplusmonitor.utilities import mqttclienthandler
     mqttclienthandler.configure_client()
     mqttclienthandler.connect_to_broker()
 

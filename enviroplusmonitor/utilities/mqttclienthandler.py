@@ -56,13 +56,7 @@ def on_disconnect(client, userdata, rc):
         if broker_attempt_count < int(
             configurationhandler.config["mqtt"]["MQTT_BROKER_ATTEMPTS"]
         ):
-            time.sleep(
-                int(
-                    configurationhandler.config["mqtt"][
-                        "MQTT_RECONNECT_DELAY"
-                    ]
-                )
-            )
+            time.sleep(int(configurationhandler.config["mqtt"]["MQTT_RECONNECT_DELAY"]))
             connect_to_broker()
             broker_attempt_count = broker_attempt_count + 1
         else:
@@ -121,9 +115,7 @@ def connect_to_broker():
 def configure_client():
     global client
     client_id = str(
-        configurationhandler.config["mqtt"]["MQTT_CLIENT_ID"]
-        + "_"
-        + str(uuid.uuid4())
+        configurationhandler.config["mqtt"]["MQTT_CLIENT_ID"] + "_" + str(uuid.uuid4())
     )
     client = mqttc.Client(client_id)
 
