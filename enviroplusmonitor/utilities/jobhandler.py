@@ -2,8 +2,9 @@ __author__ = "Philip Cutler"
 
 import time
 from datetime import datetime, timedelta
-from timeloop import Timeloop
+
 from enviroplusmonitor.sensors import weather
+from timeloop import Timeloop
 
 # https://medium.com/greedygame-engineering/an-elegant-way-to-run-periodic-tasks-in-python-61b7c477b679
 tl = Timeloop()

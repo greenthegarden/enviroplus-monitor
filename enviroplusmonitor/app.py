@@ -12,11 +12,13 @@ import argparse
 # import logging
 import os
 import sys
+
+# from timeloop import Timeloop
+from enviroplusmonitor.utilities import configurationhandler, logginghandler
+
 # import time
 # from datetime import datetime, timedelta
 
-# from timeloop import Timeloop
-from enviroplusmonitor.utilities import (configurationhandler, logginghandler)
 
 
 def main(argv):
@@ -52,6 +54,7 @@ def main(argv):
     )
 
     from enviroplusmonitor.utilities import mqttclienthandler
+
     mqttclienthandler.configure_client()
     mqttclienthandler.connect_to_broker()
 

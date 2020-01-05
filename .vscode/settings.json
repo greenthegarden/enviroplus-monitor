@@ -1,0 +1,11 @@
+{
+  "restructuredtext.confPath": "${workspaceFolder}/docs",
+  "files.watcherExclude": {
+    "**/.git/objects/**": true,
+    "**/.git/subtree-cache/**": true,
+    "**/__pycache/*/**": true,
+    "**/.mypy_cache/*/**": true,
+    "**/.nox/*/**": true,
+    "**/.pytest_cache/*/**": true,
+  }
+}

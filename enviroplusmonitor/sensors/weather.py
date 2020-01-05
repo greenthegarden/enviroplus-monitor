@@ -5,7 +5,6 @@ import logging
 
 import enviroplusmonitor.utilities.configurationhandler as configurationhandler
 import enviroplusmonitor.utilities.mqttclienthandler as mqttclienthandler
-
 from bme280 import BME280
 
 try:
