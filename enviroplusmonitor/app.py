@@ -14,7 +14,6 @@ import time
 from datetime import datetime, timedelta
 
 from timeloop import Timeloop
-from enviroplusmonitor.sensors import weather
 from enviroplusmonitor.utilities import (configurationhandler, logginghandler)
 
 
@@ -74,6 +73,7 @@ def main(argv):
     mqttclienthandler.configure_client()
     mqttclienthandler.connect_to_broker()
 
+    from enviroplusmonitor.sensors import weather
     # tl.start(block=True)
 
 
