@@ -45,7 +45,7 @@ def publish_influx_measurement():
         + "temperature"
         + "="
         + str(round(bme280.get_temperature(), 2))
-        + " "
+        + ","
         + "humidity"
         + "="
         + str(round(bme280.get_humidity(), 2))
