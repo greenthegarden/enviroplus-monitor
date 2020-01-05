@@ -1,0 +1,12 @@
+configobj
+datetime
+enviroplus
+i2cdevice
+paho-mqtt
+pimoroni-bme280
+pytest
+pytest-cov
+smbus
+sphinx
+sphinx-autobuild
+timeloop

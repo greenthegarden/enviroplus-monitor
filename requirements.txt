@@ -1,0 +1,8 @@
+configobj
+datetime
+enviroplus
+i2cdevice
+paho-mqtt
+pimoroni-bme280
+smbus
+timeloop

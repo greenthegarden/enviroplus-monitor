@@ -1,0 +1,79 @@
+{
+  "version": 1,
+  "disable_existing_loggers": false,
+
+  "formatters": {
+    "csv": {
+      "format": "%(asctime)s, %(name)s, %(levelname)s, %(message)s"
+    },
+    "detailed": {
+      "format": "%(asctime)s [ %(name)s - %(levelname)s ] [ %(filename)s:%(lineno)s - %(funcName)s ]: %(message)s"
+    },
+    "logstash": {
+      "()": "logstash_formatter.LogstashFormatter",
+      "format": "%(asctime)s, %(levelname)s, %(name)s, %(lineno)s, %(message)s, %(pathname)s, %(module)s, %(funcName)s, %(process)s",
+      "datefmt": "%Y-%m-%dT%H:%M:%S",
+      "rename": {
+        "asctime": "@timestamp"
+      },
+      "version": "1"
+    },
+    "simple": {
+      "format": "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+    }
+  },
+
+  "handlers": {
+    "console": {
+      "class": "logging.StreamHandler",
+      "level": "DEBUG",
+      "formatter": "detailed",
+      "stream": "ext://sys.stdout"
+    },
+    "error_file_handler": {
+      "class": "logging.handlers.RotatingFileHandler",
+      "level": "ERROR",
+      "formatter": "detailed",
+      "filename": "error.log",
+      "maxBytes": 10485760,
+      "backupCount": 20,
+      "encoding": "utf8"
+    },
+    "info_file_handler": {
+      "class": "logging.handlers.RotatingFileHandler",
+      "level": "DEBUG",
+      "formatter": "detailed",
+      "filename": "info.log",
+      "maxBytes": 10485760,
+      "backupCount": 20,
+      "encoding": "utf8"
+    },
+    "logstash": {
+      "level": "INFO",
+      "class": "logging.StreamHandler",
+      "formatter": "logstash"
+    }
+  },
+
+  "loggers": {
+    "console_logger": {
+      "level": "DEBUG",
+      "handlers": [
+        "console"
+      ]
+    },
+    "file_logger": {
+      "level": "DEBUG",
+      "handlers": [
+        "error_file_handler",
+        "info_file_handler"
+      ]
+    },
+    "logstash_logger": {
+      "level": "INFO",
+      "handlers": [
+        "logstash"
+      ]
+    }
+  }
+}
