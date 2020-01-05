@@ -1,6 +1,6 @@
-from .context import enviroplusmonitor
+# from .context import enviroplusmonitor
 
-# from enviroplusmonitor import app
+from enviroplusmonitor import app
 
 
 def test_app():

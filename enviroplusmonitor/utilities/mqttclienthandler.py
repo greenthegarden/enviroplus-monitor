@@ -11,9 +11,7 @@ import uuid
 import enviroplusmonitor.utilities.configurationhandler as configurationhandler
 import paho.mqtt.client as mqttc
 
-module_logger = logging.getLogger(
-    configurationhandler.config["logging"]["MODULE_LOGGER"]
-)
+logger = logging.getLogger(__name__)
 
 broker_attempt_count = 0
 
@@ -31,11 +29,11 @@ def get_broker_url():
 
 
 def on_connect(client, userdata, flags, rc):
-    module_logger.debug("[Connect]")
-    module_logger.info("Client: {client_id}".format(client_id=str(client._client_id)))
-    module_logger.info("Result: {rc}".format(rc=mqttc.connack_string(rc)))
+    logger.debug("[Connect]")
+    logger.info("Client: {client_id}".format(client_id=str(client._client_id)))
+    logger.info("Result: {rc}".format(rc=mqttc.connack_string(rc)))
     if rc == 0:
-        module_logger.info(
+        logger.info(
             "Connected to {host} on port {port}".format(
                 host=client._host, port=client._port
             )
@@ -43,11 +41,11 @@ def on_connect(client, userdata, flags, rc):
 
 
 def on_disconnect(client, userdata, rc):
-    module_logger.debug("[Disconnect]")
-    module_logger.info("Client: {client_id}".format(client_id=str(client._client_id)))
-    module_logger.info("Result: {rc}".format(rc=mqttc.error_string(rc)))
+    logger.debug("[Disconnect]")
+    logger.info("Client: {client_id}".format(client_id=str(client._client_id)))
+    logger.info("Result: {rc}".format(rc=mqttc.error_string(rc)))
     if rc > 0:
-        module_logger.error(
+        logger.error(
             "Client {client} disconnected with error {error}".format(
                 client=str(client), error=mqttc.error_string(rc)
             )
@@ -68,11 +66,11 @@ def on_disconnect(client, userdata, rc):
 
 
 # def on_log(client, userdata, level, buf):
-#     module_logger.debug("[LOG] {0}".format(buf))
+#     logger.debug("[LOG] {0}".format(buf))
 
 
 def on_publish(client, userdata, mid):
-    module_logger.debug(
+    logger.debug(
         "[Publish] message id: {message_id}".format(message_id=str(mid))
     )
 
@@ -83,31 +81,31 @@ def connect_to_broker():
         env_broker = urlparse.urlparse(
             os.environ.get("MQTT_BROKER_URL", get_broker_url())
         )
-        module_logger.debug("Env Broker: {broker}".format(broker=env_broker))
+        logger.debug("Env Broker: {broker}".format(broker=env_broker))
     except Exception:
         env_broker = None
     if env_broker is not None:
         try:
             client.connect(env_broker.hostname, env_broker.port)
             connected = True
-            module_logger.info(
+            logger.info(
                 "Connect to broker at {broker}".format(broker=env_broker)
             )
             return
         except Exception as exc:
-            module_logger.error("No connection to env broker")
+            logger.error("No connection to env broker")
     cfg_broker = get_broker_url()
-    module_logger.debug("Cfg Broker: {broker}".format(broker=cfg_broker))
+    logger.debug("Cfg Broker: {broker}".format(broker=cfg_broker))
     if cfg_broker is not None:
         try:
             client.connect(cfg_broker.hostname, cfg_broker.port)
             connected = True
-            module_logger.info(
+            logger.info(
                 "Connect to broker at {broker}".format(broker=cfg_broker)
             )
             return
         except Exception as exc:
-            module_logger.error("No connection to cfg broker")
+            logger.error("No connection to cfg broker")
     if connected is False:
         sys.exit("No connection to broker")
 

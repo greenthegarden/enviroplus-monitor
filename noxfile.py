@@ -66,7 +66,7 @@ def docs(session):
     """Build the documentation."""
     session.run("rm", "-rf", "docs/_build", external=True)
     session.install("-r", "requirements-test.txt")
-    session.install(".")
+    # session.install(".")
     session.cd("docs")
     sphinx_args = ["-b", "html", "-W", "-d", "_build/doctrees", ".", "_build/html"]
 

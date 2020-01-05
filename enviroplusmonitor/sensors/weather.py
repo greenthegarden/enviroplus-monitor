@@ -13,9 +13,7 @@ except ImportError:
     from smbus import SMBus
 
 
-module_logger = logging.getLogger(
-    configurationhandler.config["logging"]["MODULE_LOGGER"]
-)
+logger = logging.getLogger(__name__)
 
 bus = SMBus(1)
 
@@ -29,7 +27,7 @@ TOPIC_STR = str(
     + "/"
     + "measurement"
 )
-module_logger.info("Topic str: {topic}".format(topic=TOPIC_STR))
+logger.info("Topic str: {topic}".format(topic=TOPIC_STR))
 
 # weather,location=us-midwest,season=summer temperature=82
 def publish_influx_measurement():
@@ -49,5 +47,5 @@ def publish_influx_measurement():
         + "="
         + str(round(bme280.get_humidity(), 2))
     )
-    module_logger.info("Data: {data}".format(data=data))
+    logger.info("Data: {data}".format(data=data))
     mqttclienthandler.client.publish(TOPIC_STR, data)

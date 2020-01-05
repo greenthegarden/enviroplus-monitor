@@ -9,17 +9,13 @@ The core module of my example project
 """
 
 import argparse
-# import logging
+import logging
 import os
 import sys
 
-# from timeloop import Timeloop
 from enviroplusmonitor.utilities import configurationhandler, logginghandler
 
-# import time
-# from datetime import datetime, timedelta
-
-
+logger = logging.getLogger(__name__)
 
 def main(argv):
     """

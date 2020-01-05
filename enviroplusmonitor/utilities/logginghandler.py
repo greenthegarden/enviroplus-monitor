@@ -7,6 +7,7 @@ import logging.config
 import os
 import sys
 
+logger = logging.getLogger(__name__)
 
 def setup_logging(default_path, env_key, default_level=logging.INFO):
     """Setup logging configuration

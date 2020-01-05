@@ -17,7 +17,7 @@ sys.path.insert(0, os.path.abspath('../'))
 
 # -- Project information -----------------------------------------------------
 
-project = 'Python Project'
+project = 'Enviroplus Monitor'
 copyright = '2020, Philip Cutler'
 author = 'Philip Cutler'
 
