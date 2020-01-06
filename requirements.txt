@@ -1,7 +1,10 @@
+ads1015
 configobj
 enviroplus
 i2cdevice
+influxdb
 paho-mqtt
 pimoroni-bme280
+RPi.GPIO
 smbus
 timeloop

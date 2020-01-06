@@ -1,11 +1,14 @@
+ads1015
 configobj
 enviroplus
 fake_rpi
 i2cdevice
+influxdb
 paho-mqtt
 pimoroni-bme280
 pytest
 pytest-cov
+RPi.GPIO
 smbus
 sphinx
 sphinx-autobuild

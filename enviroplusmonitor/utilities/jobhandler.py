@@ -3,7 +3,8 @@ __author__ = "Philip Cutler"
 import logging
 from datetime import timedelta
 
-# from enviroplusmonitor.sensors import weather
+from enviroplusmonitor.sensors import gas
+from enviroplusmonitor.sensors import weather
 from timeloop import Timeloop
 
 logger = logging.getLogger(__name__)
@@ -14,5 +15,5 @@ tl = Timeloop()
 # TODO: parameteratise time interval
 @tl.job(interval=timedelta(seconds=60))
 def sample_job_every_60s():
-    print("60s job")
-    # weather.publish_influx_measurement()
+    weather.publish_influx_measurement()
+    gas.publish_influx_measurement()

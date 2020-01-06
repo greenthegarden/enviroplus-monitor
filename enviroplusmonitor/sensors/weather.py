@@ -2,15 +2,15 @@ __author__ = "Philip Cutler"
 
 
 import logging
-# Replace libraries by fake ones
 import sys
 
 import enviroplusmonitor.utilities.configurationhandler as configurationhandler
 import enviroplusmonitor.utilities.mqttclienthandler as mqttclienthandler
-import fake_rpi
+import enviroplusmonitor.utilities.influxdbclienthandler as influxdbclienthandler
+# import fake_rpi
 from bme280 import BME280
 
-sys.modules["smbus"] = fake_rpi.smbus  # Fake smbus (I2C)
+# sys.modules["smbus"] = fake_rpi.smbus  # Fake smbus (I2C)
 
 try:
     from smbus2 import SMBus
@@ -35,6 +35,10 @@ TOPIC_STR = str("tet")
 # )
 logger.info("Topic str: {topic}".format(topic=TOPIC_STR))
 
+def sensor_readings():
+    readings = bme280.read_all()
+    return readings
+
 # weather,location=us-midwest,season=summer temperature=82
 def publish_influx_measurement():
     data = str(
@@ -55,3 +59,21 @@ def publish_influx_measurement():
     )
     logger.info("Data: {data}".format(data=data))
     mqttclienthandler.client.publish(TOPIC_STR, data)
+
+def measurement_influx_json():
+    readings = sensor_readings()
+    json_body = [
+        {
+            "measurement": "bme280",
+            "tags": {
+                "platform": "enviroplus",
+                "id": str(1),
+            },
+            "fields": {
+                "temperature": readings.temperature,
+                "humidity": readings.humidity,
+                "pressure": readings.pressure,
+            }
+        }
+    ]
+    influxdbclienthandler.influxdbc.write_points(json_body)

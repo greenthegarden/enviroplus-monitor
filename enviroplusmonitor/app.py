@@ -17,8 +17,19 @@ from enviroplusmonitor.utilities import configurationhandler, logginghandler
 
 logger = logging.getLogger(__name__)
 
+default_configuration_file = str("." + "/" + "config.ini")
 
-def main(argv):
+def parse_args():
+    """Parse the args from main."""
+    parser = argparse.ArgumentParser(
+        description='Enviroplus Monitor Project')
+    parser.add_argument('-c', '--host', type=str, required=False,
+                        default='default_configuration_file',
+                        help='Specify configuration file')
+    return parser.parse_args()
+
+
+def main(config_file=default_configuration_file):
     """
     Defines the methods to run.
 
@@ -30,19 +41,8 @@ def main(argv):
 
     print("\n\nRunning {pre}\n".format(pre=pre))
 
-    default_configuration_file = "." + "/" + "config.ini"
-
-    parser = argparse.ArgumentParser(description="Enviroplus Monitor Project")
-    parser.add_argument(
-        "-c",
-        "--config",
-        default=default_configuration_file,
-        help="Specify configuration file",
-    )
-    args = parser.parse_args()
-
-    print("Using configuration file {filename}".format(filename=args.config))
-    configurationhandler.load_config(args.config)
+    print("Using configuration file {filename}".format(filename=config_file))
+    configurationhandler.load_config(config_file)
 
     logginghandler.setup_logging(
         configurationhandler.config["logging"]["LOG_CFG_FILE"],
@@ -61,4 +61,5 @@ def main(argv):
 
 
 if __name__ == "__main__":
-    main(sys.argv[1:0])
+    args = parse_args()
+    main(args.config)
