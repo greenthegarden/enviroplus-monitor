@@ -1,5 +1,6 @@
 configobj
 enviroplus
+fake_rpi
 i2cdevice
 paho-mqtt
 pimoroni-bme280

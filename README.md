@@ -33,4 +33,14 @@ python -m enviroplusmonitor
 * pytest-docker-tools:
 * https://hynek.me/talks/python-foss
 * Testing in Python: https://realpython.com/python-testing/
-* 
+* fake-rpi
+
+
+#
+* https://docs.pytest.org/en/latest/capture.html
+* https://docs.pytest.org/en/latest/tmpdir.html
+* https://docs.pytest.org/en/latest/fixture.html
+* https://docs.pytest.org/en/latest/goodpractices.html
+
+pytest.fixture
+unittest.mock
