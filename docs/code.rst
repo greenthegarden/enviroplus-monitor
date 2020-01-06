@@ -23,5 +23,5 @@ sensors -- auto members
 
 This is something I want to say that is not in the docstring.
 
-.. automodule:: enviroplusmonitor.sensors.weather
-   :members:
+.. .. automodule:: enviroplusmonitor.sensors.weather
+..    :members:

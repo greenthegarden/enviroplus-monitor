@@ -70,9 +70,7 @@ def on_disconnect(client, userdata, rc):
 
 
 def on_publish(client, userdata, mid):
-    logger.debug(
-        "[Publish] message id: {message_id}".format(message_id=str(mid))
-    )
+    logger.debug("[Publish] message id: {message_id}".format(message_id=str(mid)))
 
 
 def connect_to_broker():
@@ -88,9 +86,7 @@ def connect_to_broker():
         try:
             client.connect(env_broker.hostname, env_broker.port)
             connected = True
-            logger.info(
-                "Connect to broker at {broker}".format(broker=env_broker)
-            )
+            logger.info("Connect to broker at {broker}".format(broker=env_broker))
             return
         except Exception as exc:
             logger.error("No connection to env broker")
@@ -100,9 +96,7 @@ def connect_to_broker():
         try:
             client.connect(cfg_broker.hostname, cfg_broker.port)
             connected = True
-            logger.info(
-                "Connect to broker at {broker}".format(broker=cfg_broker)
-            )
+            logger.info("Connect to broker at {broker}".format(broker=cfg_broker))
             return
         except Exception as exc:
             logger.error("No connection to cfg broker")

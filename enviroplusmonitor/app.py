@@ -17,6 +17,7 @@ from enviroplusmonitor.utilities import configurationhandler, logginghandler
 
 logger = logging.getLogger(__name__)
 
+
 def main(argv):
     """
     Defines the methods to run.

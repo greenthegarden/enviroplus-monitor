@@ -43,7 +43,7 @@ def cover(session):
 
 @nox.session(python="3.7")
 def blacken(session):
-    """Run black code formater."""
+    """Run black code formatter."""
     session.install("black==19.10b0", "isort==4.3.21")
     files = ["enviroplusmonitor", "tests", "noxfile.py"]
     session.run("black", *files)
@@ -59,6 +59,15 @@ def lint(session):
     files = ["enviroplusmonitor", "tests", "noxfile.py"]
     session.run("black", "--check", *files)
     session.run("flake8", "src", *files)
+
+
+@nox.session(python="3.7")
+def security(session):
+    """Run security tests."""
+    session.install("bandit==1.6.2")
+    session.install("-r", "requirements-test.txt")
+    files = ["enviroplusmonitor", "tests"]
+    session.run("bandit", "-r", *files)
 
 
 @nox.session(python="3.7")
