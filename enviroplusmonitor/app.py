@@ -57,8 +57,8 @@ def run(parser):
     # mqttclienthandler.configure_client()
     # mqttclienthandler.connect_to_broker()
 
-    from enviroplusmonitor.utilies import influxdbhandler
-    influxdbhandler.configure_client()
+    from enviroplusmonitor.utilities import influxdbclienthandler
+    influxdbclienthandler.configure_client()
 
     from enviroplusmonitor.utilities import jobhandler
 
