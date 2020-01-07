@@ -11,5 +11,5 @@ influxdbc = None
 def configure_client():
     global influxdbc
     influxdbc = InfluxDBClient(
-        host="192.168.1.90", database="temperature_monitoring"
+        host="192.168.1.90", database="home_enviro_monitoring"
     )
