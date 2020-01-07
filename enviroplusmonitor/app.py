@@ -29,7 +29,7 @@ def parse_args():
     return parser.parse_args()
 
 
-def main(args):
+def run(args):
     """
     Defines the methods to run.
 
@@ -46,13 +46,13 @@ def main(args):
     print("Using configuration file {filename}".format(filename=config_file))
     configurationhandler.load_config(config_file)
 
-    # logginghandler.setup_logging(
-    #     configurationhandler.config["logging"]["LOG_CFG_FILE"],
-    #     configurationhandler.config["logging"]["LOG_CFG_VAR"],
-    #     default_level=configurationhandler.config["logging"]["LOG_DEFAULT_LEVEL"],
-    # )
+    logginghandler.setup_logging(
+        configurationhandler.config["logging"]["LOG_CFG_FILE"],
+        configurationhandler.config["logging"]["LOG_CFG_VAR"],
+        default_level=configurationhandler.config["logging"]["LOG_DEFAULT_LEVEL"],
+    )
 
-    # from enviroplusmonitor.utilities import mqttclienthandler
+    from enviroplusmonitor.utilities import mqttclienthandler
 
     # mqttclienthandler.configure_client()
     # mqttclienthandler.connect_to_broker()
@@ -64,4 +64,4 @@ def main(args):
 
 if __name__ == "__main__":
     args = parse_args()
-    main(args)
+    run(args)
