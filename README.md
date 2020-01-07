@@ -47,14 +47,16 @@ unittest.mock
 
 ## Run script as service
 
-Add following to `/etc/systemd/system`.
+Add following to `/etc/systemd/system`, using `sudo cp ./enviroplusmonitor.service /etc/systemd/system`.
 
 ```bash
 [Unit]
-Description=Hello World
+Description=Enviro+ Monitor
 After=multi-user.target
  
 [Service]
+User=pi
+Group=pi
 WorkingDirectory=/home/pi/enviroplus-monitor
 Type=simple
 ExecStart=/usr/bin/python -m enviroplusmonitor

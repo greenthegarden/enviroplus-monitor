@@ -3,6 +3,8 @@ Description=Enviro+ Monitor
 After=multi-user.target
  
 [Service]
+User=pi
+Group=pi
 WorkingDirectory=/home/pi/enviroplus-monitor
 Type=simple
 ExecStart=/usr/bin/python -m enviroplusmonitor
