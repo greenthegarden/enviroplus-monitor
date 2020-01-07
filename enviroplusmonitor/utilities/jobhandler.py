@@ -14,5 +14,6 @@ tl = Timeloop()
 # TODO: parameteratise time interval
 @tl.job(interval=timedelta(seconds=60))
 def sample_job_every_60s():
-    weather.publish_influx_measurement()
+    logger.info("Publishing ...")
+    weather.publish_measurement_to_influxdb()
     gas.publish_measurement_to_influxdb()

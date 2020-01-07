@@ -46,7 +46,9 @@ def measurement_influx_json():
 
 
 def publish_measurement_to_influxdb():
-    influxdbclienthandler.influxdbc.write_points(measurement_influx_json())
+    json_body = measurement_influx_json()
+    logger.info("Publishing: {data}".format(data=json_body))
+    influxdbclienthandler.influxdbc.write_points(json_body)
 
 
 # TOPIC_STR = str("tet")
