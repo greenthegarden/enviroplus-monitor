@@ -38,9 +38,9 @@ def measurement_influx_json():
             "measurement": "bme280",
             "tags": {"platform": "enviroplus", "id": str(1),},
             "fields": {
-                "temperature": readings.get['temperature'],
-                "humidity": readings.get['humidity'],
-                "pressure": readings.get['pressure']
+                "temperature": readings.get('temperature'),
+                "humidity": readings.get('humidity'),
+                "pressure": readings.get('pressure')
             }
         }
     ]
