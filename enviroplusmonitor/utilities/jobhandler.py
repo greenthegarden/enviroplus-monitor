@@ -3,8 +3,7 @@ __author__ = "Philip Cutler"
 import logging
 from datetime import timedelta
 
-from enviroplusmonitor.sensors import gas
-from enviroplusmonitor.sensors import weather
+from enviroplusmonitor.sensors import gas, weather
 from timeloop import Timeloop
 
 logger = logging.getLogger(__name__)

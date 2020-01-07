@@ -19,17 +19,22 @@ logger = logging.getLogger(__name__)
 
 default_configuration_file = str("." + "/" + "config.ini")
 
-def parse_args():
+
+def parse_args(args):
     """Parse the args from main."""
-    parser = argparse.ArgumentParser(
-        description='Enviroplus Monitor Project')
-    parser.add_argument('-c', '--config', type=str, required=False,
-                        default=default_configuration_file,
-                        help='Specify configuration file')
-    return parser.parse_args()
+    parser = argparse.ArgumentParser(description="Enviroplus Monitor Project")
+    parser.add_argument(
+        "-c",
+        "--config",
+        type=str,
+        required=False,
+        default=default_configuration_file,
+        help="Specify configuration file",
+    )
+    return parser.parse_args(args)
 
 
-def run(args):
+def run(parser):
     """
     Defines the methods to run.
 
@@ -41,7 +46,7 @@ def run(args):
 
     print("\n\nRunning {pre}\n".format(pre=pre))
 
-    config_file = args.config
+    config_file = parser.config
 
     print("Using configuration file {filename}".format(filename=config_file))
     configurationhandler.load_config(config_file)
@@ -63,5 +68,5 @@ def run(args):
 
 
 if __name__ == "__main__":
-    args = parse_args()
+    args = parse_args(sys.argv[1:])
     run(args)
