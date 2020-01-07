@@ -23,9 +23,11 @@ bus = SMBus(1)
 # BME280 temperature/pressure/humidity sensor
 bme280 = BME280(i2c_dev=bus)
 
-
 def sensor_readings():
-    readings = bme280.read_all()
+    readings = {'temperature': bme280.get_temperature(),
+                'pressure': bme280.get_pressure(),
+                'humidity': bme280.get_humidity()
+    }
     return readings
 
 
@@ -36,10 +38,10 @@ def measurement_influx_json():
             "measurement": "bme280",
             "tags": {"platform": "enviroplus", "id": str(1),},
             "fields": {
-                "temperature": readings.temperature,
-                "humidity": readings.humidity,
-                "pressure": readings.pressure,
-            },
+                "temperature": readings.get['temperature'],
+                "humidity": readings.get['humidity'],
+                "pressure": readings.get['pressure']
+            }
         }
     ]
     return json_body
