@@ -21,7 +21,7 @@ default_configuration_file = str("." + "/" + "config.ini")
 
 
 def parse_args(args):
-    """Parse the args from main."""
+    # """Parse the args from main."""
     parser = argparse.ArgumentParser(description="Enviroplus Monitor Project")
     parser.add_argument(
         "-c",
@@ -29,18 +29,13 @@ def parse_args(args):
         type=str,
         required=False,
         default=default_configuration_file,
-        help="Specify configuration file",
+        help="Specify configuration file"
     )
-    return parser.parse_args(args)
+    return parser.parse_args()
+
 
 
 def run(parser):
-    """
-    Defines the methods to run.
-
-    Returns:
-        None
-    """
     pre, ext = os.path.splitext(__file__)
     pre = os.path.basename(pre)
 
@@ -57,15 +52,17 @@ def run(parser):
         default_level=configurationhandler.config["logging"]["LOG_DEFAULT_LEVEL"],
     )
 
-    from enviroplusmonitor.utilities import mqttclienthandler
+    # from enviroplusmonitor.utilities import mqttclienthandler
 
     # mqttclienthandler.configure_client()
     # mqttclienthandler.connect_to_broker()
 
-    # from enviroplusmonitor.utilities import jobhandler
+    from enviroplusmonitor.utilies import influxdbhandler
+    influxdbhandler.configure_client()
 
-    # jobhandler.tl.start(block=True)
+    from enviroplusmonitor.utilities import jobhandler
 
+    jobhandler.tl.start(block=True)
 
 if __name__ == "__main__":
     args = parse_args(sys.argv[1:])
