@@ -22,7 +22,7 @@ default_configuration_file = str("." + "/" + "config.ini")
 
 def parse_args(args):
     # """Parse the args from main."""
-    parser = argparse.ArgumentParser(description="Enviroplus Monitor Project")
+    parser = argparse.ArgumentParser(description="Enviro+ Monitor Project")
     parser.add_argument(
         "-c",
         "--config",

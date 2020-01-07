@@ -44,3 +44,55 @@ python -m enviroplusmonitor
 
 pytest.fixture
 unittest.mock
+
+## Run script as service
+
+Add following to `/etc/systemd/system`.
+
+```bash
+[Unit]
+Description=Hello World
+After=multi-user.target
+ 
+[Service]
+WorkingDirectory=/home/pi/enviroplus-monitor
+Type=simple
+ExecStart=/usr/bin/python -m enviroplusmonitor
+Restart=on-abort
+ 
+[Install]
+WantedBy=multi-user.target
+```
+
+Activate service using
+
+```bash
+sudo chmod 644 /etc/systemd/system/enviroplusmonitor.service
+sudo systemctl daemon-reload
+sudo systemctl enable enviroplusmonitor.service
+sudo systemctl start enviroplusmonitor.service
+```
+
+### Check status
+
+```bash
+sudo systemctl status hello.service
+```
+
+### Start service
+
+```bash
+sudo systemctl start hello.service
+```
+
+### Stop service
+
+```bash
+sudo systemctl stop hello.service
+```
+
+### Check service's log
+
+```bash
+sudo journalctl -f -u hello.service
+```
