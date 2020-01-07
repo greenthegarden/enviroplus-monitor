@@ -19,12 +19,15 @@ def measurement_influx_json():
     json_body = [
         {
             "measurement": "bme280",
-            "tags": {"platform": "enviroplus", "id": str(1),},
+            "tags": {"platform": "enviroplus", "id": str(1)},
             "fields": {
                 "temperature": readings.temperature,
                 "humidity": readings.humidity,
-                "pressure": readings.pressure,
-            },
+                "pressure": readings.pressure
+            }
         }
     ]
-    influxdbclienthandler.influxdbc.write_points(json_body)
+    return json_body
+
+def publish_measurement_to_influxdb():
+    influxdbclienthandler.influxdbc.write_points(measurement_influx_json())

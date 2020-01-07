@@ -75,4 +75,7 @@ def measurement_influx_json():
             },
         }
     ]
-    influxdbclienthandler.influxdbc.write_points(json_body)
+    return json_body
+
+def publish_measurement_to_influxdb():
+    influxdbclienthandler.influxdbc.write_points(measurement_influx_json())
