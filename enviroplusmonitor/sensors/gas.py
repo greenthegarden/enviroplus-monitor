@@ -18,12 +18,12 @@ def measurement_influx_json():
     readings = sensor_readings()
     json_body = [
         {
-            "measurement": "bme280",
+            "measurement": "MICS6814",
             "tags": {"platform": "enviroplus", "id": str(1)},
             "fields": {
-                "temperature": readings.temperature,
-                "humidity": readings.humidity,
-                "pressure": readings.pressure
+                "nh3": readings.nh3,
+                "reducing": readings.reducing,
+                "oxidising": readings.oxidising
             }
         }
     ]
