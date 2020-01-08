@@ -19,7 +19,7 @@ def measurement_influx_json():
     json_body = [
         {
             "measurement": "MICS6814",
-            "tags": {"platform": "enviroplus", "id": str(1)},
+            "tags": {"platform": "enviroplus", "id": str(3)},
             "fields": {
                 "nh3": readings.nh3,
                 "reducing": readings.reducing,

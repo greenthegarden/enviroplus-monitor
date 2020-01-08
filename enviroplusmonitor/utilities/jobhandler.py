@@ -12,8 +12,8 @@ logger = logging.getLogger(__name__)
 tl = Timeloop()
 
 # TODO: parameteratise time interval
-@tl.job(interval=timedelta(seconds=60))
-def sample_job_every_60s():
+@tl.job(interval=timedelta(seconds=300))
+def publish_sensor_measurements():
     logger.info("Publishing ...")
     weather.publish_measurement_to_influxdb()
     gas.publish_measurement_to_influxdb()
