@@ -15,23 +15,17 @@ def sensor_readings():
 
 
 # TODO: move to influxdbclienthandler (just pass data and sensor type)
-def measurement_influx_json():
+def measurement():
     readings = sensor_readings()
-    json_body = [
-        {
-            "measurement": "MICS6814",
-            "tags": {
-                "platform": "enviroplus",
-                "id": str(configurationhandler.config['enviroplus']['id'])
-            },
-            "fields": {
-                "nh3": readings.nh3,
-                "reducing": readings.reducing,
-                "oxidising": readings.oxidising
-            }
+    data = {
+        "sensor": "MICS6814",
+        "measurements": {
+            "nh3": readings.nh3,
+            "reducing": readings.reducing,
+            "oxidising": readings.oxidising
         }
-    ]
-    return json_body
+    }
+    return data
 
 # TODO: remove as moved to jobhandler
 def publish_measurement_to_influxdb():

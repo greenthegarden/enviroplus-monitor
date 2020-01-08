@@ -20,9 +20,26 @@ def configure_client():
     influxdbc.create_database(database_name)
     influxdbc.switch_database(database_name)
 
-def publish_measurement(json_body):
-    logger.info("Publishing: {data}".format(data=json_body))
+# TODO: define test conditions for format
+def format_measurement(data):
+    fields = {key:value for key, value in data.get('measurements').items()}
+    json_body = [
+        {
+            "measurement": data.get('sensor')
+            "tags": {
+                "platform": "enviroplus",
+                "id": str(configurationhandler.config['enviroplus']['id'])
+            }
+            "fields": fields
+        }
+    ]
+    return json_body
+
+def publish_measurement(data):
+    logger.info("Sensor data: {data}".format(data=data))
+    json_data = format_measurement(data)
+    logger.info("Publishing: {data}".format(data=json_data))
     try:
-        influxdbc.write_points(json_body)
+        influxdbc.write_points(format_measurement(data))
     except InfluxDBClientError as error:
         logger.info(error)
