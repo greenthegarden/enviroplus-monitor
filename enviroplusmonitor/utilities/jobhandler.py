@@ -5,6 +5,7 @@ from datetime import timedelta
 
 from enviroplusmonitor.sensors import gas, weather
 from enviroplusmonitor.utilities import configurationhandler
+from enviroplusmonitor.utilities import influxdbclienthandler
 from timeloop import Timeloop
 
 logger = logging.getLogger(__name__)
@@ -16,5 +17,7 @@ tl = Timeloop()
 @tl.job(interval=timedelta(seconds=int(configurationhandler.config["job"]["JOB_INTERVAL_SECS"])))
 def publish_sensor_measurements():
     logger.info("Publishing ...")
-    weather.publish_measurement_to_influxdb()
-    gas.publish_measurement_to_influxdb()
+    json_body = weather.measurement_influx_json()
+    influxdbclienthandler.publish_measurement(json_body)
+    json_body = gas.measurement_influx_json()
+    influxdbclienthandler.publish_measurement(json_body)

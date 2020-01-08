@@ -19,3 +19,10 @@ def configure_client():
     print("Create database: " + database_name)
     influxdbc.create_database(database_name)
     influxdbc.switch_database(database_name)
+
+def publish_measurement(json_body):
+    logger.info("Publishing: {data}".format(data=json_body))
+    try:
+        influxdbc.write_points(json_body)
+    except InfluxDBClientError as error:
+        logger.info(error)

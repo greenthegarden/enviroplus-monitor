@@ -31,12 +31,16 @@ def sensor_readings():
     return readings
 
 
+# TODO: move to influxdbclienthandler (just pass data and sensor type)
 def measurement_influx_json():
     readings = sensor_readings()
     json_body = [
         {
             "measurement": "bme280",
-            "tags": {"platform": "enviroplus", "id": str(3)},
+            "tags": {
+                "platform": "enviroplus",
+                "id": str(configurationhandler.config['enviroplus']['id'])
+            },
             "fields": {
                 "temperature": readings.get('temperature'),
                 "humidity": readings.get('humidity'),
@@ -47,6 +51,7 @@ def measurement_influx_json():
     return json_body
 
 
+# TODO: remove as moved to jobhandler
 def publish_measurement_to_influxdb():
     json_body = measurement_influx_json()
     logger.info("Publishing: {data}".format(data=json_body))

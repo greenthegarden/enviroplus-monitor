@@ -47,7 +47,7 @@ unittest.mock
 
 ## Run script as service
 
-Add following to `/etc/systemd/system`, using `sudo cp ./enviroplusmonitor.service /etc/systemd/system`.
+Add following to `/etc/systemd/system`, using `sudo cp enviroplusmonitor.service /etc/systemd/system`.
 
 ```bash
 [Unit]
