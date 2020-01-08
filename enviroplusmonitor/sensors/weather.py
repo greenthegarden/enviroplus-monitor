@@ -23,10 +23,12 @@ bus = SMBus(1)
 # BME280 temperature/pressure/humidity sensor
 bme280 = BME280(i2c_dev=bus)
 
+
 def sensor_readings():
-    readings = {'temperature': bme280.get_temperature(),
-                'pressure': bme280.get_pressure(),
-                'humidity': bme280.get_humidity()
+    readings = {
+        "temperature": bme280.get_temperature(),
+        "pressure": bme280.get_pressure(),
+        "humidity": bme280.get_humidity(),
     }
     return readings
 
@@ -37,10 +39,10 @@ def measurement():
     data = {
         "sensor": "bme280",
         "measurements": {
-            "temperature": readings.get('temperature'),
-            "humidity": readings.get('humidity'),
-            "pressure": readings.get('pressure')
-        }
+            "temperature": readings.get("temperature"),
+            "humidity": readings.get("humidity"),
+            "pressure": readings.get("pressure"),
+        },
     }
     return data
 

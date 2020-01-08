@@ -29,10 +29,9 @@ def parse_args(args):
         type=str,
         required=False,
         default=default_configuration_file,
-        help="Specify configuration file"
+        help="Specify configuration file",
     )
     return parser.parse_args()
-
 
 
 def run(parser):
@@ -58,11 +57,13 @@ def run(parser):
     # mqttclienthandler.connect_to_broker()
 
     from enviroplusmonitor.utilities import influxdbclienthandler
+
     influxdbclienthandler.configure_client()
 
     from enviroplusmonitor.utilities import jobhandler
 
     jobhandler.tl.start(block=True)
+
 
 if __name__ == "__main__":
     args = parse_args(sys.argv[1:])

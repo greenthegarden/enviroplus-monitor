@@ -14,7 +14,11 @@ logger = logging.getLogger(__name__)
 tl = Timeloop()
 
 # TODO: parameteratise time interval
-@tl.job(interval=timedelta(seconds=int(configurationhandler.config["job"]["JOB_INTERVAL_SECS"])))
+@tl.job(
+    interval=timedelta(
+        seconds=int(configurationhandler.config["job"]["JOB_INTERVAL_SECS"])
+    )
+)
 def publish_sensor_measurements():
     logger.info("Publishing ...")
     data = weather.measurement()

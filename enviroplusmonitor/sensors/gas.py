@@ -22,10 +22,11 @@ def measurement():
         "measurements": {
             "nh3": readings.nh3,
             "reducing": readings.reducing,
-            "oxidising": readings.oxidising
-        }
+            "oxidising": readings.oxidising,
+        },
     }
     return data
+
 
 # TODO: remove as moved to jobhandler
 def publish_measurement_to_influxdb():
