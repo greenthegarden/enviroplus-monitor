@@ -9,7 +9,6 @@ import enviroplusmonitor.utilities.influxdbclienthandler as influxdbclienthandle
 import enviroplusmonitor.utilities.mqttclienthandler as mqttclienthandler
 from bme280 import BME280
 
-
 try:
     from smbus2 import SMBus
 except ImportError:

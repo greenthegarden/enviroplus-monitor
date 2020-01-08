@@ -4,8 +4,8 @@ import logging
 from datetime import timedelta
 
 from enviroplusmonitor.sensors import gas, weather
-from enviroplusmonitor.utilities import configurationhandler
-from enviroplusmonitor.utilities import influxdbclienthandler
+from enviroplusmonitor.utilities import (configurationhandler,
+                                         influxdbclienthandler)
 from timeloop import Timeloop
 
 logger = logging.getLogger(__name__)
