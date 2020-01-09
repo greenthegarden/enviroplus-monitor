@@ -7,10 +7,10 @@ import sys
 # import internal modules
 import enviroplusmonitor.utilities.configurationhandler as configurationhandler
 import enviroplusmonitor.utilities.mqttclienthandler as mqttclienthandler
+import enviroplusmonitor.utilities.unitregistryhandler as unitregistryhandler
 
 # import external packages
 from bme280 import BME280
-import pint
 try:
     from smbus2 import SMBus
 except ImportError:
@@ -24,15 +24,11 @@ bus = SMBus(1)
 # BME280 temperature/pressure/humidity sensor
 bme280 = BME280(i2c_dev=bus)
 
-# import unit registry and definitions
-ureg = pint.UnitRegistry()
-ureg.load_definitions('../resources/default_en.txt')
-
 def sensor_readings():
     readings = {
-        "temperature": bme280.get_temperature() * ureg.degree_Celsius,
-        "pressure": bme280.get_pressure() * ureg.hecto-pascal,
-        "humidity_relative": bme280.get_humidity() * ureg.percent
+        "temperature": unitregistryhandler.ureg.Quantity(bme280.get_temperature(), ureg.degC),
+        "pressure": bme280.get_pressure() * unitregistryhandler.ureg.hecto-pascal,
+        "humidity_relative": bme280.get_humidity() * unitregistryhandler.ureg.percent
     }
     return readings
 
@@ -45,11 +41,11 @@ def measurement():
             "temperature": {
                 "value": readings.get("temperature").magnitude,
                 "units": readings.get("temperature").units
-            }
+            },
             "humidity": {
                 "value": readings.get("humidity").magnitude,
                 "units": readings.get("humidity").units
-            }
+            },
             "pressure": {
                 "value": readings.get("pressure").magnitude,
                 "units": readings.get("pressure").units
