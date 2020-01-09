@@ -1,35 +1,48 @@
 __author__ = "Philip Cutler"
 
+# import libraries
 import logging
 
+# import internal modules
 import enviroplusmonitor.utilities.configurationhandler as configurationhandler
-import enviroplusmonitor.utilities.influxdbclienthandler as influxdbclienthandler
+
+# import external packages
 from enviroplus import gas
+import pint
 
 logger = logging.getLogger(__name__)
 
+# import unit registry and definitions
+ureg = pint.UnitRegistry()
+ureg.load_definitions('../resources/default_en.txt')
+
 
 def sensor_readings():
-    readings = gas.read_all()
+    all = gas.read_all()
+    readings = {
+        "reducing": all.reducing * ureg.ppm,
+        "oxidising": all.oxidising * ureg.ppm,
+        "nh3": all.nh3 * ureg.ppm,
+    }
     return readings
 
-
-# TODO: move to influxdbclienthandler (just pass data and sensor type)
 def measurement():
     readings = sensor_readings()
     data = {
         "sensor": "MICS6814",
         "measurements": {
-            "nh3": readings.nh3,
-            "reducing": readings.reducing,
-            "oxidising": readings.oxidising,
-        },
+            "reducing": {
+                "value": readings.get("reducing").magnitude,
+                "units": readings.get("reducing").units
+            }
+            "oxidising": {
+                "value": readings.get("oxidising").magnitude,
+                "units": readings.get("oxidising").units
+            }
+            "nh3": {
+                "value": readings.get("nh3").magnitude,
+                "units": readings.get("nh3").units
+            }
+        }
     }
     return data
-
-
-# TODO: remove as moved to jobhandler
-def publish_measurement_to_influxdb():
-    json_body = measurement_influx_json()
-    logger.info("Publishing: {data}".format(data=json_body))
-    influxdbclienthandler.influxdbc.write_points(json_body)

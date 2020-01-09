@@ -1,0 +1,3 @@
+fraction = [] = frac
+percent = 1e-2 frac = pct
+ppm = 1e-6 fraction

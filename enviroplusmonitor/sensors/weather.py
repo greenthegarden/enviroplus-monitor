@@ -1,14 +1,16 @@
 __author__ = "Philip Cutler"
 
-
+# import libraries
 import logging
 import sys
 
+# import internal modules
 import enviroplusmonitor.utilities.configurationhandler as configurationhandler
-import enviroplusmonitor.utilities.influxdbclienthandler as influxdbclienthandler
 import enviroplusmonitor.utilities.mqttclienthandler as mqttclienthandler
-from bme280 import BME280
 
+# import external packages
+from bme280 import BME280
+import pint
 try:
     from smbus2 import SMBus
 except ImportError:
@@ -22,35 +24,39 @@ bus = SMBus(1)
 # BME280 temperature/pressure/humidity sensor
 bme280 = BME280(i2c_dev=bus)
 
+# import unit registry and definitions
+ureg = pint.UnitRegistry()
+ureg.load_definitions('../resources/default_en.txt')
 
 def sensor_readings():
     readings = {
-        "temperature": bme280.get_temperature(),
-        "pressure": bme280.get_pressure(),
-        "humidity": bme280.get_humidity(),
+        "temperature": bme280.get_temperature() * ureg.degree_Celsius,
+        "pressure": bme280.get_pressure() * ureg.hecto-pascal,
+        "humidity_relative": bme280.get_humidity() * ureg.percent
     }
     return readings
 
 
-# TODO: move to influxdbclienthandler (just pass data and sensor type)
 def measurement():
     readings = sensor_readings()
     data = {
         "sensor": "bme280",
         "measurements": {
-            "temperature": readings.get("temperature"),
-            "humidity": readings.get("humidity"),
-            "pressure": readings.get("pressure"),
-        },
+            "temperature": {
+                "value": readings.get("temperature").magnitude,
+                "units": readings.get("temperature").units
+            }
+            "humidity": {
+                "value": readings.get("humidity").magnitude,
+                "units": readings.get("humidity").units
+            }
+            "pressure": {
+                "value": readings.get("pressure").magnitude,
+                "units": readings.get("pressure").units
+            }
+        }
     }
     return data
-
-
-# TODO: remove as moved to jobhandler
-def publish_measurement_to_influxdb():
-    json_body = measurement_influx_json()
-    logger.info("Publishing: {data}".format(data=json_body))
-    influxdbclienthandler.influxdbc.write_points(json_body)
 
 
 # TOPIC_STR = str("tet")

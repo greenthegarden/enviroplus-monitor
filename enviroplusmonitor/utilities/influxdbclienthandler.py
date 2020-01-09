@@ -23,7 +23,7 @@ def configure_client():
 
 # TODO: define test conditions for format
 def format_measurement(data):
-    fields = {key: value for key, value in data.get("measurements").items()}
+    fields = {key: value for key, value in data.get("measurements").items().get("value")}
     json_body = [
         {
             "measurement": data.get("sensor"),
