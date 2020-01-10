@@ -26,8 +26,8 @@ bme280 = BME280(i2c_dev=bus)
 
 def sensor_readings():
     readings = {
-        "temperature": unitregistryhandler.ureg.Quantity(bme280.get_temperature(), ureg.degC),
-        "pressure": bme280.get_pressure() * unitregistryhandler.ureg.hecto-pascal,
+        "temperature": unitregistryhandler.ureg.Quantity(bme280.get_temperature(), unitregistryhandler.ureg.degC),
+        "pressure": bme280.get_pressure() * unitregistryhandler.ureg.hectopascal,
         "humidity_relative": bme280.get_humidity() * unitregistryhandler.ureg.percent
     }
     return readings
@@ -43,8 +43,8 @@ def measurement():
                 "units": readings.get("temperature").units
             },
             "humidity": {
-                "value": readings.get("humidity").magnitude,
-                "units": readings.get("humidity").units
+                "value": readings.get("humidity_relative").magnitude,
+                "units": readings.get("humidity_relative").units
             },
             "pressure": {
                 "value": readings.get("pressure").magnitude,
