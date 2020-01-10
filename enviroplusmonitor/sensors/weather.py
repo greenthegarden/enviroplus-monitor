@@ -5,8 +5,6 @@ import logging
 import sys
 
 # import internal modules
-import enviroplusmonitor.utilities.configurationhandler as configurationhandler
-import enviroplusmonitor.utilities.mqttclienthandler as mqttclienthandler
 import enviroplusmonitor.utilities.unitregistryhandler as unitregistryhandler
 
 # import external packages
@@ -26,8 +24,8 @@ bme280 = BME280(i2c_dev=bus)
 
 def sensor_readings():
     readings = {
-        "temperature": unitregistryhandler.ureg.Quantity(bme280.get_temperature(), ureg.degC),
-        "pressure": bme280.get_pressure() * unitregistryhandler.ureg.hecto-pascal,
+        "temperature": unitregistryhandler.ureg.Quantity(bme280.get_temperature(), unitregistryhandler.ureg.degC),
+        "pressure": bme280.get_pressure() * unitregistryhandler.ureg.hectopascal,
         "humidity_relative": bme280.get_humidity() * unitregistryhandler.ureg.percent
     }
     return readings
