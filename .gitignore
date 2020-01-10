@@ -7,3 +7,5 @@ build/
 docs/_build/
 *.swp
 
+# do not keep logs
+*.log
