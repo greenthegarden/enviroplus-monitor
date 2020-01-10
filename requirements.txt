@@ -5,6 +5,7 @@ i2cdevice
 influxdb
 paho-mqtt
 pimoroni-bme280
+pint
 RPi.GPIO
 smbus
 timeloop

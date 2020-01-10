@@ -6,6 +6,7 @@ i2cdevice
 influxdb
 paho-mqtt
 pimoroni-bme280
+pint
 pytest
 pytest-cov
 RPi.GPIO
