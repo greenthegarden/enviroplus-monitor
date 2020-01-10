@@ -15,9 +15,12 @@ def setup_logging(default_path, env_key, default_level=logging.INFO):
 
     """
     path = default_path
+    print(path)
     value = os.getenv(env_key, None)
+    print(value)
     if value:
         path = value
+    print(path)
     if os.path.exists(path):
         with open(path, "rt") as f:
             config = json.load(f)
