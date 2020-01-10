@@ -9,16 +9,21 @@ influxdbc = None
 
 database_name = configurationhandler.config["influxdb"]["INFLUXDB_DATABASE"]
 
+# TODO: pass database name
+def manage_database():
+    logger.info("Create database: " + database_name)
+    logger.info(influxdbc.create_database(database_name))
+    logger.info(influxdbc.switch_database(database_name))
+
+# TODO: pass host and database info
 def configure_client():
     global influxdbc
     influxdbc = InfluxDBClient(
         host=str(configurationhandler.config["influxdb"]["INFLUXDB_HOST"]),
         database=database_name,
     )
+    manage_database()
 
-    print("Create database: " + database_name)
-    influxdbc.create_database(database_name)
-    influxdbc.switch_database(database_name)
 
 
 # TODO: define test conditions for format
