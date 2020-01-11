@@ -19,7 +19,7 @@ def setup_logging(default_path, env_key, default_level=logging.INFO):
         print("Using logging configuration file {file}".format(file=path))
         with open(path, "rt") as f:
             config = json.load(f)
-        print(logging.config.dictConfig(config))
+        logging.config.dictConfig(config)
     else:
         print("Logging configuration file {file} not found".format(file=path))
         logging_numeric_level = getattr(logging, default_level.upper(), None)
@@ -28,4 +28,4 @@ def setup_logging(default_path, env_key, default_level=logging.INFO):
                 "\n Logging level {lnl} not valid".format(lnl=logging_numeric_level)
             )
             sys.exit()
-        print(logging.basicConfig(level=logging_numeric_level))
+        logging.basicConfig(level=logging_numeric_level)

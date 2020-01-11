@@ -27,6 +27,12 @@ pip install -r requirements.txt
 python -m enviroplusmonitor
 ```
 
+To debug install. See https://medium.com/python-pandemonium/debugging-an-inactive-python-process-2b11f88730c7
+
+```bash
+sudo apt-get install gdb python3-dbg
+```
+
 ## References:
 
 * Continuous Integration: https://realpython.com/python-continuous-integration/

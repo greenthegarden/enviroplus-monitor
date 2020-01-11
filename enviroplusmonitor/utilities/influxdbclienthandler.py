@@ -4,6 +4,7 @@ import enviroplusmonitor.utilities.configurationhandler as configurationhandler
 
 from influxdb import InfluxDBClient
 
+logger = logging.getLogger(__name__)
 module_logger = logging.getLogger(configurationhandler.config['logging']['MODULE_LOGGER'])
 
 influxdbc = None
@@ -31,24 +32,22 @@ def configure_client():
 # TODO: define test conditions for format
 def format_measurement(data):
     fields = {key: value.get("value") for key, value in data.get("measurements").items()}
-    json_body = [
-        {
-            "measurement": data.get("sensor"),
-            "tags": {
-                "platform": "enviroplus",
-                "id": str(configurationhandler.config["enviroplus"]["id"]),
-            },
-            "fields": fields,
-        }
-    ]
-    return json_body
+    data_point = {
+        "measurement": data.get("sensor"),
+        "tags": {
+            "platform": "enviroplus",
+            "id": str(configurationhandler.config["enviroplus"]["id"]),
+        },
+        "fields": fields,
+    }
+    return data_point
 
 
 def publish_measurement(data):
-    module_logger.info("Sensor data: {data}".format(data=data))
-    json_data = format_measurement(data)
-    module_logger.info("Publishing: {data}".format(data=json_data))
+    module_logger.debug("Sensor data: {data}".format(data=data))
+    data_point = format_measurement(data)
+    module_logger.debug("Publishing: {data}".format(data=data_point))
     try:
-        influxdbc.write_points(format_measurement(data))
+        influxdbc.write(format_measurement(data))
     except InfluxDBClientError as error:
-        module_logger.info(error)
+        module_logger.error(error)
