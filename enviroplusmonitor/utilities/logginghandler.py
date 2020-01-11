@@ -14,15 +14,17 @@ def setup_logging(default_path, env_key, default_level=logging.INFO):
     """Setup logging configuration
 
     """
-    path = default_path
+    path = str(default_path)
     value = os.getenv(env_key, None)
     if value:
         path = value
     if os.path.exists(path):
+        print("Using logging configuration file {file}".format(file=path))
         with open(path, "rt") as f:
             config = json.load(f)
         logging.debug(logging.config.dictConfig(config))
     else:
+        print("Logging configuration file {file} not found".format(file=path))
         logging_numeric_level = getattr(logging, default_level.upper(), None)
         if not isinstance(logging_numeric_level, int):
             raise ValueError(

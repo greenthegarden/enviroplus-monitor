@@ -14,9 +14,12 @@ logger = logging.getLogger(__name__)
 def load_config(config_file):
     try:
         global config
-        config = ConfigObj(config_file, raise_errors=True, file_error=True)
+        config = ConfigObj(str(config_file), raise_errors=True, file_error=True)
+        # print("config: {config}".format(str(config)))
     except IOError:
-        logger.exception("Exception occurred")
+        sys.exit(
+            "Configuration file {config_file} not found".format(config_file=config_file)
+        )
     except ConfigObj.ConfigObjError:
         sys.exit(
             "Invalid configuration file {config_file}".format(config_file=config_file)

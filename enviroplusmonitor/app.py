@@ -12,13 +12,16 @@ import argparse
 import logging
 import os
 import sys
+from pathlib import Path, PurePath
 
 from enviroplusmonitor.utilities import configurationhandler, logginghandler
 
 logger = logging.getLogger(__name__)
 
-default_configuration_file = str("." + "/" + "config.ini")
+# see https://medium.com/@ageitgey/python-3-quick-tip-the-easy-way-to-deal-with-file-paths-on-windows-mac-and-linux-11a072b58d5f
+resources_folder = Path("./enviroplusmonitor/resources/")
 
+default_configuration_file = resources_folder / "config.ini"
 
 def parse_args(args):
     # """Parse the args from main."""
@@ -28,25 +31,39 @@ def parse_args(args):
         "--config",
         type=str,
         required=False,
-        default=default_configuration_file,
+        default=str(default_configuration_file),
         help="Specify configuration file",
     )
     return parser.parse_args()
 
 
 def run(parser):
+    print("dfc: {dfc}, type: {type}".format(dfc=default_configuration_file, type=type(default_configuration_file)))
+    print("str(dfc): {dfc}, type: {type}".format(dfc=str(default_configuration_file), type=type(str(default_configuration_file.name))))
+
     pre, ext = os.path.splitext(__file__)
     pre = os.path.basename(pre)
 
     print("\n\nRunning {pre}\n".format(pre=pre))
 
-    config_file = parser.config
+    config_file = Path(parser.config)
 
-    print("Using configuration file {filename}".format(filename=config_file))
-    configurationhandler.load_config(config_file)
+    if not config_file.exists():
+        sys.exit(
+            "Configuration file {config_file} not found".format(config_file=config_file)
+        )
+    else:
+        print("Using configuration file {filename}".format(filename=config_file))
+        configurationhandler.load_config(config_file)
 
+    # TODO: convert to method
+    log_config_file = Path(configurationhandler.config["logging"]["LOG_CFG_FILE"])
+    if not log_config_file.exists():
+        log_config_file = PurePath(resources_folder, log_config_file)
+        if not Path(log_config_file).exists():
+            sys.exit("log config file {file} not found".format(file=log_config_file))
     logginghandler.setup_logging(
-        configurationhandler.config["logging"]["LOG_CFG_FILE"],
+        log_config_file,
         configurationhandler.config["logging"]["LOG_CFG_VAR"],
         default_level=configurationhandler.config["logging"]["LOG_DEFAULT_LEVEL"],
     )
