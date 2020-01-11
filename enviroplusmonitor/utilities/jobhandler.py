@@ -9,6 +9,7 @@ from enviroplusmonitor.utilities import (configurationhandler,
 from timeloop import Timeloop
 
 logger = logging.getLogger(__name__)
+module_logger = logging.getLogger(configurationhandler.config['logging']['MODULE_LOGGER'])
 
 # https://medium.com/greedygame-engineering/an-elegant-way-to-run-periodic-tasks-in-python-61b7c477b679
 tl = Timeloop()
@@ -20,7 +21,7 @@ tl = Timeloop()
     )
 )
 def publish_sensor_measurements():
-    logger.info("Publishing ...")
+    module_logger.info("Publishing ...")
     data = weather.measurement()
     influxdbclienthandler.publish_measurement(data)
     data = gas.measurement()

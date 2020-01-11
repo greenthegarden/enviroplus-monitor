@@ -12,6 +12,7 @@ import enviroplusmonitor.utilities.configurationhandler as configurationhandler
 import paho.mqtt.client as mqttc
 
 logger = logging.getLogger(__name__)
+module_logger = logging.getLogger(configurationhandler.config['logging']['MODULE_LOGGER'])
 
 broker_attempt_count = 0
 
@@ -29,11 +30,11 @@ def get_broker_url():
 
 
 def on_connect(client, userdata, flags, rc):
-    logger.debug("[Connect]")
-    logger.info("Client: {client_id}".format(client_id=str(client._client_id)))
-    logger.info("Result: {rc}".format(rc=mqttc.connack_string(rc)))
+    module_logger.debug("[Connect]")
+    module_logger.info("Client: {client_id}".format(client_id=str(client._client_id)))
+    module_logger.info("Result: {rc}".format(rc=mqttc.connack_string(rc)))
     if rc == 0:
-        logger.info(
+        module_logger.info(
             "Connected to {host} on port {port}".format(
                 host=client._host, port=client._port
             )
@@ -41,11 +42,11 @@ def on_connect(client, userdata, flags, rc):
 
 
 def on_disconnect(client, userdata, rc):
-    logger.debug("[Disconnect]")
-    logger.info("Client: {client_id}".format(client_id=str(client._client_id)))
-    logger.info("Result: {rc}".format(rc=mqttc.error_string(rc)))
+    module_logger.debug("[Disconnect]")
+    module_logger.info("Client: {client_id}".format(client_id=str(client._client_id)))
+    module_logger.info("Result: {rc}".format(rc=mqttc.error_string(rc)))
     if rc > 0:
-        logger.error(
+        module_logger.error(
             "Client {client} disconnected with error {error}".format(
                 client=str(client), error=mqttc.error_string(rc)
             )
@@ -86,20 +87,20 @@ def connect_to_broker():
         try:
             client.connect(env_broker.hostname, env_broker.port)
             connected = True
-            logger.info("Connect to broker at {broker}".format(broker=env_broker))
+            module_logger.info("Connect to broker at {broker}".format(broker=env_broker))
             return
         except Exception as exc:
-            logger.error("No connection to env broker")
+            module_logger.error("No connection to env broker")
     cfg_broker = get_broker_url()
     logger.debug("Cfg Broker: {broker}".format(broker=cfg_broker))
     if cfg_broker is not None:
         try:
             client.connect(cfg_broker.hostname, cfg_broker.port)
             connected = True
-            logger.info("Connect to broker at {broker}".format(broker=cfg_broker))
+            module_logger.info("Connect to broker at {broker}".format(broker=cfg_broker))
             return
         except Exception as exc:
-            logger.error("No connection to cfg broker")
+            module_logger.error("No connection to cfg broker")
     if connected is False:
         sys.exit("No connection to broker")
 

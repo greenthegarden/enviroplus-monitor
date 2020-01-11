@@ -10,7 +10,6 @@ config = None
 
 logger = logging.getLogger(__name__)
 
-
 def load_config(config_file):
     try:
         global config

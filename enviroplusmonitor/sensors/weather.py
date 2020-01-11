@@ -16,6 +16,8 @@ except ImportError:
 
 
 logger = logging.getLogger(__name__)
+module_logger = logging.getLogger(configurationhandler.config['logging']['MODULE_LOGGER'])
+
 
 bus = SMBus(1)
 

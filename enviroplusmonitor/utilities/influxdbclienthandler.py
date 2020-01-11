@@ -1,9 +1,11 @@
 import logging
 
 import enviroplusmonitor.utilities.configurationhandler as configurationhandler
+
 from influxdb import InfluxDBClient
 
 logger = logging.getLogger(__name__)
+module_logger = logging.getLogger(configurationhandler.config['logging']['MODULE_LOGGER'])
 
 influxdbc = None
 
@@ -11,9 +13,10 @@ database_name = configurationhandler.config["influxdb"]["INFLUXDB_DATABASE"]
 
 # TODO: pass database name
 def manage_database():
-    logger.info("Create database: " + database_name)
-    logger.info(influxdbc.create_database(database_name))
-    logger.info(influxdbc.switch_database(database_name))
+    global influxdbc
+    module_logger.info("Create database: " + database_name)
+    module_logger.info(influxdbc.create_database(database_name))
+    module_logger.info(influxdbc.switch_database(database_name))
 
 # TODO: pass host and database info
 def configure_client():
