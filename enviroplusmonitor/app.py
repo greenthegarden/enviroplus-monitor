@@ -9,14 +9,14 @@ The core module of my example project
 """
 
 import argparse
-# import logging
+import logging
 import os
 import sys
 from pathlib import Path, PurePath
 
 from enviroplusmonitor.utilities import configurationhandler, logginghandler
 
-# logger = logging.getLogger(__name__)
+logger = logging.getLogger(__name__)
 
 # see https://medium.com/@ageitgey/python-3-quick-tip-the-easy-way-to-deal-with-file-paths-on-windows-mac-and-linux-11a072b58d5f
 resources_folder = Path("./enviroplusmonitor/resources/")
@@ -38,8 +38,6 @@ def parse_args(args):
 
 
 def run(parser):
-    print("dfc: {dfc}, type: {type}".format(dfc=default_configuration_file, type=type(default_configuration_file)))
-    print("str(dfc): {dfc}, type: {type}".format(dfc=str(default_configuration_file), type=type(str(default_configuration_file.name))))
 
     pre, ext = os.path.splitext(__file__)
     pre = os.path.basename(pre)
@@ -84,11 +82,11 @@ def run(parser):
     jobhandler.t1.start()
 
     while True:
-    try:
-        time.sleep(1)
-    except KeyboardInterrupt:
-        jobhandler.tl.stop()
-        break
+        try:
+            time.sleep(1)
+        except KeyboardInterrupt:
+            jobhandler.tl.stop()
+            break
 
 if __name__ == "__main__":
     args = parse_args(sys.argv[1:])
