@@ -5,7 +5,6 @@ import enviroplusmonitor.utilities.configurationhandler as configurationhandler
 
 import pint
 
-logger = logging.getLogger(__name__)
 module_logger = logging.getLogger(configurationhandler.config['logging']['MODULE_LOGGER'])
 
 

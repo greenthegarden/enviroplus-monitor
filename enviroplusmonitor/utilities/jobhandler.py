@@ -8,7 +8,6 @@ from enviroplusmonitor.utilities import (configurationhandler,
                                          influxdbclienthandler)
 from timeloop import Timeloop
 
-logger = logging.getLogger(__name__)
 module_logger = logging.getLogger(configurationhandler.config['logging']['MODULE_LOGGER'])
 
 # https://medium.com/greedygame-engineering/an-elegant-way-to-run-periodic-tasks-in-python-61b7c477b679

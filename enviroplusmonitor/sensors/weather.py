@@ -5,6 +5,7 @@ import logging
 import sys
 
 # import internal modules
+import enviroplusmonitor.utilities.configurationhandler as configurationhandler
 import enviroplusmonitor.utilities.unitregistryhandler as unitregistryhandler
 
 # import external packages
@@ -15,7 +16,6 @@ except ImportError:
     from smbus import SMBus
 
 
-logger = logging.getLogger(__name__)
 module_logger = logging.getLogger(configurationhandler.config['logging']['MODULE_LOGGER'])
 
 

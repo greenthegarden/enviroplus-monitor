@@ -4,7 +4,6 @@ import enviroplusmonitor.utilities.configurationhandler as configurationhandler
 
 from influxdb import InfluxDBClient
 
-logger = logging.getLogger(__name__)
 module_logger = logging.getLogger(configurationhandler.config['logging']['MODULE_LOGGER'])
 
 influxdbc = None
@@ -46,10 +45,10 @@ def format_measurement(data):
 
 
 def publish_measurement(data):
-    logger.info("Sensor data: {data}".format(data=data))
+    module_logger.info("Sensor data: {data}".format(data=data))
     json_data = format_measurement(data)
-    logger.info("Publishing: {data}".format(data=json_data))
+    module_logger.info("Publishing: {data}".format(data=json_data))
     try:
         influxdbc.write_points(format_measurement(data))
     except InfluxDBClientError as error:
-        logger.info(error)
+        module_logger.info(error)

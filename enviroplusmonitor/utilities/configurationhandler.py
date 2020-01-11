@@ -1,14 +1,11 @@
 __author__ = "Philip Cutler"
 
 
-import logging
 import sys
 
 from configobj import ConfigObj
 
 config = None
-
-logger = logging.getLogger(__name__)
 
 def load_config(config_file):
     try:

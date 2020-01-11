@@ -76,7 +76,6 @@ def run(parser):
     from enviroplusmonitor.utilities import unitregistryhandler
     unitregistryhandler.configure()
     
-    
     from enviroplusmonitor.utilities import influxdbclienthandler
     influxdbclienthandler.configure_client()
 

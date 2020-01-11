@@ -10,7 +10,6 @@ import enviroplusmonitor.utilities.unitregistryhandler as unitregistryhandler
 # import external packages
 from enviroplus import gas
 
-logger = logging.getLogger(__name__)
 module_logger = logging.getLogger(configurationhandler.config['logging']['MODULE_LOGGER'])
 
 
