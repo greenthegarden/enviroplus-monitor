@@ -66,7 +66,7 @@ Group=pi
 WorkingDirectory=/home/pi/enviroplus-monitor
 Type=simple
 ExecStart=/usr/bin/python -m enviroplusmonitor
-Restart=on-abort
+Restart=on-failure
  
 [Install]
 WantedBy=multi-user.target
@@ -103,4 +103,17 @@ sudo systemctl stop hello.service
 
 ```bash
 sudo journalctl -f -u hello.service
+```
+
+
+import platform
+platform.node()
+
+import socket
+socket.gethostname()
+
+# To run in background use
+
+```bash
+nohup python -m enviroplusmonitor > enviroplusmonitor.log &
 ```
