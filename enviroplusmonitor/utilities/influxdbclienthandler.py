@@ -57,6 +57,7 @@ def format_measurement(data):
 def publish_measurement(data):
     module_logger.debug("Sensor data: {data}".format(data=data))
     try:
-        influxdbc.write(json.loads(format_measurement(data)))
+        influxdb.write_points(json.loads(format_measurement(data)))
     except InfluxDBClientError as error:
         module_logger.error(error)
+        pass
