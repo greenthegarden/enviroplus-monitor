@@ -24,9 +24,11 @@ def publish_sensor_measurements():
     try:
         influxdbclienthandler.publish_measurement(data)
     except:
+        print("error")
         pass
     data = gas.measurement()
     try:
         influxdbclienthandler.publish_measurement(data)
     except:
+        print("error")
         pass

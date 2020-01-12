@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-nohup python -m environplusmonitor > environplusmonitor.log &
+nohup python -m enviroplusmonitor > enviroplusmonitor.log &
