@@ -1,8 +1,10 @@
+import json
 import logging
 
 import enviroplusmonitor.utilities.configurationhandler as configurationhandler
 
 from influxdb import InfluxDBClient
+from influxdb.client import InfluxDBClientError
 
 logger = logging.getLogger(__name__)
 module_logger = logging.getLogger(configurationhandler.config['logging']['MODULE_LOGGER'])
@@ -14,9 +16,15 @@ database_name = configurationhandler.config["influxdb"]["INFLUXDB_DATABASE"]
 # TODO: pass database name
 def manage_database():
     global influxdbc
-    module_logger.info("Create database: " + database_name)
-    module_logger.info(influxdbc.create_database(database_name))
-    module_logger.info(influxdbc.switch_database(database_name))
+    module_logger.info("Manage database: " + database_name)
+    try:
+        influxdbc.create_database(DBNAME)
+    except InfluxDBClientError:
+        # Drop and create
+        influxdbc.drop_database(DBNAME)
+        influxdbc.create_database(DBNAME)
+    influxdbc.switch_database(database_name)
+
 
 # TODO: pass host and database info
 def configure_client():
@@ -32,22 +40,21 @@ def configure_client():
 # TODO: define test conditions for format
 def format_measurement(data):
     fields = {key: value.get("value") for key, value in data.get("measurements").items()}
+    module_logger.debug("influxdb fields: {fields}".format(fields=fields))
     data_point = {
         "measurement": data.get("sensor"),
         "tags": {
             "platform": "enviroplus",
-            "id": str(configurationhandler.config["enviroplus"]["id"]),
+            "id": str(configurationhandler.config["enviroplus"]["id"])
         },
-        "fields": fields,
+        "fields": fields
     }
-    return data_point
+    return json.dumps(data_point)
 
 
 def publish_measurement(data):
     module_logger.debug("Sensor data: {data}".format(data=data))
-    data_point = format_measurement(data)
-    module_logger.debug("Publishing: {data}".format(data=data_point))
     try:
-        influxdbc.write(format_measurement(data))
+        influxdbc.write(json.load(format_measurement(data)))
     except InfluxDBClientError as error:
         module_logger.error(error)
