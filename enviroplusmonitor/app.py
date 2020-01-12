@@ -12,6 +12,7 @@ import argparse
 import logging
 import os
 import sys
+import time
 from pathlib import Path, PurePath
 
 from enviroplusmonitor.utilities import configurationhandler, logginghandler
@@ -79,7 +80,7 @@ def run(parser):
 
 
     from enviroplusmonitor.utilities import jobhandler
-    jobhandler.t1.start()
+    jobhandler.tl.start()
 
     while True:
         try:

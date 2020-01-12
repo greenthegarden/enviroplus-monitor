@@ -18,11 +18,11 @@ def manage_database():
     global influxdbc
     module_logger.info("Manage database: " + database_name)
     try:
-        influxdbc.create_database(DBNAME)
+        influxdbc.create_database(database_name)
     except InfluxDBClientError:
         # Drop and create
-        influxdbc.drop_database(DBNAME)
-        influxdbc.create_database(DBNAME)
+        influxdbc.drop_database(database_name)
+        influxdbc.create_database(database_name)
     influxdbc.switch_database(database_name)
 
 
@@ -41,20 +41,22 @@ def configure_client():
 def format_measurement(data):
     fields = {key: value.get("value") for key, value in data.get("measurements").items()}
     module_logger.debug("influxdb fields: {fields}".format(fields=fields))
-    data_point = {
-        "measurement": data.get("sensor"),
-        "tags": {
-            "platform": "enviroplus",
-            "id": str(configurationhandler.config["enviroplus"]["id"])
-        },
-        "fields": fields
-    }
+    data_point = [
+        {
+            "measurement": data.get("sensor"),
+            "tags": {
+                "platform": "enviroplus",
+                "id": str(configurationhandler.config["enviroplus"]["id"])
+            },
+            "fields": fields
+        }
+    ]
     return json.dumps(data_point)
 
 
 def publish_measurement(data):
     module_logger.debug("Sensor data: {data}".format(data=data))
     try:
-        influxdbc.write(json.load(format_measurement(data)))
+        influxdbc.write(json.loads(format_measurement(data)))
     except InfluxDBClientError as error:
         module_logger.error(error)
