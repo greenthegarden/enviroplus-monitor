@@ -13,7 +13,6 @@ module_logger = logging.getLogger(configurationhandler.config['logging']['MODULE
 # https://medium.com/greedygame-engineering/an-elegant-way-to-run-periodic-tasks-in-python-61b7c477b679
 tl = Timeloop()
 
-# TODO: parameteratise time interval
 @tl.job(
     interval=timedelta(
         seconds=int(configurationhandler.config["job"]["JOB_INTERVAL_SECS"])
@@ -22,6 +21,12 @@ tl = Timeloop()
 def publish_sensor_measurements():
     module_logger.info("Publishing ...")
     data = weather.measurement()
-    influxdbclienthandler.publish_measurement(data)
+    try:
+        influxdbclienthandler.publish_measurement(data)
+    except:
+        pass
     data = gas.measurement()
-    influxdbclienthandler.publish_measurement(data)
+    try:
+        influxdbclienthandler.publish_measurement(data)
+    except:
+        pass

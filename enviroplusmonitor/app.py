@@ -16,7 +16,6 @@ import time
 from pathlib import Path, PurePath
 
 from enviroplusmonitor.utilities import configurationhandler, logginghandler
-from enviroplusmonitor.sensors import gas, weather
 
 logger = logging.getLogger(__name__)
 
@@ -79,24 +78,8 @@ def run(parser):
     from enviroplusmonitor.utilities import influxdbclienthandler
     influxdbclienthandler.configure_client()
 
-    # from enviroplusmonitor.sensors import gas, weather
-    tl = Timeloop()
-
-    # from enviroplusmonitor.utilities import jobhandler
+    from enviroplusmonitor.utilities import jobhandler
     tl.start(block=True)
-
-# TODO: parameteratise time interval
-@tl.job(
-    interval=timedelta(
-        seconds=int(configurationhandler.config["job"]["JOB_INTERVAL_SECS"])
-    )
-)
-def publish_sensor_measurements():
-    module_logger.info("Publishing ...")
-    data = weather.measurement()
-    influxdbclienthandler.publish_measurement(data)
-    data = gas.measurement()
-    influxdbclienthandler.publish_measurement(data)
 
 
 if __name__ == "__main__":
