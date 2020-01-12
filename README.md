@@ -33,6 +33,21 @@ To debug install. See https://medium.com/python-pandemonium/debugging-an-inactiv
 sudo apt-get install gdb python3-dbg
 ```
 
+To find process use
+
+```bash
+ps -ef | grep python
+```
+
+To run debugger use
+
+```bash
+gdb python process_id
+```
+
+At gdb prompt type `py-bt`.
+
+
 ## References:
 
 * Continuous Integration: https://realpython.com/python-continuous-integration/
@@ -116,4 +131,8 @@ socket.gethostname()
 
 ```bash
 nohup python -m enviroplusmonitor > enviroplusmonitor.log &
+```
+
+To debug
+
 ```
