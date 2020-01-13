@@ -20,15 +20,16 @@ tl = Timeloop()
 )
 def publish_sensor_measurements():
     module_logger.info("Publishing ...")
-    data = weather.measurement()
-    try:
-        influxdbclienthandler.publish_measurement(data)
-    except:
-        print("error")
-        pass
-    data = gas.measurement()
-    try:
-        influxdbclienthandler.publish_measurement(data)
-    except:
-        print("error")
-        pass
+    weather.publish_influx_payload()
+    # data = weather.measurement()
+    # try:
+    #     influxdbclienthandler.publish_measurement(data)
+    # except:
+    #     print("error")
+    #     pass
+    # data = gas.measurement()
+    # try:
+    #     influxdbclienthandler.publish_measurement(data)
+    # except:
+    #     print("error")
+    #     pass

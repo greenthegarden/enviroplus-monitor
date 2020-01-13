@@ -7,5 +7,6 @@
     "**/.mypy_cache/*/**": true,
     "**/.nox/*/**": true,
     "**/.pytest_cache/*/**": true,
-  }
+  },
+  "python.formatting.provider": "black"
 }

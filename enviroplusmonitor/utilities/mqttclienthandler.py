@@ -67,11 +67,11 @@ def on_disconnect(client, userdata, rc):
 
 
 # def on_log(client, userdata, level, buf):
-#     logger.debug("[LOG] {0}".format(buf))
+#     module_logger.debug("[LOG] {0}".format(buf))
 
 
 def on_publish(client, userdata, mid):
-    logger.debug("[Publish] message id: {message_id}".format(message_id=str(mid)))
+    module_logger.debug("[Publish] message id: {message_id}".format(message_id=str(mid)))
 
 
 def connect_to_broker():
@@ -80,7 +80,7 @@ def connect_to_broker():
         env_broker = urlparse.urlparse(
             os.environ.get("MQTT_BROKER_URL", get_broker_url())
         )
-        logger.debug("Env Broker: {broker}".format(broker=env_broker))
+        module_logger.debug("Env Broker: {broker}".format(broker=env_broker))
     except Exception:
         env_broker = None
     if env_broker is not None:
@@ -92,7 +92,7 @@ def connect_to_broker():
         except Exception as exc:
             module_logger.error("No connection to env broker")
     cfg_broker = get_broker_url()
-    logger.debug("Cfg Broker: {broker}".format(broker=cfg_broker))
+    module_logger.debug("Cfg Broker: {broker}".format(broker=cfg_broker))
     if cfg_broker is not None:
         try:
             client.connect(cfg_broker.hostname, cfg_broker.port)
