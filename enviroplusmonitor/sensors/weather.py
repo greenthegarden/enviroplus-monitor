@@ -5,8 +5,8 @@ import logging
 import sys
 
 # import internal modules
-import enviroplusmonitor.sensors.mqttclienthandler as mqttclienthandler
 import enviroplusmonitor.utilities.configurationhandler as configurationhandler
+import enviroplusmonitor.utilities.mqttclienthandler as mqttclienthandler
 import enviroplusmonitor.utilities.unitregistryhandler as unitregistryhandler
 
 # import external packages
@@ -69,6 +69,7 @@ module_logger.info("Topic str: {topic}".format(topic=TOPIC_STR))
 # weather,location=us-midwest,season=summer temperature=82
 def publish_influx_payload():
     data = measurement()
+    measurements = data.get("measurements")
     payload = str(
         str(data.get("sensor"))
         + ","
@@ -80,15 +81,15 @@ def publish_influx_payload():
         + " "
         + "temperature"
         + "="
-        + str(round(data("measurements").get("temperature").get("value"), 2))
+        + str(round((measurements.get("temperature")).get("value"), 2))
         + ","
         + "humidity"
         + "="
-        + str(round(data("measurements").get("humidity_relative").get("value"), 2))
+        + str(round((measurements.get("humidity")).get("value"), 2))
         + ","
         + "pressure"
         + "="
-        + str(round(data("measurements").get("pressure").get("value"), 2))
+        + str(round((measurements.get("pressure")).get("value"), 2))
     )
     module_logger.info("Payload: {payload}".format(payload=payload))
     mqttclienthandler.client.publish(TOPIC_STR, payload)

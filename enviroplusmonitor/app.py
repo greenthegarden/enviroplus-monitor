@@ -71,14 +71,14 @@ def run(parser):
     mqttclienthandler.configure_client()
     mqttclienthandler.connect_to_broker()
 
-    from enviroplusmonitor.utilities import influxdbclienthandler
-    influxdbclienthandler.configure_client()
+    # from enviroplusmonitor.utilities import influxdbclienthandler
+    # influxdbclienthandler.configure_client()
 
     from enviroplusmonitor.utilities import unitregistryhandler
     unitregistryhandler.configure()
-    
+
     from enviroplusmonitor.utilities import jobhandler
-    tl.start(block=True)
+    jobhandler.tl.start(block=True)
 
 
 if __name__ == "__main__":
