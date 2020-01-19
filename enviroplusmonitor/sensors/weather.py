@@ -6,6 +6,7 @@ import sys
 
 # import internal modules
 import enviroplusmonitor.utilities.configurationhandler as configurationhandler
+import enviroplusmonitor.utilities.mqttclienthandler as mqttclienthandler
 import enviroplusmonitor.utilities.unitregistryhandler as unitregistryhandler
 
 # import external packages
@@ -55,33 +56,40 @@ def measurement():
     return data
 
 
-# TOPIC_STR = str("tet")
-# #     "enviroplus"
-# #     + "/"
-# #     + str(configurationhandler.config["enviroplus"]["id"])
-# #     + "/"
-# #     + "measurement"
-# # )
-# logger.info("Topic str: {topic}".format(topic=TOPIC_STR))
+TOPIC_STR = str(
+    "enviroplus"
+    + "/"
+    + str(configurationhandler.config["enviroplus"]["id"])
+    + "/"
+    + "weather"
+)
+module_logger.info("Topic str: {topic}".format(topic=TOPIC_STR))
 
 
-# # weather,location=us-midwest,season=summer temperature=82
-# def publish_influx_measurement():
-#     data = str(
-#         "dht22,"
-#         + "platform="
-#         + "enviroplus"
-#         + ","
-#         + "id="
-#         + str(configurationhandler.config["enviroplus"]["id"])
-#         + " "
-#         + "temperature"
-#         + "="
-#         + str(round(bme280.get_temperature(), 2))
-#         + ","
-#         + "humidity"
-#         + "="
-#         + str(round(bme280.get_humidity(), 2))
-#     )
-#     logger.info("Data: {data}".format(data=data))
-#     mqttclienthandler.client.publish(TOPIC_STR, data)
+# weather,location=us-midwest,season=summer temperature=82
+def publish_influx_payload():
+    data = measurement()
+    measurements = data.get("measurements")
+    payload = str(
+        str(data.get("sensor"))
+        + ","
+        + "platform="
+        + "enviroplus"
+        + ","
+        + "id="
+        + str(configurationhandler.config["enviroplus"]["id"])
+        + " "
+        + "temperature"
+        + "="
+        + str(round((measurements.get("temperature")).get("value"), 2))
+        + ","
+        + "humidity"
+        + "="
+        + str(round((measurements.get("humidity")).get("value"), 2))
+        + ","
+        + "pressure"
+        + "="
+        + str(round((measurements.get("pressure")).get("value"), 2))
+    )
+    module_logger.info("Payload: {payload}".format(payload=payload))
+    mqttclienthandler.client.publish(TOPIC_STR, payload)
