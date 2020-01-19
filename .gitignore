@@ -9,3 +9,6 @@ docs/_build/
 
 # do not keep logs
 *.log
+
+# do not keep config
+enviroplusmonitor/resources/config.ini
