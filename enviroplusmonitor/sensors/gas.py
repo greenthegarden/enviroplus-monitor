@@ -68,15 +68,15 @@ def publish_influx_payload():
         + " "
         + "reducing"
         + "="
-        + str(round(readings.get("reducing").magnitude, 2))
+        + str(round(measurements.get("reducing").get("value"), 2))
         + ","
         + "oxidising"
         + "="
-        + str(round(readings.get("oxidising").magnitude, 2))
+        + str(round(measurements.get("oxidising").get("value"), 2))
         + ","
         + "nh3"
         + "="
-        + str(round(readings.get("nh3"), 2))
+        + str(round(measurements.get("nh3").get("value"), 2))
     )
     module_logger.info("Payload: {payload}".format(payload=payload))
     mqttclienthandler.client.publish(TOPIC_STR, payload)
