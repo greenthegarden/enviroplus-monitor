@@ -25,6 +25,12 @@ bus = SMBus(1)
 # BME280 temperature/pressure/humidity sensor
 bme280 = BME280(i2c_dev=bus)
 
+# Tuning factor for compensation. Decrease this number to adjust the
+# temperature down, and increase to adjust up
+factor = 1.95
+
+cpu_temps = [get_cpu_temperature()] * 5
+
 # Get the temperature of the CPU for compensation
 def get_cpu_temperature():
     process = Popen(['vcgencmd', 'measure_temp'], stdout=PIPE, universal_newlines=True)
@@ -39,11 +45,6 @@ def compensated_temperature():
     raw_temp = bme280.get_temperature()
     return raw_temp - ((avg_cpu_temp - raw_temp) / factor)
 
-# Tuning factor for compensation. Decrease this number to adjust the
-# temperature down, and increase to adjust up
-factor = 1.95
-
-cpu_temps = [get_cpu_temperature()] * 5
 def sensor_readings():
     readings = {
         "temperature": unitregistryhandler.ureg.Quantity(compensated_temperature(), unitregistryhandler.ureg.degC),
