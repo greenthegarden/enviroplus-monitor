@@ -64,17 +64,17 @@ def publish_influx_measurement():
         + "id="
         + str(configurationhandler.config["enviroplus"]["id"])
         + " "
-        + "temperature"
+        + "reducing"
         + "="
-        + str(round(readings.get("temperature").magnitude, 2))
+        + str(round(readings.get("reducing").magnitude, 2))
         + ","
-        + "humidity"
+        + "oxidising"
         + "="
-        + str(round(readings.get("humidity_relative").magnitude, 2))
+        + str(round(readings.get("oxidising").magnitude, 2))
         + ","
-        + "pressure"
+        + "nh3"
         + "="
-        + str(round(readings.get("pressure"), 2))
+        + str(round(readings.get("nh3"), 2))
     )
     module_logger.info("Data: {data}".format(data=data))
     mqttclienthandler.client.publish(TOPIC_STR, data)
