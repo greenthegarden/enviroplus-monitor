@@ -36,13 +36,7 @@ def get_cpu_temperature():
 # temperature down, and increase to adjust up
 factor = 1.95
 
-# cpu_temps = [0.0] * 5
 cpu_temps = [get_cpu_temperature()] * 5
-
-# def init():
-#     global cpu_temps
-#     module_logger.info("cpu_temps: {0}".format(cpu_temps))
-#     module_logger.info("cpu_temps: {0}".format(cpu_temps))
 
 def compensated_temperature():
     cpu_temp = get_cpu_temperature()
