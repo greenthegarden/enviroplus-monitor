@@ -2,8 +2,9 @@ __author__ = "Philip Cutler"
 
 # import libraries
 import logging
-import sys
+# import sys
 from subprocess import PIPE, Popen
+
 # import internal modules
 import enviroplusmonitor.utilities.configurationhandler as configurationhandler
 import enviroplusmonitor.utilities.mqttclienthandler as mqttclienthandler
@@ -24,7 +25,6 @@ bus = SMBus(1)
 
 # BME280 temperature/pressure/humidity sensor
 bme280 = BME280(i2c_dev=bus)
-
 
 # Get the temperature of the CPU for compensation
 def get_cpu_temperature():

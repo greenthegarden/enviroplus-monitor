@@ -5,6 +5,7 @@ import logging
 
 # import internal modules
 import enviroplusmonitor.utilities.configurationhandler as configurationhandler
+import enviroplusmonitor.utilities.mqttclienthandler as mqttclienthandler
 import enviroplusmonitor.utilities.unitregistryhandler as unitregistryhandler
 
 # import external packages
