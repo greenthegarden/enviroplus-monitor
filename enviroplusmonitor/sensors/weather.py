@@ -3,7 +3,7 @@ __author__ = "Philip Cutler"
 # import libraries
 import logging
 import sys
-
+from subprocess import PIPE, Popen
 # import internal modules
 import enviroplusmonitor.utilities.configurationhandler as configurationhandler
 import enviroplusmonitor.utilities.mqttclienthandler as mqttclienthandler
@@ -25,14 +25,32 @@ bus = SMBus(1)
 # BME280 temperature/pressure/humidity sensor
 bme280 = BME280(i2c_dev=bus)
 
+# Get the temperature of the CPU for compensation
+def get_cpu_temperature():
+    process = Popen(['vcgencmd', 'measure_temp'], stdout=PIPE, universal_newlines=True)
+    output, _error = process.communicate()
+    return float(output[output.index('=') + 1:output.rindex("'")])
+
+def compensated_temperature():
+    cpu_temp = get_cpu_temperature()
+    # Smooth out with some averaging to decrease jitter
+    cpu_temps = cpu_temps[1:] + [cpu_temp]
+    avg_cpu_temp = sum(cpu_temps) / float(len(cpu_temps))
+    raw_temp = bme280.get_temperature()
+    return raw_temp - ((avg_cpu_temp - raw_temp) / factor)
+
+# Tuning factor for compensation. Decrease this number to adjust the
+# temperature down, and increase to adjust up
+factor = 1.95
+
+cpu_temps = [get_cpu_temperature()] * 5
 def sensor_readings():
     readings = {
-        "temperature": unitregistryhandler.ureg.Quantity(bme280.get_temperature(), unitregistryhandler.ureg.degC),
+        "temperature": unitregistryhandler.ureg.Quantity(compensated_temperature(), unitregistryhandler.ureg.degC),
         "pressure": bme280.get_pressure() * unitregistryhandler.ureg.hectopascal,
         "humidity_relative": bme280.get_humidity() * unitregistryhandler.ureg.percent
     }
     return readings
-
 
 def measurement():
     readings = sensor_readings()
