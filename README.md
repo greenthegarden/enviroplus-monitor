@@ -2,6 +2,16 @@
 
 https://learn.pimoroni.com/tutorial/sandyj/getting-started-with-enviro-plus
 
+## Requirements
+
+```
+sudo apt-get update
+sudo apt-get upgrade
+sudo apt install python3-dev python3-pip git
+```
+
+Ensure I2C interface is activated.
+
 ## Running
 
 Ensure python3 is default using, for example,
@@ -26,6 +36,8 @@ Run using
 pip install -r requirements.txt
 python -m enviroplusmonitor
 ```
+
+## Debugging
 
 To debug install. See https://medium.com/python-pandemonium/debugging-an-inactive-python-process-2b11f88730c7
 
@@ -74,7 +86,7 @@ Add following to `/etc/systemd/system`, using `sudo cp enviroplusmonitor.service
 [Unit]
 Description=Enviro+ Monitor
 After=multi-user.target
- 
+
 [Service]
 User=pi
 Group=pi
@@ -82,7 +94,7 @@ WorkingDirectory=/home/pi/enviroplus-monitor
 Type=simple
 ExecStart=/usr/bin/python -m enviroplusmonitor
 Restart=on-failure
- 
+
 [Install]
 WantedBy=multi-user.target
 ```
