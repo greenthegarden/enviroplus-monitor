@@ -54,10 +54,12 @@ module_logger.info("Topic str: {topic}".format(topic=TOPIC_STR))
 
 
 # weather,location=us-midwest,season=summer temperature=82
-def publish_influx_measurement():
-    readings = sensor_readings()
-    data = str(
-        "MICS6814,"
+def publish_influx_payload():
+    data = measurement()
+    measurements = data.get("measurements")
+    payload = str(
+        str(data.get("sensor"))
+        + ","
         + "platform="
         + "enviroplus"
         + ","
@@ -76,5 +78,5 @@ def publish_influx_measurement():
         + "="
         + str(round(readings.get("nh3"), 2))
     )
-    module_logger.info("Data: {data}".format(data=data))
-    mqttclienthandler.client.publish(TOPIC_STR, data)
+    module_logger.info("Payload: {payload}".format(payload=payload))
+    mqttclienthandler.client.publish(TOPIC_STR, payload)
