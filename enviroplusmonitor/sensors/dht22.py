@@ -13,6 +13,8 @@ import enviroplusmonitor.utilities.unitregistryhandler as unitregistryhandler
 # import external modules
 import adafruit_dht
 
+module_logger = logging.getLogger(configurationhandler.config['logging']['MODULE_LOGGER'])
+
 # Initial the dht device, with data pin connected to:
 dhtDevice = adafruit_dht.DHT22(board.D4)
 
@@ -27,7 +29,7 @@ def sensor_readings():
   except RuntimeError as error:
     # Errors happen fairly often, DHT's are hard to read, just keep going
     module_logger.info(error.args[0])
-    return None
+    pass
 
 
 def measurement():
@@ -64,7 +66,7 @@ module_logger.info("Topic str: {topic}".format(topic=TOPIC_STR))
 # weather,location=us-midwest,season=summer temperature=82
 def publish_influx_payload():
   data = measurement()
-  if data not None:
+  if data is not None:
     measurements = data.get("measurements")
     payload = str(
       str(data.get("sensor"))

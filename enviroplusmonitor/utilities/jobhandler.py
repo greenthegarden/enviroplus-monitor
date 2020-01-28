@@ -3,7 +3,7 @@ __author__ = "Philip Cutler"
 import logging
 from datetime import timedelta
 
-from enviroplusmonitor.sensors import gas, weather
+from enviroplusmonitor.sensors import dht22, gas, weather
 from enviroplusmonitor.utilities import (configurationhandler,
                                          influxdbclienthandler)
 from timeloop import Timeloop
@@ -22,5 +22,5 @@ def publish_sensor_measurements():
     module_logger.info("Publishing ...")
     weather.publish_influx_payload()
     gas.publish_influx_payload()
-    if bool(configurationhandler.config["job"]["DHT22_ENABLE"]):
+    if bool(configurationhandler.config["sensors"]["DHT22_ENABLE"]):
         dht22.publish_influx_payload()
