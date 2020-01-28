@@ -26,7 +26,7 @@ def sensor_readings():
 def measurement():
     readings = sensor_readings()
     data = {
-        "sensor": "MICS6814",
+        "sensor": configurationhandler.config["enviroplus"]["GAS_LABEL"],
         "measurements": {
             "reducing": {
                 "value": readings.get("reducing").magnitude,

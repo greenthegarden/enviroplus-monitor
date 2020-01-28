@@ -58,7 +58,7 @@ def sensor_readings():
 def measurement():
     readings = sensor_readings()
     data = {
-        "sensor": "bme280",
+        "sensor": str(configurationhandler.config["sensors"]["WEATHER_LABEL"]),
         "measurements": {
             "temperature": {
                 "value": readings.get("temperature").magnitude,

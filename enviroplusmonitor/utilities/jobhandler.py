@@ -15,10 +15,12 @@ tl = Timeloop()
 
 @tl.job(
     interval=timedelta(
-        seconds=int(configurationhandler.config["job"]["JOB_INTERVAL_SECS"])
+        seconds=int(configurationhandler.config["job"]["SAMPLE_PERIOD_SECS"])
     )
 )
 def publish_sensor_measurements():
     module_logger.info("Publishing ...")
     weather.publish_influx_payload()
     gas.publish_influx_payload()
+    if bool(configurationhandler.config["job"]["DHT22_ENABLE"]):
+        dht22.publish_influx_payload()

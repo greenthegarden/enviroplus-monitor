@@ -12,7 +12,7 @@ if __name__ == "__main__":
     exit(1)
 
 
-@nox.session(python="3.7")
+@nox.session(python="3.7", pipenv=True)
 def tests(session):
     """Run test suite with pytest."""
     session.install("-r", "requirements-test.txt")
