@@ -30,6 +30,12 @@ pip install nox
 nox
 ```
 
+If using a [DHT22 sensor](https://learn.adafruit.com/dht-humidity-sensing-on-raspberry-pi-with-gdocs-logging/python-setup) need to also run
+
+```bash
+sudo apt install libgpiod2
+```
+
 Run using
 
 ```bash
