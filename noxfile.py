@@ -12,7 +12,8 @@ if __name__ == "__main__":
     exit(1)
 
 
-@nox.session(python="3.7", pipenv=True)
+# @nox.session(python="3.8", pipenv=True)
+@nox.session(python="3.8")
 def tests(session):
     """Run test suite with pytest."""
     session.install("-r", "requirements-test.txt")
@@ -86,6 +87,7 @@ def docs(session):
         sphinx_args.insert(0, "--open-browser")
 
     session.run(sphinx_cmd, *sphinx_args)
+
 
 @nox.session(python="3.7")
 def run(session):

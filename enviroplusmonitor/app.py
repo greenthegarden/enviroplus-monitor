@@ -24,6 +24,7 @@ resources_folder = Path("./enviroplusmonitor/resources/")
 
 default_configuration_file = resources_folder / "config.ini"
 
+
 def parse_args(args):
     # """Parse the args from main."""
     parser = argparse.ArgumentParser(description="Enviro+ Monitor Project")
@@ -68,6 +69,7 @@ def run(parser):
     )
 
     from enviroplusmonitor.utilities import mqttclienthandler
+
     mqttclienthandler.configure_client()
     mqttclienthandler.connect_to_broker()
 
@@ -75,9 +77,13 @@ def run(parser):
     # influxdbclienthandler.configure_client()
 
     from enviroplusmonitor.utilities import unitregistryhandler
+
     unitregistryhandler.configure()
 
     from enviroplusmonitor.utilities import jobhandler
+
+    jobhandler.publish_configuration_topics()
+
     jobhandler.tl.start(block=True)
 
 

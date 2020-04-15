@@ -7,11 +7,12 @@ import logging
 import enviroplusmonitor.utilities.configurationhandler as configurationhandler
 import enviroplusmonitor.utilities.mqttclienthandler as mqttclienthandler
 import enviroplusmonitor.utilities.unitregistryhandler as unitregistryhandler
-
 # import external packages
 from enviroplus import gas
 
-module_logger = logging.getLogger(configurationhandler.config['logging']['MODULE_LOGGER'])
+module_logger = logging.getLogger(
+    configurationhandler.config["logging"]["MODULE_LOGGER"]
+)
 
 
 def sensor_readings():
@@ -23,6 +24,7 @@ def sensor_readings():
     }
     return readings
 
+
 def measurement():
     readings = sensor_readings()
     data = {
@@ -30,19 +32,20 @@ def measurement():
         "measurements": {
             "reducing": {
                 "value": readings.get("reducing").magnitude,
-                "units": readings.get("reducing").units
+                "units": readings.get("reducing").units,
             },
             "oxidising": {
                 "value": readings.get("oxidising").magnitude,
-                "units": readings.get("oxidising").units
+                "units": readings.get("oxidising").units,
             },
             "nh3": {
                 "value": readings.get("nh3").magnitude,
-                "units": readings.get("nh3").units
-            }
-        }
+                "units": readings.get("nh3").units,
+            },
+        },
     }
     return data
+
 
 TOPIC_STR = str(
     "enviroplus"

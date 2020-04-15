@@ -7,6 +7,7 @@ from configobj import ConfigObj
 
 config = None
 
+
 def load_config(config_file):
     try:
         global config

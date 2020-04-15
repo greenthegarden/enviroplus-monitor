@@ -2,12 +2,13 @@ import json
 import logging
 
 import enviroplusmonitor.utilities.configurationhandler as configurationhandler
-
 from influxdb import InfluxDBClient
 from influxdb.client import InfluxDBClientError
 
 logger = logging.getLogger(__name__)
-module_logger = logging.getLogger(configurationhandler.config['logging']['MODULE_LOGGER'])
+module_logger = logging.getLogger(
+    configurationhandler.config["logging"]["MODULE_LOGGER"]
+)
 
 influxdbc = None
 
@@ -36,19 +37,20 @@ def configure_client():
     manage_database()
 
 
-
 # TODO: define test conditions for format
 def format_measurement(data):
-    fields = {key: value.get("value") for key, value in data.get("measurements").items()}
+    fields = {
+        key: value.get("value") for key, value in data.get("measurements").items()
+    }
     module_logger.debug("influxdb fields: {fields}".format(fields=fields))
     data_point = [
         {
             "measurement": data.get("sensor"),
             "tags": {
                 "platform": "enviroplus",
-                "id": str(configurationhandler.config["enviroplus"]["id"])
+                "id": str(configurationhandler.config["enviroplus"]["id"]),
             },
-            "fields": fields
+            "fields": fields,
         }
     ]
     return json.dumps(data_point)

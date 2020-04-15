@@ -8,7 +8,7 @@ setuptools.setup(
     version="0.0.1",
     author="Philip Cutler",
     author_email="greenthegarden@gmail.com",
-    description="Pubish readings from an enviro+ pHat over MQTT",
+    description="Publish readings from an enviro+ pHat over MQTT",
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/greenthegarden/enviroplus-monitor.git",

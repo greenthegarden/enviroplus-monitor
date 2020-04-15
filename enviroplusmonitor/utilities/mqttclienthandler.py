@@ -12,7 +12,9 @@ import enviroplusmonitor.utilities.configurationhandler as configurationhandler
 import paho.mqtt.client as mqttc
 
 logger = logging.getLogger(__name__)
-module_logger = logging.getLogger(configurationhandler.config['logging']['MODULE_LOGGER'])
+module_logger = logging.getLogger(
+    configurationhandler.config["logging"]["MODULE_LOGGER"]
+)
 
 broker_attempt_count = 0
 
@@ -71,7 +73,9 @@ def on_disconnect(client, userdata, rc):
 
 
 def on_publish(client, userdata, mid):
-    module_logger.debug("[Publish] message id: {message_id}".format(message_id=str(mid)))
+    module_logger.debug(
+        "[Publish] message id: {message_id}".format(message_id=str(mid))
+    )
 
 
 def connect_to_broker():
@@ -87,7 +91,9 @@ def connect_to_broker():
         try:
             client.connect(env_broker.hostname, env_broker.port)
             connected = True
-            module_logger.info("Connect to broker at {broker}".format(broker=env_broker))
+            module_logger.info(
+                "Connect to broker at {broker}".format(broker=env_broker)
+            )
             return
         except Exception as exc:
             module_logger.error("No connection to env broker")
@@ -97,7 +103,9 @@ def connect_to_broker():
         try:
             client.connect(cfg_broker.hostname, cfg_broker.port)
             connected = True
-            module_logger.info("Connect to broker at {broker}".format(broker=cfg_broker))
+            module_logger.info(
+                "Connect to broker at {broker}".format(broker=cfg_broker)
+            )
             return
         except Exception as exc:
             module_logger.error("No connection to cfg broker")
@@ -111,6 +119,9 @@ def configure_client():
         configurationhandler.config["mqtt"]["MQTT_CLIENT_ID"] + "_" + str(uuid.uuid4())
     )
     client = mqttc.Client(client_id)
+
+    # set additional options prior to connection
+    # client.will_set(topic, payload=None, qos=0, retain=False)
 
     client.on_connect = on_connect
     client.on_disconnect = on_disconnect
