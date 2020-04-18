@@ -4,9 +4,11 @@ configobj
 enviroplus
 i2cdevice
 influxdb
+jsonschema
 paho-mqtt
 pimoroni-bme280
 pint
+pydantic
 RPi.GPIO
 smbus
 timeloop
