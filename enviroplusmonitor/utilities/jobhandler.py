@@ -29,7 +29,7 @@ tl = Timeloop()
 )
 def publish_sensor_measurements():
     module_logger.info("Publishing ...")
-    # weather.publish_influx_payload()
+    weather.publish_influx_payload()
     # gas.publish_influx_payload()
-    if bool(configurationhandler.config["sensors"]["DHT22_ENABLE"]):
-        dht22.publish_mqtt_discoverable_payload()
+    # if bool(configurationhandler.config["sensors"]["DHT22_ENABLE"]):
+    #     dht22.publish_mqtt_discoverable_payload()
