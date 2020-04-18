@@ -14,7 +14,7 @@ import enviroplusmonitor.utilities.mqttclienthandler as mqttclienthandler
 import enviroplusmonitor.utilities.unitregistryhandler as unitregistryhandler
 
 from jsonschema import validate
-from typing import List
+from typing import Any, List
 from pydantic import BaseModel, ValidationError
 
 module_logger = logging.getLogger(
@@ -34,7 +34,7 @@ class ConfigPayload(BaseModel):
 class Measurement(BaseModel):
   label: str
   value: float
-  units: str
+  units: Any
 
 class Dht22Measurement(BaseModel):
   sensor: str = (configurationhandler.config["sensors"]["DHT22_LABEL"])
@@ -57,7 +57,6 @@ def sensor_readings():
         # Errors happen fairly often, DHT's are hard to read, just keep going
         module_logger.info(error.args[0])
         pass
-
 
 def measurement():
     readings = sensor_readings()
@@ -82,7 +81,6 @@ def measurement():
         module_logger.error(e.json())
     else:
       return None
-
 
 # payloads for dynamic mqtt support for home assistant
 # https://www.home-assistant.io/docs/mqtt/discovery/
@@ -151,7 +149,11 @@ module_logger.info("Topic str: {topic}".format(topic=TOPIC_STR))
 
 def publish_configuration_topics():
     # module_logger.info("Payload: {payload}".format(payload=payload))
+    module_logger.info("CONFIG_TOPIC_TEMP: {topic}".format(topic=CONFIG_TOPIC_TEMP))
+    module_logger.info("config_payload_temp_json: {payload}".format(payload=config_payload_temp_json))
     mqttclienthandler.client.publish(CONFIG_TOPIC_TEMP, config_payload_temp_json)
+    module_logger.info("CONFIG_TOPIC_HUM: {topic}".format(topic=CONFIG_TOPIC_HUM))
+    module_logger.info("config_payload_hum_json: {payload}".format(payload=config_payload_hum_json))
     mqttclienthandler.client.publish(CONFIG_TOPIC_HUM, config_payload_hum_json)
 
 # weather,location=us-midwest,season=summer temperature=82
