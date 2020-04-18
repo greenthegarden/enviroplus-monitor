@@ -215,7 +215,7 @@ def publish_configuration_topics():
     mqttclienthandler.client.publish(CONFIG_TOPIC_TEMP, config_payload_temp_json)
     module_logger.info("CONFIG_TOPIC_PRESS: {topic}".format(topic=CONFIG_TOPIC_PRESS))
     module_logger.info("config_payload_press_json: {payload}".format(payload=config_payload_press_json))
-    mqttclienthandler.client.publish(CONFIG_TOPIC_PRES, config_payload_press_json)
+    mqttclienthandler.client.publish(CONFIG_TOPIC_PRESS, config_payload_press_json)
     module_logger.info("CONFIG_TOPIC_HUM: {topic}".format(topic=CONFIG_TOPIC_HUM))
     module_logger.info("config_payload_hum_json: {payload}".format(payload=config_payload_hum_json))
     mqttclienthandler.client.publish(CONFIG_TOPIC_HUM, config_payload_hum_json)
