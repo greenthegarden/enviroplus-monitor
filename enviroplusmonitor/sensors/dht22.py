@@ -37,7 +37,7 @@ class Measurement(BaseModel):
   units: Any
 
 class Dht22Measurement(BaseModel):
-  sensor: str = (configurationhandler.config["sensors"]["DHT22_LABEL"])
+  sensor: str = configurationhandler.config["sensors"]["DHT22_LABEL"]
   measurements: List[Measurement]
 
 class Dht22MeasurementPayload(BaseModel):

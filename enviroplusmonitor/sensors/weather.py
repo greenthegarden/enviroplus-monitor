@@ -70,7 +70,7 @@ class Measurement(BaseModel):
   units: Any
 
 class Bme280Measurement(BaseModel):
-  sensor: str(configurationhandler.config["sensors"]["WEATHER_LABEL"])
+  sensor: str = configurationhandler.config["sensors"]["WEATHER_LABEL"]
   measurements: List[Measurement]
 
 class Bme280MeasurementPayload(BaseModel):
