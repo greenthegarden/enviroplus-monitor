@@ -15,7 +15,9 @@ module_logger = logging.getLogger(
 
 # send configuration messages
 def publish_configuration_topics():
-    dht22.publish_configuration_topics()
+    weather.publish_configuration_topics()
+    if bool(configurationhandler.config["sensors"]["DHT22_ENABLE"]):
+        dht22.publish_configuration_topics()
 
 
 # set up timer
@@ -29,7 +31,7 @@ tl = Timeloop()
 )
 def publish_sensor_measurements():
     module_logger.info("Publishing ...")
-    weather.publish_influx_payload()
+    weather.publish_mqtt_discoverable_payload()
     # gas.publish_influx_payload()
     # if bool(configurationhandler.config["sensors"]["DHT22_ENABLE"]):
     #     dht22.publish_mqtt_discoverable_payload()
