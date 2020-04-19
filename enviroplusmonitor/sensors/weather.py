@@ -1,9 +1,8 @@
 __author__ = "Philip Cutler"
 
-# import libraries
 import json
 import logging
-# import sys
+
 from subprocess import PIPE, Popen
 
 from jsonschema import validate
@@ -35,6 +34,23 @@ bme280 = BME280(i2c_dev=bus)
 
 # Get the temperature of the CPU for compensation
 def get_cpu_temperature():
+    """Return the CPU temperature using 
+
+    Extended description of function.
+
+    Parameters
+    ----------
+    arg1 : int
+        Description of arg1
+    arg2 : str
+        Description of arg2
+
+    Returns
+    -------
+    int
+        Description of return value
+
+    """
     process = Popen(["vcgencmd", "measure_temp"], stdout=PIPE, universal_newlines=True)
     output, _error = process.communicate()
     return float(output[output.index("=") + 1 : output.rindex("'")])
@@ -250,12 +266,11 @@ def publish_influx_payload():
 
 def publish_mqtt_discoverable_payload():
     data = measurement()
-    if data is not None:
-        measurements = data.get("measurements")
-        payload = Bme280MeasurementPayload(
-            temperature = round((measurements.get("temperature")).get("value"), 2),
-            humidity = round((measurements.get("humidity")).get("value"), 2),
-            pressure = round((measurements.get("humidity")).get("value"), 2)
-        )
-        module_logger.info("Payload: {payload}".format(payload=json.dump(payload.dict())))
-        mqttclienthandler.client.publish(STATE_TOPIC, payload)
+    measurements = data.get("measurements")
+    payload = Bme280MeasurementPayload(
+        temperature = round((measurements.get("temperature")).get("value"), 2),
+        humidity = round((measurements.get("humidity")).get("value"), 2),
+        pressure = round((measurements.get("humidity")).get("value"), 2)
+    )
+    module_logger.info("Payload: {payload}".format(payload=json.dump(payload.dict())))
+    mqttclienthandler.client.publish(STATE_TOPIC, payload)
