@@ -74,25 +74,25 @@ def compensated_temperature():
 
 
 class ConfigPayload(BaseModel):
-  device_class: str
-  name: str
-  state_topic: str
-  unit_of_measurement: str
-  value_template: str
+    device_class: str
+    name: str
+    state_topic: str
+    unit_of_measurement: str
+    value_template: str
 
 class Measurement(BaseModel):
-  label: str
-  value: float
-  units: Any
+    label: str
+    value: float
+    units: Any
 
 class Bme280Measurement(BaseModel):
-  sensor: str = configurationhandler.config["sensors"]["WEATHER_LABEL"]
-  measurements: List[Measurement]
+    sensor: str = configurationhandler.config["sensors"]["WEATHER_LABEL"]
+    measurements: List[Measurement]
 
 class Bme280MeasurementPayload(BaseModel):
-  temperature: float
-  humidity: float
-  pressure: float
+    temperature: float
+    humidity: float
+    pressure: float
 
 def sensor_readings():
     # try:
@@ -171,11 +171,11 @@ CONFIG_TOPIC_TEMP = str(
 
 # Configuration payload no1: {"device_class": "temperature", "name": "Temperature", "state_topic": "homeassistant/sensor/sensorBedroom/state", "unit_of_measurement": "°C", "value_template": "{{ value_json.temperature}}" }
 config_payload_temp = ConfigPayload(
-  device_class = 'temperature',
-  name = "Temperature",
-  state_topic = STATE_TOPIC,
-  unit_of_measurement = "°C",
-  value_template = "{{ value_json.temperature}}"
+    device_class = 'temperature',
+    name = "Temperature",
+    state_topic = STATE_TOPIC,
+    unit_of_measurement = "°C",
+    value_template = "{{ value_json.temperature}}"
 )
 config_payload_temp_json = json.dumps(config_payload_temp.dict())
 
@@ -195,11 +195,11 @@ CONFIG_TOPIC_PRESS = str(
 
 # Configuration payload no1: {"device_class": "temperature", "name": "Temperature", "state_topic": "homeassistant/sensor/sensorBedroom/state", "unit_of_measurement": "°C", "value_template": "{{ value_json.temperature}}" }
 config_payload_press = ConfigPayload(
-  device_class = "pressure",
-  name = "Pressure",
-  state_topic = STATE_TOPIC,
-  unit_of_measurement = "MPa",
-  value_template = "{{ value_json.pressure}}"
+    device_class = "pressure",
+    name = "Pressure",
+    state_topic = STATE_TOPIC,
+    unit_of_measurement = "MPa",
+    value_template = "{{ value_json.pressure}}"
 )
 config_payload_press_json = json.dumps(config_payload_press.dict())
 
@@ -220,11 +220,11 @@ CONFIG_TOPIC_HUM = str(
 
 # Configuration payload no1: {"device_class": "temperature", "name": "Temperature", "state_topic": "homeassistant/sensor/sensorBedroom/state", "unit_of_measurement": "°C", "value_template": "{{ value_json.temperature}}" }
 config_payload_hum = ConfigPayload(
-  device_class = "humidity",
-  name = "Humidity",
-  state_topic = STATE_TOPIC,
-  unit_of_measurement = "%",
-  value_template = "{{ value_json.humidity}}"
+    device_class = "humidity",
+    name = "Humidity",
+    state_topic = STATE_TOPIC,
+    unit_of_measurement = "%",
+    value_template = "{{ value_json.humidity}}"
 )
 config_payload_hum_json = json.dumps(config_payload_hum.dict())
 

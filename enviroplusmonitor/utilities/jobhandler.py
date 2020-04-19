@@ -38,3 +38,4 @@ def publish_sensor_measurements():
     # gas.publish_influx_payload()
     # if bool(configurationhandler.config["sensors"]["DHT22_ENABLE"]):
     #     dht22.publish_mqtt_discoverable_payload()
+ 
