@@ -95,15 +95,26 @@ class Bme280MeasurementPayload(BaseModel):
   pressure: float
 
 def sensor_readings():
+    try:
+        temperature_reading = compensated_temperature()
+    except AttributeError as error:
+        module_logger.error(error)
+    try:
+        pressure_reading = bme280.get_pressure()
+    except AttributeError as error:
+        module_logger.error(error)
+    try:
+        humidity_reading = bme280.get_humidity()
+    except AttributeError as error:
+        module_logger.error(error)
     readings = {
         "temperature": unitregistryhandler.ureg.Quantity(
-            compensated_temperature(), unitregistryhandler.ureg.degC
+            temperature_reading, unitregistryhandler.ureg.degC
         ),
-        "pressure": bme280.get_pressure() * unitregistryhandler.ureg.hectopascal,
-        "humidity_relative": bme280.get_humidity() * unitregistryhandler.ureg.percent,
+        "pressure": pressure_reading * unitregistryhandler.ureg.hectopascal,
+        "humidity_relative": humidity_reading * unitregistryhandler.ureg.percent,
     }
     return readings
-
 
 def measurement():
     readings = sensor_readings()
