@@ -107,6 +107,7 @@ def sensor_readings():
 
 def measurement():
     readings = sensor_readings()
+    module_logger.debug("readings: {output}".format(output=readings))
     data = Bme280Measurement(
         measurements = [
             Measurement(
@@ -126,6 +127,7 @@ def measurement():
             ),
         ]
     )
+    module_logger.debug("data: {output}".format(output=data))
     return data
 
 # payloads for dynamic mqtt support for home assistant
@@ -266,7 +268,9 @@ def publish_influx_payload():
 
 def publish_mqtt_discoverable_payload():
     data = measurement()
+    module_logger.debug("data: {data}".format(data=data))
     measurements = data.get("measurements")
+    module_logger.debug("measurements: {measurements}".format(measurements=measurements))
     payload = Bme280MeasurementPayload(
         temperature = round((measurements.get("temperature")).get("value"), 2),
         humidity = round((measurements.get("humidity")).get("value"), 2),
