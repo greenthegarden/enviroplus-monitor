@@ -95,18 +95,19 @@ class Bme280MeasurementPayload(BaseModel):
   pressure: float
 
 def sensor_readings():
-    try:
-        temperature_reading = compensated_temperature()
-    except AttributeError as error:
-        module_logger.error(error)
-    try:
-        pressure_reading = bme280.get_pressure()
-    except AttributeError as error:
-        module_logger.error(error)
-    try:
-        humidity_reading = bme280.get_humidity()
-    except AttributeError as error:
-        module_logger.error(error)
+    # try:
+    temperature_reading = compensated_temperature()
+    # except AttributeError as error:
+    #     module_logger.error(error)
+    # try:
+    pressure_reading = bme280.get_pressure()
+    # except AttributeError as error:
+    #     module_logger.error(error)
+    # try:
+    humidity_reading = bme280.get_humidity()
+    # except AttributeError as error:
+    #     module_logger.error(error)
+    module_logger.info("Get reading")
     readings = {
         "temperature": unitregistryhandler.ureg.Quantity(
             temperature_reading, unitregistryhandler.ureg.degC
