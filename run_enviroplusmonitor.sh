@@ -2,4 +2,6 @@
 
 # pip install -r requirements.txt
 
-nohup python -m enviroplusmonitor.app > enviroplusmonitor.log &
+#nohup python -m enviroplusmonitor.app > enviroplusmonitor.log &
+
+python -m enviroplusmonitor.app

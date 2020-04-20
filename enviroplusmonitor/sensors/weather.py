@@ -279,8 +279,6 @@ def publish_influx_payload():
     mqttclienthandler.client.publish(TOPIC_STR, payload)
 
 def publish_mqtt_discoverable_payload():
-    # module_logger.info("weather")
-    print("weather")
     data = measurement()
     module_logger.debug("data: {data}".format(data=data))
     measurements = data.get("measurements")
