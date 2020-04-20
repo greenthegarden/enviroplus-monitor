@@ -140,7 +140,8 @@ def measurement():
         ]
     )
     module_logger.debug("data: {output}".format(output=data))
-    return data
+    return json.dumps(data.dict())
+
 
 # payloads for dynamic mqtt support for home assistant
 # https://www.home-assistant.io/docs/mqtt/discovery/
