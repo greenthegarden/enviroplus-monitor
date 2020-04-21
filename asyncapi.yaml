@@ -1,0 +1,48 @@
+asyncapi: 2.0.0
+info:
+  title: TSICoRE Entity API
+  description: The TSICoRE Entity API allows exchange of data respresenting entities across
+    TSICoRE services.
+  termsOfService: http://asyncapi.org/terms/
+  contact:
+    name: TSICoRE Support
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: "0.1"
+channels:
+  homeassistant/sensor/enviroplus/3/bme280/temp/config:
+    description: This channel is used to publish BME280 Temperature measurement configuration
+    publish:
+      operationId: publish_configuration_topics
+      description: BME280 Temperature measurement configuration
+      tags:
+        - name: bme280
+        - name: sensor
+        - name: producer
+      message:
+        description: BME280 Temperature measurement configuration
+        payload:
+          type: object
+          properties:
+            device_class:
+              type: string
+              description: Class of sensor measurement
+              default: temperature
+            name:
+              type: string
+              description: Name of sensor measurement
+              default: Temperature
+            state_topic:
+              type: string
+              description: State topic
+              default: STATE_TOPIC
+            unit_of_measurement:
+              type: string
+              description: Units of sensor measurement
+              default: °C
+            value_template:
+              type: string
+              description: Value template for sensor measurement
+              default: "{{ value_json.temperature}}"
+              
