@@ -4,6 +4,7 @@ configobj
 enviroplus
 i2cdevice
 influxdb
+json-schema-codegen
 jsonschema
 paho-mqtt
 pimoroni-bme280
