@@ -8,5 +8,8 @@
     "**/.nox/*/**": true,
     "**/.pytest_cache/*/**": true,
   },
-  "python.formatting.provider": "black"
+  "python.formatting.provider": "black",
+  "files.associations": {
+    "*.yaml": "home-assistant"
+  }
 }
