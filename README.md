@@ -154,3 +154,18 @@ nohup python -m enviroplusmonitor > enviroplusmonitor.log &
 To debug
 
 ```
+
+Difficult to maintain consistency.service
+Deviations in the topics
+Deviations in the messages
+AsyncAPI - single source of truth
+Lack of tool support -
+
+AsyncAPI Toolkit - Xtext and Eclipse.
+
+Buiding AsyncAPI with Mercure protocol (new)
+API Platform for WebAI
+@dunglas
+Les-Tilleuls.coop
+EventSource protocol SSE (HTTP connection which remains open)
+HTTP2 supports passing of data (websocket obsolete in HTTP2&3)
