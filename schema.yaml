@@ -1,6 +1,6 @@
 ---
 
-schemas:
+schema:
 
   configPayload:
     type: object
@@ -25,32 +25,32 @@ schemas:
         type: string
         description: Value template for sensor measurement
         default: "{{ value_json.temperature}}"
-
   measurement:
     type: object
     properties:
       label:
         type: string
-        description: BME280str
+        description: Label for measurement
       value:
         type: number
-        description:
-      units: Any
-
+        description: Value of measurement
+      units:
+        type: string
+        description: Units of measurement
   bme280Measurement:
     type: object
     properties:
       sensor: 
         type: string
-        description:
+        description: Sensor type
         default: 'configurationhandler.config["sensors"]["WEATHER_LABEL"]'
       measurements:
         type: array
-        description:
-        items: [
-          $ref: #/schemas/measurement
+        description: Measurement array
+        items: [ {
+          $ref: '#/components/schemas/measurement'
+          }
         ]
-
   bme280MeasurementPayload:
     type: object
     properties:
@@ -58,5 +58,7 @@ schemas:
         type: number
       humidity:
         type: number
+        minimum: 0
+        maximum: 100
       pressure:
         type: number
