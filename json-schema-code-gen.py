@@ -3,7 +3,7 @@
 from jsonschemacodegen import python as pygen
 import yaml
 
-filename = 'asyncapi.yaml'
+filename = 'schema.yaml'
 
 with open(filename) as fp:
     schema = yaml.load(fp, Loader=yaml.FullLoader)
