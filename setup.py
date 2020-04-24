@@ -1,28 +1,45 @@
-from setuptools import setup, find_packages
+"""A setuptools based setup module.
+See:
+https://packaging.python.org/guides/distributing-packages-using-setuptools/
+https://github.com/pypa/sampleproject
+"""
 
-with open("README.md", "r") as fh:
-    long_description = fh.read()
+from setuptools import setup, find_packages
+from os import path
+
+here = path.abspath(path.dirname(__file__))
+
+with open(path.join(here, 'README.md'), encoding='utf-8') as f:
+    long_description = f.read()
 
 with open("requirements-dev.txt", "r") as fp:
     requirements = fp.read().split('\n')
 
-# import jsonschemacodegen._version as _version
-
 setup(
     name="enviroplusmonitor",
-    # version=_version.__version__,
-    author="Philip Cutler",
-    author_email="greenthegarden@gmail.com",
+    version='0.0.1',
     description="Publish readings from an enviro+ pHat over MQTT",
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/greenthegarden/enviroplus-monitor.git",
-    packages=find_packages(),
+    author="Philip Cutler",
+    author_email="greenthegarden@gmail.com",
     classifiers=[
-        "Programming Language :: Python :: 3",
+        # How mature is this project? Common values are
+        #   3 - Alpha
+        #   4 - Beta
+        #   5 - Production/Stable
+        'Development Status :: 3 - Alpha',
         "License :: OSI Approved :: MIT License",
+        "Programming Language :: Python :: 3",
         "Operating System :: OS Independent",
     ],
+    package_dir={'': 'enviroplusmonitor'},
+    packages=find_packages(where='enviroplusmonitor'),
     python_requires='>=3.7',
-    install_requires=requirements
+    install_requires=requirements,
+    # extras_require={
+    #     'dev': ['check-manifest'],
+    #     'test': ['coverage'],
+    # },
 )
