@@ -1,0 +1,10 @@
+type: object
+properties:
+  temperature:
+    type: number
+  humidity:
+    type: number
+    minimum: 0
+    maximum: 100
+  pressure:
+    type: number

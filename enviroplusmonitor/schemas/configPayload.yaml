@@ -3,20 +3,15 @@ properties:
   device_class:
     type: string
     description: Class of sensor measurement
-    default: temperature
   name:
     type: string
     description: Name of sensor measurement
-    default: Temperature
   state_topic:
     type: string
     description: State topic
-    default: STATE_TOPIC
   unit_of_measurement:
     type: string
     description: Units of sensor measurement
-    default: "°C"
   value_template:
     type: string
     description: Value template for sensor measurement
-    default: "{{ value_json.temperature}}"

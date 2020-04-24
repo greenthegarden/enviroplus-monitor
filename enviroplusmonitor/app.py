@@ -68,23 +68,23 @@ def run(parser):
         default_level=configurationhandler.config["logging"]["LOG_DEFAULT_LEVEL"],
     )
 
-    from enviroplusmonitor.utilities import mqttclienthandler
+    # from enviroplusmonitor.utilities import mqttclienthandler
 
-    mqttclienthandler.configure_client()
-    mqttclienthandler.connect_to_broker()
+    # mqttclienthandler.configure_client()
+    # mqttclienthandler.connect_to_broker()
 
-    # from enviroplusmonitor.utilities import influxdbclienthandler
-    # influxdbclienthandler.configure_client()
+    # # from enviroplusmonitor.utilities import influxdbclienthandler
+    # # influxdbclienthandler.configure_client()
 
-    from enviroplusmonitor.utilities import unitregistryhandler
+    # from enviroplusmonitor.utilities import unitregistryhandler
 
-    unitregistryhandler.configure()
+    # unitregistryhandler.configure()
 
     from enviroplusmonitor.utilities import jobhandler
 
     jobhandler.publish_configuration_topics()
 
-    jobhandler.tl.start(block=True)
+    # jobhandler.tl.start(block=True)
 
 
 if __name__ == "__main__":

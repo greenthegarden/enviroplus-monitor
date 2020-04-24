@@ -19,16 +19,16 @@ setuptools.setup(
         "Operating System :: OS Independent",
     ],
     python_requires='>=3.7',
-    install_requires=[
-      'ads1015',
-      'configobj',
-      'enviroplus',
-      'i2cdevice',
-      'influxdb',
-      'paho-mqtt',
-      'pimoroni-bme280',
-      'pint',
-      'smbus',
-      'timeloop',
-    ]
+    # install_requires=[
+    #   'ads1015',
+    #   'configobj',
+    #   'enviroplus',
+    #   'i2cdevice',
+    #   'influxdb',
+    #   'paho-mqtt',
+    #   'pimoroni-bme280',
+    #   'pint',
+    #   'smbus',
+    #   'timeloop',
+    # ]
 )

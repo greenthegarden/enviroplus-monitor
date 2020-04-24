@@ -1,0 +1,11 @@
+type: object
+properties:
+  label:
+    type: string
+    description: Label for measurement
+  value:
+    type: number
+    description: Value of measurement
+  units:
+    type: string
+    description: Units of measurement

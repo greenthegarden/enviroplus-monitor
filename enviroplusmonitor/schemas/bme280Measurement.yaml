@@ -1,0 +1,12 @@
+type: object
+properties:
+  sensor: 
+    type: string
+    description: Sensor type
+  measurements:
+    type: array
+    description: Measurement array
+    items: [ {
+      $ref: '#/components/schemas/measurement'
+      }
+    ]

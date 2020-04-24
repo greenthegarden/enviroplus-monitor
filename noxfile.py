@@ -95,3 +95,10 @@ def run(session):
     session.install("-r", "requirements.txt")
     session.install(".")
     session.run("python", "-m", "enviroplusmonitor")
+
+@nox.session(python="3.7")
+def run_dev(session):
+    """Run the app."""
+    session.install("-r", "requirements-dev.txt")
+    session.install(".")
+    session.run("python", "-m", "enviroplusmonitor")
