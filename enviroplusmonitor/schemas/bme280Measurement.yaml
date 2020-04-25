@@ -7,6 +7,6 @@ properties:
     type: array
     description: Measurement array
     items: [ {
-      $ref: '#/components/schemas/measurement'
+      $ref: 'measurements.yaml#'
       }
     ]
