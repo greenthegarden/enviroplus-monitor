@@ -21,7 +21,7 @@ import string
 import yaml
 
 schema_dir = "../../enviroplusmonitor/schemas"
-class_dir  = "../../enviroplusmonitor//classes"
+class_dir  = "../../enviroplusmonitor/classes"
 
 for file in os.listdir(schema_dir):
     filename, extension = os.path.splitext(file)

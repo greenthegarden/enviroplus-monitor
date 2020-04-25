@@ -1,7 +1,7 @@
 from __future__ import annotations
 from collections import UserDict
 
-class Measurement(UserDict):
+class MeasurementRecord(UserDict):
     """This represents a JSON object.
     """
     class LabelProperty(object):
@@ -18,14 +18,14 @@ class Measurement(UserDict):
             if not isinstance(value, str):
                 raise ValueError("Passed value '{}' was not a string".format(value))          
 
-        def Set(self, new_value) -> Measurement.LabelProperty:
+        def Set(self, new_value) -> MeasurementRecord.LabelProperty:
             if isinstance(new_value, type(self)):
                 self._value = new_value._value
             elif isinstance(new_value, str):
                 self._Validate(new_value)
                 self._value = new_value
             else:
-                raise TypeError("The provided type was not a Measurement.LabelProperty or a str")
+                raise TypeError("The provided type was not a MeasurementRecord.LabelProperty or a str")
             return self
 
         def Get(self) -> str:
@@ -48,7 +48,7 @@ class Measurement(UserDict):
             if not isinstance(value, float):
                 raise ValueError("Passed value '{}' was not a number".format(value))          
 
-        def Set(self, new_value) -> Measurement.ValueProperty:
+        def Set(self, new_value) -> MeasurementRecord.ValueProperty:
             if isinstance(new_value, type(self)):
                 self._value = new_value._value
             elif isinstance(new_value, float):
@@ -58,7 +58,7 @@ class Measurement(UserDict):
                 self._Validate(float(new_value))
                 self._value = float(new_value)
             else:
-                raise TypeError("The provided type was not a Measurement.ValueProperty or a float")
+                raise TypeError("The provided type was not a MeasurementRecord.ValueProperty or a float")
             return self
 
         def Get(self) -> float:
@@ -81,14 +81,14 @@ class Measurement(UserDict):
             if not isinstance(value, str):
                 raise ValueError("Passed value '{}' was not a string".format(value))          
 
-        def Set(self, new_value) -> Measurement.UnitsProperty:
+        def Set(self, new_value) -> MeasurementRecord.UnitsProperty:
             if isinstance(new_value, type(self)):
                 self._value = new_value._value
             elif isinstance(new_value, str):
                 self._Validate(new_value)
                 self._value = new_value
             else:
-                raise TypeError("The provided type was not a Measurement.UnitsProperty or a str")
+                raise TypeError("The provided type was not a MeasurementRecord.UnitsProperty or a str")
             return self
 
         def Get(self) -> str:
@@ -99,7 +99,7 @@ class Measurement(UserDict):
 
 
     def __init__(self, data=None, **kwargs):
-        """Initialization for the Measurement object.
+        """Initialization for the MeasurementRecord object.
         It can be initialized with an object, or by passing each
         object property as a keyword argument.
         """
@@ -127,7 +127,7 @@ class Measurement(UserDict):
     def GetLabel(self):
         return self.data["label"]
     
-    def SetLabel(self, new_value) -> Measurement:
+    def SetLabel(self, new_value) -> MeasurementRecord:
         if not isinstance(new_value, self.LabelProperty):
             self.data["label"] = self.LabelProperty(new_value)
         else:
@@ -137,7 +137,7 @@ class Measurement(UserDict):
     def GetValue(self):
         return self.data["value"]
     
-    def SetValue(self, new_value) -> Measurement:
+    def SetValue(self, new_value) -> MeasurementRecord:
         if not isinstance(new_value, self.ValueProperty):
             self.data["value"] = self.ValueProperty(new_value)
         else:
@@ -147,7 +147,7 @@ class Measurement(UserDict):
     def GetUnits(self):
         return self.data["units"]
     
-    def SetUnits(self, new_value) -> Measurement:
+    def SetUnits(self, new_value) -> MeasurementRecord:
         if not isinstance(new_value, self.UnitsProperty):
             self.data["units"] = self.UnitsProperty(new_value)
         else:
