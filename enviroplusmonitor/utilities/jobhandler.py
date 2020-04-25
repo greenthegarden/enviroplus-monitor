@@ -17,26 +17,25 @@ module_logger = logging.getLogger(
 # send configuration messages
 def publish_configuration_topics():
     weather.publish_configuration_topics()
-    if bool(configurationhandler.config["sensors"]["DHT22_ENABLE"]):
-        dht22.publish_configuration_topics()
+    # if bool(configurationhandler.config["sensors"]["DHT22_ENABLE"]):
+    #     dht22.publish_configuration_topics()
 
 
 # set up timer
 # https://medium.com/greedygame-engineering/an-elegant-way-to-run-periodic-tasks-in-python-61b7c477b679
-# tl = Timeloop()
+tl = Timeloop()
 
-# @tl.job(
-#     interval=timedelta(
-#         seconds=int(configurationhandler.config["job"]["SAMPLE_PERIOD_SECS"])
-#     )
-# )
-# def publish_sensor_measurements():
-#     module_logger.info("Publishing ...")
-#     # try:
-#     weather.publish_mqtt_discoverable_payload()
-#     # except (RuntimeError, TypeError, NameError):
-#     #     pass        
-#     # gas.publish_influx_payload()
-#     # if bool(configurationhandler.config["sensors"]["DHT22_ENABLE"]):
-#     #     dht22.publish_mqtt_discoverable_payload()
- 
+@tl.job(
+    interval=timedelta(
+        seconds=int(configurationhandler.config["job"]["SAMPLE_PERIOD_SECS"])
+    )
+)
+def publish_sensor_measurements():
+    module_logger.info("Publishing ...")
+    # try:
+    weather.publish_mqtt_discoverable_payload()
+    # except (RuntimeError, TypeError, NameError):
+    #     pass        
+    # gas.publish_influx_payload()
+    # if bool(configurationhandler.config["sensors"]["DHT22_ENABLE"]):
+    #     dht22.publish_mqtt_discoverable_payload()

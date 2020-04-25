@@ -84,7 +84,7 @@ def run(parser):
 
     jobhandler.publish_configuration_topics()
 
-    # jobhandler.tl.start(block=True)
+    jobhandler.tl.start(block=True)
 
 
 if __name__ == "__main__":
