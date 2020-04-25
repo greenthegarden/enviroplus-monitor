@@ -154,82 +154,71 @@ def state_topic():
         "state"
     )
 
-CONFIG_TOPIC_TEMP = str(
-    "homeassistant/sensor"
-    + "/"
-    + "enviroplus"
-    + "_"
-    + str(configurationhandler.config["enviroplus"]["id"])
-    + "_"
-    + str(configurationhandler.config["sensors"]["WEATHER_LABEL"])
-    + "_"
-    + "temp"
-    + "/"
-    + "config"
-)
+def config_topic(reading):
+    context = "homeassistant/sensor"
+    sensor = "enviroplus"
+    topic = str(
+        context + "/" +
+        sensor + "/" +
+        str(configurationhandler.config["enviroplus"]["id"]) + "/" +
+        str(configurationhandler.config["sensors"]["WEATHER_LABEL"]) + "/" +
+        reading + "/" +
+        "config"
+        )
+    module_logger.debug("config topic for {reading}: {topic}".format(reading=reading, topic=topic))
+    return topic
+
 
 # Configuration payload no1: {"device_class": "temperature", "name": "Temperature", "state_topic": "homeassistant/sensor/sensorBedroom/state", "unit_of_measurement": "°C", "value_template": "{{ value_json.temperature}}" }
-def config_payload_temp():
-    return configPayload.ConfigPayload(
+def config_payload(reading, name, unit_of_measurement, value_template, state_topic=state_topic()):
+    config_payload_object = configPayload.ConfigPayload(
         {
-            'device_class': 'temperature',
-            'name': "Temperature",
-            'state_topic': state_topic(),
-            'unit_of_measurement': "°C",
-            'value_template': "{{value_json.temperature}}"
+            'device_class': str(reading),
+            'name': str(name),
+            'state_topic': str(state_topic),
+            'unit_of_measurement': str(unit_of_measurement),
+            'value_template': str(value_template)
         }
     )
+    module_logger.debug("config payload: {payload}".format(payload=to_json(config_payload_object)))
+    return to_json(config_payload_object)
 
-
-CONFIG_TOPIC_PRESS = str(
-    "homeassistant/sensor"
-    + "/"
-    + "enviroplus"
-    + "_"
-    + str(configurationhandler.config["enviroplus"]["id"])
-    + "_"
-    + str(configurationhandler.config["sensors"]["WEATHER_LABEL"])
-    + "_"
-    + "pressure"
-    + "/"
-    + "config"
-)
 
 # Configuration payload no1: {"device_class": "temperature", "name": "Temperature", "state_topic": "homeassistant/sensor/sensorBedroom/state", "unit_of_measurement": "°C", "value_template": "{{ value_json.temperature}}" }
-config_payload_press = configPayload.ConfigPayload(
-    {
-        'device_class': "pressure",
-        'name': "Pressure",
-        'state_topic': STATE_TOPIC,
-        'unit_of_measurement': "MPa",
-        'value_template': "{{ value_json.pressure}}"
-    }
-)
+# config_payload_press = configPayload.ConfigPayload(
+#     {
+#         'device_class': "pressure",
+#         'name': "Pressure",
+#         'state_topic': state_topic(),
+#         'unit_of_measurement': "MPa",
+#         'value_template': "{{ value_json.pressure}}"
+#     }
+# )
 
-CONFIG_TOPIC_HUM = str(
-    "homeassistant/sensor"
-    + "/"
-    + "enviroplus"
-    + "_"
-    + str(configurationhandler.config["enviroplus"]["id"])
-    + "_"
-    + str(configurationhandler.config["sensors"]["WEATHER_LABEL"])
-    + "_"
-    + "humidity"
-    + "/"
-    + "config"
-)
+# CONFIG_TOPIC_HUM = str(
+#     "homeassistant/sensor"
+#     + "/"
+#     + "enviroplus"
+#     + "_"
+#     + str(configurationhandler.config["enviroplus"]["id"])
+#     + "_"
+#     + str(configurationhandler.config["sensors"]["WEATHER_LABEL"])
+#     + "_"
+#     + "humidity"
+#     + "/"
+#     + "config"
+# )
 
 # Configuration payload no1: {"device_class": "temperature", "name": "Temperature", "state_topic": "homeassistant/sensor/sensorBedroom/state", "unit_of_measurement": "°C", "value_template": "{{ value_json.temperature}}" }
-config_payload_hum = configPayload.ConfigPayload( 
-    {
-        'device_class': "humidity",
-        'name': "Humidity",
-        'state_topic': STATE_TOPIC,
-        'unit_of_measurement': "%",
-        'value_template': "{{ value_json.humidity}}"
-    }
-)
+# config_payload_hum = configPayload.ConfigPayload( 
+#     {
+#         'device_class': "humidity",
+#         'name': "Humidity",
+#         'state_topic': state_topic(),
+#         'unit_of_measurement': "%",
+#         'value_template': "{{ value_json.humidity}}"
+#     }
+# )
 
 # TOPIC_STR = str(
 #     "enviroplus"
@@ -242,13 +231,17 @@ config_payload_hum = configPayload.ConfigPayload(
 
 def publish_configuration_topics():
     # module_logger.info("Payload: {payload}".format(payload=payload))
-    module_logger.info("CONFIG_TOPIC_TEMP: {topic}".format(topic=CONFIG_TOPIC_TEMP))
-    module_logger.info("config_payload_temp: {payload}".format(payload=to_json(config_payload_temp())))
+    module_logger.info("temperature:")
+    module_logger.info("config_topic: {topic}".format(topic=config_topic("temperature")))
+    module_logger.info("config_payload: {payload}".format(payload=config_payload("temperature", "Temperature", "°C", "{{value_json.temperature}}")))
     # mqttclienthandler.client.publish(CONFIG_TOPIC_TEMP, config_payload_temp_json)
-    module_logger.info("CONFIG_TOPIC_PRESS: {topic}".format(topic=CONFIG_TOPIC_PRESS))
-    module_logger.info("config_payload_pres: {payload}".format(payload=to_json(config_payload_press)))
-    module_logger.info("CONFIG_TOPIC_HUM: {topic}".format(topic=CONFIG_TOPIC_HUM))
-    module_logger.info("config_payload_hum: {payload}".format(payload=to_json(config_payload_hum)))
+    module_logger.info("pressure:")
+    module_logger.info("config_topic: {topic}".format(topic=config_topic("pressure")))
+    module_logger.info("config_payload: {payload}".format(payload=config_payload("pressure", "Pressure", "MPa", "{{ value_json.pressure}}")))
+    # mqttclienthandler.client.publish(CONFIG_TOPIC_HUM, config_payload_hum_json)
+    module_logger.info("humidity:")
+    module_logger.info("config_topic: {topic}".format(topic=config_topic("humidity")))
+    module_logger.info("config_payload: {payload}".format(payload=config_payload("humidity", "Humidity", "%", "{{ value_json.humidity}}")))
     # mqttclienthandler.client.publish(CONFIG_TOPIC_HUM, config_payload_hum_json)
 
 # # weather,location=us-midwest,season=summer temperature=82
