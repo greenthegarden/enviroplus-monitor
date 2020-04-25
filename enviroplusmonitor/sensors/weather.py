@@ -106,31 +106,33 @@ def measurement():
     """
     readings = sensor_readings()
     module_logger.debug("readings: {output}".format(output=readings))
+    measurements_from_readings = [
+        measurementRecord.MeasurementRecord(
+            {
+                'label': "temperature",
+                'value': readings.get("temperature").magnitude,
+                'units': str(readings.get("temperature").units),
+            }
+        ),
+        measurementRecord.MeasurementRecord(
+            {
+                'label': "humidity",
+                'value': readings.get("humidity_relative").magnitude,
+                'units': str(readings.get("humidity_relative").units),
+            }
+        ),
+        measurementRecord.MeasurementRecord(
+            {
+                'label': "pressure",
+                'value': readings.get("pressure").magnitude,
+                'units': str(readings.get("pressure").units),
+            }
+        ),
+    ]
     data = bme280Measurement.Bme280Measurement(
         {
-            "measurements": [
-                measurementRecord.MeasurementRecord(
-                    {
-                        'label': "temperature",
-                        'value': readings.get("temperature").magnitude,
-                        'units': str(readings.get("temperature").units),
-                    }
-                ),
-                measurementRecord.MeasurementRecord(
-                    {
-                        'label': "humidity",
-                        'value': readings.get("humidity_relative").magnitude,
-                        'units': str(readings.get("humidity_relative").units),
-                    }
-                ),
-                measurementRecord.MeasurementRecord(
-                    {
-                        'label': "pressure",
-                        'value': readings.get("pressure").magnitude,
-                        'units': str(readings.get("pressure").units),
-                    }
-                ),
-            ]
+            'sensor': "BME280",
+            'measurements': measurements_from_readings
         }
     )
     module_logger.debug("data: {output}".format(output=to_json(data)))
