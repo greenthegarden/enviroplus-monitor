@@ -233,7 +233,7 @@ def publish_configuration_topics():
     # module_logger.info("Payload: {payload}".format(payload=payload))
     module_logger.info("temperature:")
     module_logger.info("config_topic: {topic}".format(topic=config_topic("temperature")))
-    module_logger.info("config_payload: {payload}".format(payload=config_payload("temperature", "Temperature", "°C", "{{value_json.temperature}}")))
+    module_logger.info("config_payload: {payload}".format(payload=config_payload("temperature", "Temperature", "C", "{{value_json.temperature}}")))
     # mqttclienthandler.client.publish(CONFIG_TOPIC_TEMP, config_payload_temp_json)
     module_logger.info("pressure:")
     module_logger.info("config_topic: {topic}".format(topic=config_topic("pressure")))
