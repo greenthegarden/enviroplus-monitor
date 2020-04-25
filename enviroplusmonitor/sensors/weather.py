@@ -112,21 +112,21 @@ def measurement():
                 {
                     'label': "temperature",
                     'value': readings.get("temperature").magnitude,
-                    'units': readings.get("temperature").units,
+                    'units': str(readings.get("temperature").units),
                 }
             ),
             measurementRecord.MeasurementRecord(
                 {
                     'label': "humidity",
                     'value': readings.get("humidity_relative").magnitude,
-                    'units': readings.get("humidity_relative").units,
+                    'units': str(readings.get("humidity_relative").units),
                 }
             ),
             measurementRecord.MeasurementRecord(
                 {
                     'label': "pressure",
                     'value': readings.get("pressure").magnitude,
-                    'units': readings.get("pressure").units,
+                    'units': str(readings.get("pressure").units),
                 }
             ),
         ]
