@@ -1,3 +1,7 @@
+$id: configPayload.yaml
+$schema: "http://json-schema.org/draft-07/schema#"
+title: measureRecord
+description: Configuration payload conforming to home assistant requirements
 type: object
 properties:
   device_class:
