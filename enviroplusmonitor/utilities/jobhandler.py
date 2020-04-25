@@ -3,14 +3,10 @@ __author__ = "Philip Cutler"
 import logging
 from datetime import timedelta
 
-# from enviroplusmonitor.sensors import dht22, gas, weather
-# from enviroplusmonitor.utilities import (configurationhandler,
-#                                          influxdbclienthandler)
-# from timeloop import Timeloop
-
-from enviroplusmonitor.sensors import weather
-from enviroplusmonitor.utilities import (configurationhandler)
-
+from enviroplusmonitor.sensors import dht22, gas, weather
+from enviroplusmonitor.utilities import configurationhandler
+# from enviroplusmonitor.utilities import influxdbclienthandler
+from timeloop import Timeloop
 
 
 module_logger = logging.getLogger(

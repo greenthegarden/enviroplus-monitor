@@ -10,13 +10,8 @@ from subprocess import PIPE, Popen
 # from pydantic import BaseModel, ValidationError
 
 # import internal modules
-import enviroplusmonitor.utilities.configurationhandler as configurationhandler
-import enviroplusmonitor.utilities.mqttclienthandler as mqttclienthandler
-import enviroplusmonitor.utilities.unitregistryhandler as unitregistryhandler
-import enviroplusmonitor.classes.bme280Measurement as bme280Measurement
-import enviroplusmonitor.classes.bme280MeasurementPayload as bme280MeasurementPayload
-import enviroplusmonitor.classes.measurement as measurement
-import enviroplusmonitor.classes.configPayload as configPayload
+from enviroplusmonitor.utilities import (configurationhandler, mqttclienthandler, unitregistryhandler)
+from enviroplusmonitor.classes import (bme280Measurement, bme280MeasurementPayload, measurement, configPayload)
 # import external packages
 from bme280 import BME280
 
