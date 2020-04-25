@@ -9,7 +9,7 @@ class Bme280Measurement(UserDict):
         """ This class is a schema-validating wrapper around a string.
         """
 
-        def __init__(self, value):
+        def __init__(self, value="BME280"):
             self.Set(value)
 
         @staticmethod

@@ -3,6 +3,7 @@ properties:
   sensor: 
     type: string
     description: Sensor type
+    default: "BME280"
   measurements:
     type: array
     description: Measurement array
