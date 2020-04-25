@@ -107,29 +107,31 @@ def measurement():
     readings = sensor_readings()
     module_logger.debug("readings: {output}".format(output=readings))
     data = bme280Measurement.Bme280Measurement(
-        measurements = [
-            measurementRecord.MeasurementRecord(
-                {
-                    'label': "temperature",
-                    'value': readings.get("temperature").magnitude,
-                    'units': str(readings.get("temperature").units),
-                }
-            ),
-            measurementRecord.MeasurementRecord(
-                {
-                    'label': "humidity",
-                    'value': readings.get("humidity_relative").magnitude,
-                    'units': str(readings.get("humidity_relative").units),
-                }
-            ),
-            measurementRecord.MeasurementRecord(
-                {
-                    'label': "pressure",
-                    'value': readings.get("pressure").magnitude,
-                    'units': str(readings.get("pressure").units),
-                }
-            ),
-        ]
+        {
+            "measurements": [
+                measurementRecord.MeasurementRecord(
+                    {
+                        'label': "temperature",
+                        'value': readings.get("temperature").magnitude,
+                        'units': str(readings.get("temperature").units),
+                    }
+                ),
+                measurementRecord.MeasurementRecord(
+                    {
+                        'label': "humidity",
+                        'value': readings.get("humidity_relative").magnitude,
+                        'units': str(readings.get("humidity_relative").units),
+                    }
+                ),
+                measurementRecord.MeasurementRecord(
+                    {
+                        'label': "pressure",
+                        'value': readings.get("pressure").magnitude,
+                        'units': str(readings.get("pressure").units),
+                    }
+                ),
+            ]
+        }
     )
     module_logger.debug("data: {output}".format(output=to_json(data)))
     return to_json(data)
