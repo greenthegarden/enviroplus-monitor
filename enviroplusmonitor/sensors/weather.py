@@ -102,7 +102,7 @@ def measurement():
     """Structure sensor measurements into Bme280Measurement
 
     Returns:
-        json: JSON string version of Bme280Measurement
+        bme280Measurement.Bme280Measurement:
     """
     readings = sensor_readings()
     module_logger.debug("readings: {output}".format(output=readings))
@@ -141,7 +141,7 @@ def measurement():
         }
     )
     module_logger.debug("data: {output}".format(output=to_json(data)))
-    return to_json(data)
+    return data
 
 
 # payloads for dynamic mqtt support for home assistant
@@ -284,14 +284,14 @@ def publish_configuration_topics():
 def publish_mqtt_discoverable_payload():
     data = measurement()
     module_logger.debug("data: {data}".format(data=data))
-    measurements = data.get("measurements")
+    measurements = to_json(data.GetMeasurements())
     module_logger.debug("measurements: {measurements}".format(measurements=measurements))
-    payload = bme280MeasurementPayload.Bme280MeasurementPayload(
-        {
-            'temperature': round((measurements.get("temperature")).get("value"), 2),
-            'humidity': round((measurements.get("humidity")).get("value"), 2),
-            'pressure': round((measurements.get("humidity")).get("value"), 2)
-        }
-    )
+    # payload = bme280MeasurementPayload.Bme280MeasurementPayload(
+    #     {
+    #         'temperature': round((measurements.get("temperature")).get("value"), 2),
+    #         'humidity': round((measurements.get("humidity")).get("value"), 2),
+    #         'pressure': round((measurements.get("humidity")).get("value"), 2)
+    #     }
+    # )
     module_logger.info("Payload: {payload}".format(payload=to_json(payload)))
     # mqttclienthandler.client.publish(STATE_TOPIC, payload)
