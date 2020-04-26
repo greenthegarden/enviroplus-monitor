@@ -282,16 +282,17 @@ def publish_configuration_topics():
 #     mqttclienthandler.client.publish(TOPIC_STR, payload)
 
 def publish_mqtt_discoverable_payload():
-    data = measurement()
-    module_logger.debug("data: {data}".format(data=data))
-    measurements = to_json(data.GetMeasurements())
-    module_logger.debug("measurements: {measurements}".format(measurements=measurements))
-    # payload = bme280MeasurementPayload.Bme280MeasurementPayload(
-    #     {
-    #         'temperature': round((measurements.get("temperature")).get("value"), 2),
-    #         'humidity': round((measurements.get("humidity")).get("value"), 2),
-    #         'pressure': round((measurements.get("humidity")).get("value"), 2)
-    #     }
-    # )
+    readings = sensor_readings()
+    # data = measurement()
+    # module_logger.debug("data: {data}".format(data=data))
+    # measurements = to_json(data.GetMeasurements())
+    # module_logger.debug("measurements: {measurements}".format(measurements=measurements))
+    payload = bme280MeasurementPayload.Bme280MeasurementPayload(
+        {
+            'temperature': round(readings.get("temperature").magnitude, 2),
+            'humidity': round(readings.get("humidity_relative").magnitude, 2),
+            'pressure': round(readings.get("pressure").magnitude, 2)
+        }
+    )
     module_logger.info("Payload: {payload}".format(payload=to_json(payload)))
     # mqttclienthandler.client.publish(STATE_TOPIC, payload)
