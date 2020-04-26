@@ -130,9 +130,9 @@ def measurement():
     #     ),
     # ]
     measurements_from_readings = [
-        ["temperature", readings.get("temperature").magnitude, str(readings.get("temperature").units)],
-        ["humidity", readings.get("humidity_relative").magnitude, str(readings.get("humidity_relative").units)],
-        ["pressure", readings.get("pressure").magnitude, str(readings.get("pressure").units)]
+        { 'label': "temperature", 'value': readings.get("temperature").magnitude, 'units': str(readings.get("temperature").units) },
+        { 'label': "humidity", 'value': readings.get("humidity_relative").magnitude, 'units': str(readings.get("humidity_relative").units) },
+        { 'label': "pressure", 'value': readings.get("pressure").magnitude, 'units': str(readings.get("pressure").units) }
     ]
     data = bme280Measurement.Bme280Measurement(
         {

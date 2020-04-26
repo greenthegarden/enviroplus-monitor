@@ -11,18 +11,20 @@ properties:
   measurements:
     type: array
     description: Measurement array
-    items:
-      type: object
-      properties:
-        label:
-          type: string
-          description: Label for measurement
-        value:
-          type: number
-          description: Value of measurement
-        units:
-          type: string
-          description: Units of measurement
+    items: [
+      {
+        type: string,
+        description: Label for measurement
+      },
+      {
+        type: number,
+        description: Value of measurement
+      },
+      {
+        type: string,
+        description: Units of measurement
+      }
+    ]
 required:
   - sensor
   - measurements
