@@ -12,3 +12,7 @@ properties:
     maximum: 100
   pressure:
     type: number
+required:
+  - temperature
+  - humidity
+  - pressure

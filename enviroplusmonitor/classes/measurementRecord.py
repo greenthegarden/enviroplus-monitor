@@ -109,19 +109,19 @@ class MeasurementRecord(UserDict):
             if not isinstance(prop, self.LabelProperty):
                 new_data["label"] = self.LabelProperty(prop)
         except KeyError:
-            pass
+            raise ValueError("Missing property 'label'")
         try:
             prop = data["value"] if ("value" in data) else kwargs["value"]
             if not isinstance(prop, self.ValueProperty):
                 new_data["value"] = self.ValueProperty(prop)
         except KeyError:
-            pass
+            raise ValueError("Missing property 'value'")
         try:
             prop = data["units"] if ("units" in data) else kwargs["units"]
             if not isinstance(prop, self.UnitsProperty):
                 new_data["units"] = self.UnitsProperty(prop)
         except KeyError:
-            pass
+            raise ValueError("Missing property 'units'")
         super().__init__(new_data)
 
     def GetLabel(self):

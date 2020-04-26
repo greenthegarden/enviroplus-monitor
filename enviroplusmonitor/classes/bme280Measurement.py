@@ -72,13 +72,13 @@ class Bme280Measurement(UserDict):
             if not isinstance(prop, self.SensorProperty):
                 new_data["sensor"] = self.SensorProperty(prop)
         except KeyError:
-            pass
+            raise ValueError("Missing property 'sensor'")
         try:
             prop = data["measurements"] if ("measurements" in data) else kwargs["measurements"]
             if not isinstance(prop, self.MeasurementsProperty):
                 new_data["measurements"] = self.MeasurementsProperty(prop)
         except KeyError:
-            pass
+            raise ValueError("Missing property 'measurements'")
         super().__init__(new_data)
 
     def GetSensor(self):

@@ -25,3 +25,6 @@ properties:
         description: Units of measurement
       }
     ]
+required:
+  - sensor
+  - measurements

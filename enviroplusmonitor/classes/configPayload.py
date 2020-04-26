@@ -166,31 +166,31 @@ class ConfigPayload(UserDict):
             if not isinstance(prop, self.DeviceClassProperty):
                 new_data["device_class"] = self.DeviceClassProperty(prop)
         except KeyError:
-            pass
+            raise ValueError("Missing property 'device_class'")
         try:
             prop = data["name"] if ("name" in data) else kwargs["name"]
             if not isinstance(prop, self.NameProperty):
                 new_data["name"] = self.NameProperty(prop)
         except KeyError:
-            pass
+            raise ValueError("Missing property 'name'")
         try:
             prop = data["state_topic"] if ("state_topic" in data) else kwargs["state_topic"]
             if not isinstance(prop, self.StateTopicProperty):
                 new_data["state_topic"] = self.StateTopicProperty(prop)
         except KeyError:
-            pass
+            raise ValueError("Missing property 'state_topic'")
         try:
             prop = data["unit_of_measurement"] if ("unit_of_measurement" in data) else kwargs["unit_of_measurement"]
             if not isinstance(prop, self.UnitOfMeasurementProperty):
                 new_data["unit_of_measurement"] = self.UnitOfMeasurementProperty(prop)
         except KeyError:
-            pass
+            raise ValueError("Missing property 'unit_of_measurement'")
         try:
             prop = data["value_template"] if ("value_template" in data) else kwargs["value_template"]
             if not isinstance(prop, self.ValueTemplateProperty):
                 new_data["value_template"] = self.ValueTemplateProperty(prop)
         except KeyError:
-            pass
+            raise ValueError("Missing property 'value_template'")
         super().__init__(new_data)
 
     def GetDeviceClass(self):

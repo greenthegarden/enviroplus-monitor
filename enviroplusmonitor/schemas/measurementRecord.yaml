@@ -13,3 +13,7 @@ properties:
   units:
     type: string
     description: Units of measurement
+required:
+  - label
+  - value
+  - units

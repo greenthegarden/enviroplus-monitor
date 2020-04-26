@@ -19,3 +19,9 @@ properties:
   value_template:
     type: string
     description: Value template for sensor measurement
+required:
+  - device_class
+  - name
+  - state_topic
+  - unit_of_measurement
+  - value_template

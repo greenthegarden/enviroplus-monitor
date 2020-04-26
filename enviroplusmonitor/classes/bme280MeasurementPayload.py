@@ -119,19 +119,19 @@ class Bme280MeasurementPayload(UserDict):
             if not isinstance(prop, self.TemperatureProperty):
                 new_data["temperature"] = self.TemperatureProperty(prop)
         except KeyError:
-            pass
+            raise ValueError("Missing property 'temperature'")
         try:
             prop = data["humidity"] if ("humidity" in data) else kwargs["humidity"]
             if not isinstance(prop, self.HumidityProperty):
                 new_data["humidity"] = self.HumidityProperty(prop)
         except KeyError:
-            pass
+            raise ValueError("Missing property 'humidity'")
         try:
             prop = data["pressure"] if ("pressure" in data) else kwargs["pressure"]
             if not isinstance(prop, self.PressureProperty):
                 new_data["pressure"] = self.PressureProperty(prop)
         except KeyError:
-            pass
+            raise ValueError("Missing property 'pressure'")
         super().__init__(new_data)
 
     def GetTemperature(self):
