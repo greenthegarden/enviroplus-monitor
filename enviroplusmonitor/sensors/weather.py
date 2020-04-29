@@ -147,7 +147,7 @@ def config_payload(reading, name, unit_of_measurement, value_template):
     config_payload_object = configPayload.ConfigPayload(
         {
             'device_class': str("enviroplus" + "_" + configurationhandler.config["enviroplus"]["id"] + "_" + reading),
-            'name': str(name),
+            'name': str("enviro+ " + configurationhandler.config["enviroplus"]["id"] + " name"),
             'state_topic': state_topic(),
             'unit_of_measurement': str(unit_of_measurement),
             'value_template': str(value_template)
