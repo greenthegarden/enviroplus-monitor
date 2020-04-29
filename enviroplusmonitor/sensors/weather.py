@@ -220,4 +220,4 @@ def publish_mqtt_discoverable_payload():
         }
     )
     module_logger.info("Payload: {payload}".format(payload=to_json(payload)))
-    mqttclienthandler.client.publish(state_topic(), payload)
+    mqttclienthandler.client.publish(state_topic(), to_json(payload))
