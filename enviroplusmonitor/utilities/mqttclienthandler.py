@@ -21,6 +21,20 @@ broker_attempt_count = 0
 client = None
 
 
+def create_topic_from_list(topic_elements):
+    """Create a mqtt topic from a list of elements
+
+    Returns:
+        str:
+    """
+    topic = ""
+    for topic_element in topic_elements:
+        topic += str(topic_element) + "/"
+    # remove trailing "/"
+    topic = topic[:-1]
+    return topic
+
+
 def get_broker_url():
     broker_url = urlparse.urlparse(
         "mqtt://"

@@ -1,12 +1,17 @@
 __author__ = "Philip Cutler"
 
+"""Publish gas measurements from Enviro+ Hat
+
+   MICS6814 analog gas sensor (https://www.sgxsensortech.com/content/uploads/2015/02/1143_Datasheet-MiCS-6814-rev-8.pdf)
+
+"""
+
 # import libraries
 import logging
 
 # import internal modules
-import enviroplusmonitor.utilities.configurationhandler as configurationhandler
-import enviroplusmonitor.utilities.mqttclienthandler as mqttclienthandler
-import enviroplusmonitor.utilities.unitregistryhandler as unitregistryhandler
+from enviroplusmonitor.utilities import (configurationhandler, mqttclienthandler, unitregistryhandler)
+
 # import external packages
 from enviroplus import gas
 
@@ -16,6 +21,11 @@ module_logger = logging.getLogger(
 
 
 def sensor_readings():
+    """Get readings from each gas sensor on the 
+
+    Returns:
+        dict: 
+    """
     all = gas.read_all()
     readings = {
         "reducing": all.reducing * unitregistryhandler.ureg.ppm,

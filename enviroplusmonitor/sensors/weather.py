@@ -6,7 +6,7 @@ import logging
 from subprocess import PIPE, Popen
 
 # import internal modules
-from enviroplusmonitor.utilities import (configurationhandler, mqttclienthandler, unitregistryhandler)
+from enviroplusmonitor.utilities import (configurationhandler, homeassistanthandler, mqttclienthandler, unitregistryhandler)
 from enviroplusmonitor.classes import (bme280Measurement, bme280MeasurementPayload, measurementRecord, configPayload)
 # import external packages
 from bme280 import BME280
@@ -32,6 +32,8 @@ bus = SMBus(1)
 
 # BME280 temperature/pressure/humidity sensor
 bme280 = BME280(i2c_dev=bus)
+
+sensor_label = "bme280"
 
 def get_cpu_temperature():
     """Return the CPU temperature using 
@@ -133,43 +135,44 @@ def measurement():
 # https://www.home-assistant.io/docs/mqtt/discovery/
 # Configuration topic no1: homeassistant/sensor/sensorBedroomT/config
 #  homeassistant/sensor/enviroplus/3/config
-def state_topic():
-    """Define state topic for home assistant
+# def state_topic():
+#     """Define state topic for home assistant
 
-    Returns:
-        str: state topic
-    """
-    return str(
-        "homeassistant/sensor/enviroplus/" +
-        str(configurationhandler.config["enviroplus"]["id"]) +
-        "/" +
-        str(configurationhandler.config["sensors"]["WEATHER_LABEL"]) +
-        "/" +
-        "state"
-    )
+#     Returns:
+#         str: state topic
+#     """
+#     return str(
+#         "homeassistant/sensor/enviroplus/" +
+#         str(configurationhandler.config["enviroplus"]["id"]) +
+#         "/" +
+#         str(configurationhandler.config["sensors"]["WEATHER_LABEL"]) +
+#         "/" +
+#         "state"
+#     )
 
-def config_topic(reading):
-    context = "homeassistant/sensor"
-    sensor = "enviroplus"
-    topic = str(
-        context + "/" +
-        sensor + "/" +
-        str(configurationhandler.config["enviroplus"]["id"]) + "/" +
-        str(configurationhandler.config["sensors"]["WEATHER_LABEL"]) + "/" +
-        reading + "/" +
-        "config"
-        )
-    module_logger.debug("config topic for {reading}: {topic}".format(reading=reading, topic=topic))
-    return topic
+
+# def config_topic(reading):
+#     context = "homeassistant/sensor"
+#     sensor = "enviroplus"
+#     topic = str(
+#         context + "/" +
+#         sensor + "/" +
+#         str(configurationhandler.config["enviroplus"]["id"]) + "/" +
+#         str(configurationhandler.config["sensors"]["WEATHER_LABEL"]) + "/" +
+#         reading + "/" +
+#         "config"
+#         )
+#     module_logger.debug("config topic for {reading}: {topic}".format(reading=reading, topic=topic))
+#     return topic
 
 
 # Configuration payload no1: {"device_class": "temperature", "name": "Temperature", "state_topic": "homeassistant/sensor/sensorBedroom/state", "unit_of_measurement": "°C", "value_template": "{{ value_json.temperature}}" }
-def config_payload(reading, name, unit_of_measurement, value_template, state_topic=state_topic()):
+def config_payload(reading, name, unit_of_measurement, value_template):
     config_payload_object = configPayload.ConfigPayload(
         {
             'device_class': str(reading),
             'name': str(name),
-            'state_topic': str(state_topic),
+            'state_topic': str(homeassistanthandler.state_topic("WEATHER_LABEL")),
             'unit_of_measurement': str(unit_of_measurement),
             'value_template': str(value_template)
         }
@@ -181,15 +184,15 @@ def config_payload(reading, name, unit_of_measurement, value_template, state_top
 def publish_configuration_topics():
     # module_logger.info("Payload: {payload}".format(payload=payload))
     module_logger.info("temperature:")
-    module_logger.info("config_topic: {topic}".format(topic=config_topic("temperature")))
+    module_logger.info("config_topic: {topic}".format(topic=homeassistanthandler.config_topic("WEATHER_LABEL", "temperature")))
     module_logger.info("config_payload: {payload}".format(payload=config_payload("temperature", "Temperature", "C", "{{value_json.temperature}}")))
     # mqttclienthandler.client.publish(CONFIG_TOPIC_TEMP, config_payload_temp_json)
     module_logger.info("pressure:")
-    module_logger.info("config_topic: {topic}".format(topic=config_topic("pressure")))
+    module_logger.info("config_topic: {topic}".format(topic=homeassistanthandler.config_topic("WEATHER_LABEL", "pressure")))
     module_logger.info("config_payload: {payload}".format(payload=config_payload("pressure", "Pressure", "MPa", "{{ value_json.pressure}}")))
     # mqttclienthandler.client.publish(CONFIG_TOPIC_HUM, config_payload_hum_json)
     module_logger.info("humidity:")
-    module_logger.info("config_topic: {topic}".format(topic=config_topic("humidity")))
+    module_logger.info("config_topic: {topic}".format(topic=homeassistanthandler.config_topic("WEATHER_LABEL", "humidity")))
     module_logger.info("config_payload: {payload}".format(payload=config_payload("humidity", "Humidity", "%", "{{ value_json.humidity}}")))
     # mqttclienthandler.client.publish(CONFIG_TOPIC_HUM, config_payload_hum_json)
 
