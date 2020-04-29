@@ -131,39 +131,15 @@ def measurement():
     module_logger.debug("data: {output}".format(output=to_json(data)))
     return data
 
-# payloads for dynamic mqtt support for home assistant
-# https://www.home-assistant.io/docs/mqtt/discovery/
-# Configuration topic no1: homeassistant/sensor/sensorBedroomT/config
-#  homeassistant/sensor/enviroplus/3/config
-# def state_topic():
-#     """Define state topic for home assistant
+def state_topic():
+    """Define state topic for home assistant
 
-#     Returns:
-#         str: state topic
-#     """
-#     return str(
-#         "homeassistant/sensor/enviroplus/" +
-#         str(configurationhandler.config["enviroplus"]["id"]) +
-#         "/" +
-#         str(configurationhandler.config["sensors"]["WEATHER_LABEL"]) +
-#         "/" +
-#         "state"
-#     )
+    Returns:
+        str: state topic
+    """
+    topic = str(homeassistanthandler.state_topic("WEATHER_LABEL"))
+    return topic
 
-
-# def config_topic(reading):
-#     context = "homeassistant/sensor"
-#     sensor = "enviroplus"
-#     topic = str(
-#         context + "/" +
-#         sensor + "/" +
-#         str(configurationhandler.config["enviroplus"]["id"]) + "/" +
-#         str(configurationhandler.config["sensors"]["WEATHER_LABEL"]) + "/" +
-#         reading + "/" +
-#         "config"
-#         )
-#     module_logger.debug("config topic for {reading}: {topic}".format(reading=reading, topic=topic))
-#     return topic
 
 
 # Configuration payload no1: {"device_class": "temperature", "name": "Temperature", "state_topic": "homeassistant/sensor/sensorBedroom/state", "unit_of_measurement": "°C", "value_template": "{{ value_json.temperature}}" }
@@ -172,7 +148,7 @@ def config_payload(reading, name, unit_of_measurement, value_template):
         {
             'device_class': str(reading),
             'name': str(name),
-            'state_topic': str(homeassistanthandler.state_topic("WEATHER_LABEL")),
+            'state_topic': state_topic(),
             'unit_of_measurement': str(unit_of_measurement),
             'value_template': str(value_template)
         }
@@ -244,4 +220,4 @@ def publish_mqtt_discoverable_payload():
         }
     )
     module_logger.info("Payload: {payload}".format(payload=to_json(payload)))
-    mqttclienthandler.client.publish(str(homeassistanthandler.state_topic("WEATHER_LABEL")), payload)
+    mqttclienthandler.client.publish(state_topic(), payload)
