@@ -184,17 +184,23 @@ def config_payload(reading, name, unit_of_measurement, value_template):
 def publish_configuration_topics():
     # module_logger.info("Payload: {payload}".format(payload=payload))
     module_logger.info("temperature:")
-    module_logger.info("config_topic: {topic}".format(topic=homeassistanthandler.config_topic("WEATHER_LABEL", "temperature")))
-    module_logger.info("config_payload: {payload}".format(payload=config_payload("temperature", "Temperature", "C", "{{value_json.temperature}}")))
-    # mqttclienthandler.client.publish(CONFIG_TOPIC_TEMP, config_payload_temp_json)
+    topic = homeassistanthandler.config_topic("WEATHER_LABEL", "temperature")
+    payload = config_payload("temperature", "Temperature", "C", "{{value_json.temperature}}")
+    module_logger.info("config_topic: {topic}".format(topic=topic))
+    module_logger.info("config_payload: {payload}".format(payload=payload))
+    mqttclienthandler.client.publish(topic, payload)
     module_logger.info("pressure:")
-    module_logger.info("config_topic: {topic}".format(topic=homeassistanthandler.config_topic("WEATHER_LABEL", "pressure")))
-    module_logger.info("config_payload: {payload}".format(payload=config_payload("pressure", "Pressure", "MPa", "{{ value_json.pressure}}")))
-    # mqttclienthandler.client.publish(CONFIG_TOPIC_HUM, config_payload_hum_json)
+    topic = homeassistanthandler.config_topic("WEATHER_LABEL", "pressure")
+    payload = config_payload("pressure", "Pressure", "MPa", "{{ value_json.pressure}}")
+    module_logger.info("config_topic: {topic}".format(topic=topic))
+    module_logger.info("config_payload: {payload}".format(payload=payload))
+    mqttclienthandler.client.publish(topic, payload)
     module_logger.info("humidity:")
-    module_logger.info("config_topic: {topic}".format(topic=homeassistanthandler.config_topic("WEATHER_LABEL", "humidity")))
-    module_logger.info("config_payload: {payload}".format(payload=config_payload("humidity", "Humidity", "%", "{{ value_json.humidity}}")))
-    # mqttclienthandler.client.publish(CONFIG_TOPIC_HUM, config_payload_hum_json)
+    topic = homeassistanthandler.config_topic("WEATHER_LABEL", "humidity")
+    payload = config_payload("humidity", "Humidity", "%", "{{ value_json.humidity}}")
+    module_logger.info("config_topic: {topic}".format(topic=topic))
+    module_logger.info("config_payload: {payload}".format(payload=payload))
+    mqttclienthandler.client.publish(topic, payload)
 
 # # weather,location=us-midwest,season=summer temperature=82
 # def publish_influx_payload():
@@ -238,4 +244,4 @@ def publish_mqtt_discoverable_payload():
         }
     )
     module_logger.info("Payload: {payload}".format(payload=to_json(payload)))
-    mqttclienthandler.client.publish(state_topic(), payload)
+    mqttclienthandler.client.publish(str(homeassistanthandler.state_topic("WEATHER_LABEL")), payload)
