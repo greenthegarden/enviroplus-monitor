@@ -33,7 +33,7 @@ bus = SMBus(1)
 # BME280 temperature/pressure/humidity sensor
 bme280 = BME280(i2c_dev=bus)
 
-sensor_label = "bme280"
+sensor_label = str(configurationhandler.config["sensors"]["WEATHER_LABEL"])
 
 def get_cpu_temperature():
     """Return the CPU temperature using 
@@ -124,7 +124,7 @@ def measurement():
     ]
     data = bme280Measurement.Bme280Measurement(
         {
-            'sensor': "BME280",
+            'sensor': sensor_label,
             'measurements': measurements_from_readings
         }
     )
@@ -143,11 +143,12 @@ def state_topic():
 
 
 # Configuration payload no1: {"device_class": "temperature", "name": "Temperature", "state_topic": "homeassistant/sensor/sensorBedroom/state", "unit_of_measurement": "°C", "value_template": "{{ value_json.temperature}}" }
-def config_payload(device_class, name, unit_of_measurement, value_template):
+def config_payload(device_class, unit_of_measurement, value_template):
+    name_elements = ["Enviro+", configurationhandler.config["enviroplus"]["id"], sensor_label, device_class.capitalize()]
     config_payload_object = configPayload.ConfigPayload(
         {
             'device_class': str(device_class),
-            'name': str("enviro+ " + configurationhandler.config["enviroplus"]["id"] + " name"),
+            'name': " ".join(name_elements),
             'state_topic': state_topic(),
             'unit_of_measurement': str(unit_of_measurement),
             'value_template': str(value_template)
@@ -161,19 +162,19 @@ def publish_configuration_topics():
     # module_logger.info("Payload: {payload}".format(payload=payload))
     module_logger.info("temperature:")
     topic = homeassistanthandler.config_topic("WEATHER_LABEL", "temperature")
-    payload = config_payload("temperature", "Temperature", "C", "{{value_json.temperature}}")
+    payload = config_payload("temperature", "C", "{{value_json.temperature}}")
     module_logger.info("config_topic: {topic}".format(topic=topic))
     module_logger.info("config_payload: {payload}".format(payload=payload))
     mqttclienthandler.client.publish(topic, payload)
     module_logger.info("pressure:")
     topic = homeassistanthandler.config_topic("WEATHER_LABEL", "pressure")
-    payload = config_payload("pressure", "Pressure", "MPa", "{{ value_json.pressure}}")
+    payload = config_payload("pressure", "MPa", "{{ value_json.pressure}}")
     module_logger.info("config_topic: {topic}".format(topic=topic))
     module_logger.info("config_payload: {payload}".format(payload=payload))
     mqttclienthandler.client.publish(topic, payload)
     module_logger.info("humidity:")
     topic = homeassistanthandler.config_topic("WEATHER_LABEL", "humidity")
-    payload = config_payload("humidity", "Humidity", "%", "{{ value_json.humidity}}")
+    payload = config_payload("humidity", "%", "{{ value_json.humidity}}")
     module_logger.info("config_topic: {topic}".format(topic=topic))
     module_logger.info("config_payload: {payload}".format(payload=payload))
     mqttclienthandler.client.publish(topic, payload)
