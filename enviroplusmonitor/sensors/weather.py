@@ -143,10 +143,10 @@ def state_topic():
 
 
 # Configuration payload no1: {"device_class": "temperature", "name": "Temperature", "state_topic": "homeassistant/sensor/sensorBedroom/state", "unit_of_measurement": "°C", "value_template": "{{ value_json.temperature}}" }
-def config_payload(reading, name, unit_of_measurement, value_template):
+def config_payload(device_class, name, unit_of_measurement, value_template):
     config_payload_object = configPayload.ConfigPayload(
         {
-            'device_class': str("enviroplus" + "_" + configurationhandler.config["enviroplus"]["id"] + "_" + reading),
+            'device_class': str(device_class),
             'name': str("enviro+ " + configurationhandler.config["enviroplus"]["id"] + " name"),
             'state_topic': state_topic(),
             'unit_of_measurement': str(unit_of_measurement),
