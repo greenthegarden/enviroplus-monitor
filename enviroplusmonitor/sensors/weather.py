@@ -159,24 +159,20 @@ def config_payload(device_class, unit_of_measurement, value_template):
 
 
 def publish_configuration_topics():
-    # module_logger.info("Payload: {payload}".format(payload=payload))
-    module_logger.info("temperature:")
     topic = homeassistanthandler.config_topic("WEATHER_LABEL", "temperature")
-    payload = config_payload("temperature", "C", "{{value_json.temperature}}")
-    module_logger.info("config_topic: {topic}".format(topic=topic))
-    module_logger.info("config_payload: {payload}".format(payload=payload))
+    payload = config_payload("temperature", "°C", "{{ value_json.temperature }}")
+    module_logger.info("temperature config topic: {topic}".format(topic=topic))
+    module_logger.info("temperature config payload: {payload}".format(payload=payload))
     mqttclienthandler.client.publish(topic, payload)
-    module_logger.info("pressure:")
     topic = homeassistanthandler.config_topic("WEATHER_LABEL", "pressure")
-    payload = config_payload("pressure", "MPa", "{{ value_json.pressure}}")
-    module_logger.info("config_topic: {topic}".format(topic=topic))
-    module_logger.info("config_payload: {payload}".format(payload=payload))
+    payload = config_payload("pressure", "MPa", "{{ value_json.pressure }}")
+    module_logger.info("pressure config topic: {topic}".format(topic=topic))
+    module_logger.info("pressure config payload: {payload}".format(payload=payload))
     mqttclienthandler.client.publish(topic, payload)
-    module_logger.info("humidity:")
     topic = homeassistanthandler.config_topic("WEATHER_LABEL", "humidity")
-    payload = config_payload("humidity", "%", "{{ value_json.humidity}}")
-    module_logger.info("config_topic: {topic}".format(topic=topic))
-    module_logger.info("config_payload: {payload}".format(payload=payload))
+    payload = config_payload("humidity", "%", "{{ value_json.humidity }}")
+    module_logger.info("humidity config topic: {topic}".format(topic=topic))
+    module_logger.info("humidity config payload: {payload}".format(payload=payload))
     mqttclienthandler.client.publish(topic, payload)
 
 # # weather,location=us-midwest,season=summer temperature=82
