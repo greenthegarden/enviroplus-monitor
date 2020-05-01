@@ -83,7 +83,7 @@ def state_topic():
     Returns:
         str: state topic
     """
-    topic = str(homeassistanthandler.state_topic("GAS_LABEL"))
+    topic = str(homeassistanthandler.state_topic(sensor_label))
     return topic
 
 # Configuration payload no1: {"device_class": "temperature", "name": "Temperature", "state_topic": "homeassistant/sensor/sensorBedroom/state", "unit_of_measurement": "°C", "value_template": "{{ value_json.temperature}}" }
@@ -103,18 +103,18 @@ def state_topic():
 
 
 def publish_configuration_topics():
-    topic = homeassistanthandler.config_topic(sensor_label=sensor_label, reading="oxidising")
-    payload = homeassistanthandler.config_payload(device_class="None", sensor_label=sensor_label, state_topic=state_topic(), unit_of_measurement="kO", value_template="{{ value_json.oxidising }}")
+    topic = homeassistanthandler.config_topic(sensor_label=sensor_label, measurement="oxidising")
+    payload = homeassistanthandler.config_payload(device_class="None", measurement="oxidising", sensor_label=sensor_label, state_topic=state_topic(), unit_of_measurement="kO", value_template="{{ value_json.oxidising }}")
     module_logger.info("oxidising config topic: {topic}".format(topic=topic))
     module_logger.info("oxidising config payload: {payload}".format(payload=payload))
     mqttclienthandler.client.publish(topic, payload)
-    topic = homeassistanthandler.config_topic(sensor_label=sensor_label, reading="reducing")
-    payload = homeassistanthandler.config_payload(device_class="None", sensor_label=sensor_label, state_topic=state_topic(), unit_of_measurement="kO", value_template="{{ value_json.reducing }}")
+    topic = homeassistanthandler.config_topic(sensor_label=sensor_label, measurement="reducing")
+    payload = homeassistanthandler.config_payload(device_class="None", measurement="reducing", sensor_label=sensor_label, state_topic=state_topic(), unit_of_measurement="kO", value_template="{{ value_json.reducing }}")
     module_logger.info("reducing config topic: {topic}".format(topic=topic))
     module_logger.info("reducing config payload: {payload}".format(payload=payload))
     mqttclienthandler.client.publish(topic, payload)
-    topic = homeassistanthandler.config_topic(sensor_label=sensor_label, reading="nh3")
-    payload = homeassistanthandler.config_payload(device_class="None", sensor_label=sensor_label, state_topic=state_topic(), unit_of_measurement="kO", value_template="{{ value_json.nh3 }}")
+    topic = homeassistanthandler.config_topic(sensor_label=sensor_label, measurement="nh3")
+    payload = homeassistanthandler.config_payload(device_class="None", measurement="nh3", sensor_label=sensor_label, state_topic=state_topic(), unit_of_measurement="kO", value_template="{{ value_json.nh3 }}")
     module_logger.info("nh3 config topic: {topic}".format(topic=topic))
     module_logger.info("nh3 config payload: {payload}".format(payload=payload))
     mqttclienthandler.client.publish(topic, payload)

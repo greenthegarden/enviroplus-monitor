@@ -61,7 +61,7 @@ def state_topic(sensor_label):
     return topic
 
 #  homeassistant/sensor/enviroplus3temperature/config
-def config_topic(sensor_label, reading):
+def config_topic(sensor_label, measurement):
     """Define config topic for home assistant
 
     Parameters:
@@ -84,16 +84,16 @@ def config_topic(sensor_label, reading):
     topic_elements = [
       discovery_prefix,
       component,
-      str(node_id(sensor_label) + reading),
+      str(node_id(sensor_label) + measurement),
       "config"
     ]
     topic = mqttclienthandler.create_topic_from_list(topic_elements)
-    module_logger.debug("config topic for {reading} for sensor {sensor}: {topic}".format(reading=reading, sensor=sensor_label, topic=topic))
+    module_logger.debug("config topic for {measurement} for sensor {sensor}: {topic}".format(measurement=measurement, sensor=sensor_label, topic=topic))
     return topic
 
 
-def config_payload(device_class, sensor_label, state_topic, unit_of_measurement, value_template):
-    name_elements = ["Enviro+", configurationhandler.config["enviroplus"]["id"], sensor_label, device_class.capitalize()]
+def config_payload(device_class, measurement, sensor_label, state_topic, unit_of_measurement, value_template):
+    name_elements = ["Enviro+", configurationhandler.config["enviroplus"]["id"], sensor_label, measurement]
     config_payload_object = configPayload.ConfigPayload(
         {
             'device_class': str(device_class),
