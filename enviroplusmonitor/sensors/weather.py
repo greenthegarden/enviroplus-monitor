@@ -158,17 +158,18 @@ def config_payload(device_class, unit_of_measurement, value_template):
 
 
 def publish_configuration_topics():
-    topic = homeassistanthandler.config_topic("WEATHER_LABEL", "temperature")
+    #TODO: switch to config_payload method in homeassistanthandler
+    topic = homeassistanthandler.config_topic(sensor_label, "temperature")
     payload = config_payload("temperature", "°C", "{{ value_json.temperature }}")
     module_logger.info("temperature config topic: {topic}".format(topic=topic))
     module_logger.info("temperature config payload: {payload}".format(payload=payload))
     mqttclienthandler.client.publish(topic, payload)
-    topic = homeassistanthandler.config_topic("WEATHER_LABEL", "pressure")
+    topic = homeassistanthandler.config_topic(sensor_label, "pressure")
     payload = config_payload("pressure", "MPa", "{{ value_json.pressure }}")
     module_logger.info("pressure config topic: {topic}".format(topic=topic))
     module_logger.info("pressure config payload: {payload}".format(payload=payload))
     mqttclienthandler.client.publish(topic, payload)
-    topic = homeassistanthandler.config_topic("WEATHER_LABEL", "humidity")
+    topic = homeassistanthandler.config_topic(sensor_label, "humidity")
     payload = config_payload("humidity", "%", "{{ value_json.humidity }}")
     module_logger.info("humidity config topic: {topic}".format(topic=topic))
     module_logger.info("humidity config payload: {payload}".format(payload=payload))

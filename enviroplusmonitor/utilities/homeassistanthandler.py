@@ -25,9 +25,10 @@ def node_id(sensor_label):
     Returns:
       str: node_id
   """
-  node_id_str = str("enviroplus" +
+  node_id_str = str(
+    "enviroplus" +
     str(configurationhandler.config["enviroplus"]["id"]) +
-    str(configurationhandler.config["sensors"][sensor_label])
+    sensor_label
   )
   return node_id_str
 
@@ -36,7 +37,7 @@ def state_topic(sensor_label):
     """Define state topic for home assistant
 
     Parameters:
-      sensor_label: one of DHT22_LABEL, GAS_LABEL, WEATHER_LABEL
+      sensor_label:
 
     Returns:
         str: state topic
@@ -64,7 +65,7 @@ def config_topic(sensor_label, reading):
     """Define config topic for home assistant
 
     Parameters:
-      sensor_label: one of DHT22_LABEL, GAS_LABEL, WEATHER_LABEL
+      sensor_label:
       reading: data type
 
     Returns:
