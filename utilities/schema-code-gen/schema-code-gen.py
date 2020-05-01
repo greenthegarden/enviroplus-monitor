@@ -23,15 +23,19 @@ import yaml
 schema_dir = "../../enviroplusmonitor/schemas"
 class_dir  = "../../enviroplusmonitor/classes"
 
+def process_schema(file, schema):
+    print("Processing file {file}".format(file=file))
+    generator = pygen.GeneratorFromSchema(class_dir)
+    generator.Generate(schema=schema, root=None, class_name=py_.capitalize(filename, strict = False), filename_base=filename)
+
+
 for file in os.listdir(schema_dir):
     filename, extension = os.path.splitext(file)
     if file.endswith(".yml") or file.endswith(".yaml"):
         with open(os.path.join(schema_dir, file)) as fp:
             schema = yaml.load(fp, Loader=yaml.FullLoader)
+        process_schema(file, schema)
     elif file.endswith(".json"):
         with open(os.path.join(schema_dir, file)) as fp:
             schema = json.load(fp)
-    else:
-        break
-    generator = pygen.GeneratorFromSchema(class_dir)
-    generator.Generate(schema=schema, root=None, class_name=py_.capitalize(filename, strict = False), filename_base=filename)
+        process_schema(file, schema)

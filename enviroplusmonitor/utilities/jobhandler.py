@@ -34,6 +34,8 @@ def publish_sensor_measurements():
     module_logger.info("Publishing ...")
     # try:
     weather.publish_mqtt_discoverable_payload()
+    gas.publish_mqtt_discoverable_payload()
+
     # except (RuntimeError, TypeError, NameError):
     #     pass        
     # gas.publish_influx_payload()

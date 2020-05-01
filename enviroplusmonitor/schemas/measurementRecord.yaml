@@ -1,6 +1,6 @@
-$id: measureRecord.yaml
+$id: measurementRecord.yaml
 $schema: "http://json-schema.org/draft-07/schema#"
-title: measureRecord
+title: measurementRecord
 description: Definition of a record of a sensor measurement
 type: object 
 properties:

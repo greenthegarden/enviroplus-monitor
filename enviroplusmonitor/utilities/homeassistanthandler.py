@@ -1,7 +1,8 @@
 __author__ = "Philip Cutler"
 
 import logging
-from enviroplusmonitor.utilities import (configurationhandler, mqttclienthandler)
+from enviroplusmonitor.utilities import (configurationhandler, mqttclienthandler, schemahandler)
+from enviroplusmonitor.classes import (configPayload)
 
 module_logger = logging.getLogger(
     configurationhandler.config["logging"]["MODULE_LOGGER"]
@@ -88,3 +89,18 @@ def config_topic(sensor_label, reading):
     topic = mqttclienthandler.create_topic_from_list(topic_elements)
     module_logger.debug("config topic for {reading} for sensor {sensor}: {topic}".format(reading=reading, sensor=sensor_label, topic=topic))
     return topic
+
+
+def config_payload(device_class, sensor_label, state_topic, unit_of_measurement, value_template):
+    name_elements = ["Enviro+", configurationhandler.config["enviroplus"]["id"], sensor_label, device_class.capitalize()]
+    config_payload_object = configPayload.ConfigPayload(
+        {
+            'device_class': str(device_class),
+            'name': " ".join(name_elements),
+            'state_topic': state_topic,
+            'unit_of_measurement': str(unit_of_measurement),
+            'value_template': str(value_template)
+        }
+    )
+    module_logger.debug("config payload: {payload}".format(payload=schemahandler.to_json(config_payload_object)))
+    return schemahandler.to_json(config_payload_object)

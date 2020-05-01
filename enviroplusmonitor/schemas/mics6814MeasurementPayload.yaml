@@ -1,0 +1,22 @@
+$id: mics6814MeasurementPayload.yaml
+$schema: "http://json-schema.org/draft-07/schema#"
+title: mics6814MeasurementPayload
+description: Payload for MICS6814 sensor sent to Home Assistant to conform to discovery
+type: object
+properties:
+  oxidising:
+    type: number
+    minimum: 0
+    maximum: 100
+  reducing:
+    type: number
+    minimum: 0
+    maximum: 1000
+  nh3:
+    type: number
+    minimum: 0
+    maximum: 500
+required:
+  - oxidising
+  - reducing
+  - nh3

@@ -1,0 +1,27 @@
+$id: sensorRecord.yaml
+$schema: "http://json-schema.org/draft-07/schema#"
+title: sensorRecord
+description: Definition of a record from a sensor
+type: object
+properties:
+  sensor: 
+    type: string
+    description: Sensor type
+  measurements:
+    type: array
+    description: Measurement array
+    items:
+      type: object
+      properties:
+        label:
+          type: string
+          description: Label for measurement
+        value:
+          type: number
+          description: Value of measurement
+        units:
+          type: string
+          description: Units of measurement
+required:
+  - sensor
+  - measurements

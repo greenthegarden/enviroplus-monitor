@@ -7,7 +7,7 @@ from subprocess import PIPE, Popen
 
 # import internal modules
 from enviroplusmonitor.utilities import (configurationhandler, homeassistanthandler, mqttclienthandler, unitregistryhandler)
-from enviroplusmonitor.classes import (bme280Measurement, bme280MeasurementPayload, measurementRecord, configPayload)
+from enviroplusmonitor.classes import (sensorRecord, bme280MeasurementPayload, measurementRecord, configPayload)
 # import external packages
 from bme280 import BME280
 
@@ -122,7 +122,7 @@ def measurement():
         { 'label': "humidity", 'value': readings.get("humidity_relative").magnitude, 'units': str(readings.get("humidity_relative").units) },
         { 'label': "pressure", 'value': readings.get("pressure").magnitude, 'units': str(readings.get("pressure").units) }
     ]
-    data = bme280Measurement.Bme280Measurement(
+    data = sensorRecord.SensorRecord(
         {
             'sensor': sensor_label,
             'measurements': measurements_from_readings
