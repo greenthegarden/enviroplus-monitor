@@ -16,11 +16,7 @@ class Mics6814MeasurementPayload(UserDict):
             """Ensures that the provided number value meets all the schema constraints.
             """
             if not isinstance(value, float):
-                raise ValueError("Passed value '{}' was not a number".format(value))   
-            if value < 0:
-                raise ValueError("Value '{}' is less than the minimum of 0".format(value)) 
-            if value > 100:
-                raise ValueError("Value '{}' is more than the maximum of 100".format(value))      
+                raise ValueError("Passed value '{}' was not a number".format(value))          
 
         def Set(self, new_value) -> Mics6814MeasurementPayload.OxidisingProperty:
             if isinstance(new_value, type(self)):
@@ -53,11 +49,7 @@ class Mics6814MeasurementPayload(UserDict):
             """Ensures that the provided number value meets all the schema constraints.
             """
             if not isinstance(value, float):
-                raise ValueError("Passed value '{}' was not a number".format(value))   
-            if value < 0:
-                raise ValueError("Value '{}' is less than the minimum of 0".format(value)) 
-            if value > 1000:
-                raise ValueError("Value '{}' is more than the maximum of 1000".format(value))      
+                raise ValueError("Passed value '{}' was not a number".format(value))          
 
         def Set(self, new_value) -> Mics6814MeasurementPayload.ReducingProperty:
             if isinstance(new_value, type(self)):
@@ -90,11 +82,7 @@ class Mics6814MeasurementPayload(UserDict):
             """Ensures that the provided number value meets all the schema constraints.
             """
             if not isinstance(value, float):
-                raise ValueError("Passed value '{}' was not a number".format(value))   
-            if value < 0:
-                raise ValueError("Value '{}' is less than the minimum of 0".format(value)) 
-            if value > 500:
-                raise ValueError("Value '{}' is more than the maximum of 500".format(value))      
+                raise ValueError("Passed value '{}' was not a number".format(value))          
 
         def Set(self, new_value) -> Mics6814MeasurementPayload.Nh3Property:
             if isinstance(new_value, type(self)):

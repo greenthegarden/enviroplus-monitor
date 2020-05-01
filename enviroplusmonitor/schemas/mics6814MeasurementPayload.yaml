@@ -6,16 +6,16 @@ type: object
 properties:
   oxidising:
     type: number
-    minimum: 0
-    maximum: 100
+    # minimum: 0
+    # maximum: 100
   reducing:
     type: number
-    minimum: 0
-    maximum: 1000
+    # minimum: 0
+    # maximum: 1000
   nh3:
     type: number
-    minimum: 0
-    maximum: 500
+    # minimum: 0
+    # maximum: 500
 required:
   - oxidising
   - reducing

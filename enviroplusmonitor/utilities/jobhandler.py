@@ -17,6 +17,7 @@ module_logger = logging.getLogger(
 # send configuration messages
 def publish_configuration_topics():
     weather.publish_configuration_topics()
+    gas.publish_configuration_topics()
     # if bool(configurationhandler.config["sensors"]["DHT22_ENABLE"]):
     #     dht22.publish_configuration_topics()
 
