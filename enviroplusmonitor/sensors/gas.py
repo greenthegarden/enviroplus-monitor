@@ -20,7 +20,7 @@ module_logger = logging.getLogger(
     configurationhandler.config["logging"]["MODULE_LOGGER"]
 )
 
-sensor_label = str(configurationhandler.config["sensors"]["GAS_LABEL"]).lower()
+sensor_label = str(configurationhandler.config["sensors"]["GAS_LABEL"])
 
 def sensor_readings():
     """Get readings from each gas sensor on the MICS6814
@@ -30,9 +30,9 @@ def sensor_readings():
     """
     all = gas.read_all()
     readings = {
-        "oxidising": all.oxidising * unitregistryhandler.ureg.ppm,
-        "reducing": all.reducing * unitregistryhandler.ureg.ppm,
-        "nh3": all.nh3 * unitregistryhandler.ureg.ppm,
+        "oxidising": (all.oxidising/1000.0) * unitregistryhandler.ureg.ppm,
+        "reducing": (all.reducing/1000.0) * unitregistryhandler.ureg.ppm,
+        "nh3": (all.nh3/1000.0) * unitregistryhandler.ureg.ppm,
     }
     return readings
 
