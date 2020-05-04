@@ -20,7 +20,7 @@ def node_id(sensor_label):
   """Generate node_id based on sensor_label
 
     Parameters:
-      sensor_label: one of DHT22_LABEL, GAS_LABEL, WEATHER_LABEL
+      sensor_label:
     
     Returns:
       str: node_id
@@ -78,7 +78,7 @@ def config_topic(sensor_label, measurement):
     topic_elements = [
       discovery_prefix,
       component,
-      str(node_id(sensor_label) + measurement),
+      str(node_id(sensor_label) + "_" + measurement),
       "config"
     ]
     topic = mqttclienthandler.create_topic_from_list(topic_elements)

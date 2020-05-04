@@ -20,7 +20,7 @@ module_logger = logging.getLogger(
     configurationhandler.config["logging"]["MODULE_LOGGER"]
 )
 
-sensor_label = str(configurationhandler.config["sensors"]["GAS_LABEL"])
+sensor_label = str(configurationhandler.config["sensors"]["GAS_LABEL"]).lower()
 
 def sensor_readings():
     """Get readings from each gas sensor on the MICS6814

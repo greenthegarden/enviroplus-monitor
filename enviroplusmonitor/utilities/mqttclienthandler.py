@@ -32,7 +32,7 @@ def create_topic_from_list(topic_elements):
         topic += str(topic_element) + "/"
     # remove trailing "/"
     topic = topic[:-1]
-    return topic
+    return str(topic).lower()
 
 
 def get_broker_url():
