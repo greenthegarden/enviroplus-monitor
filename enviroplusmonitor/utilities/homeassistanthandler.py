@@ -26,13 +26,15 @@ def node_id(sensor_label):
       str: node_id
   """
   node_id_str = str(
-    "enviroplus" +
-    str(configurationhandler.config["enviroplus"]["id"]) +
+    "enviroplus" + "_" +
+    str(configurationhandler.config["enviroplus"]["id"]) + "_" +
     sensor_label
   )
   return node_id_str
 
 # homeassistant/sensor/enviroplus3/state
+# 
+# homeassistant/sensor/enviroplus3BME280/state
 def state_topic(sensor_label):
     """Define state topic for home assistant
 
@@ -42,14 +44,6 @@ def state_topic(sensor_label):
     Returns:
         str: state topic
     """
-    # topic = str(
-    #     "homeassistant/sensor/enviroplus/" +
-    #     str(configurationhandler.config["enviroplus"]["id"]) +
-    #     "/" +
-    #     str(configurationhandler.config["sensors"][sensor_label]) +
-    #     "/" +
-    #     "state"
-    # )
     topic_elements = [
       discovery_prefix,
       component,
