@@ -1,0 +1,40 @@
+[requires]
+#python_version = '3.8'
+
+[packages]
+requests = "*"
+Flask = "*"
+Flask-Injector = "*"
+flask_restful = "*"
+flask-restplus = "*"
+flask-mqtt = "*"
+flask-sqlalchemy = "*"
+SQLAlchemy = "*"
+configobj = "*"
+geojson = "*"
+geojson_utils = "*"
+#logstash_formatter = "*"
+gunicorn = "*"
+async_timeout = "*"
+pint = "*"
+webcolors = "*"
+uuid = "*"
+elasticsearch-dsl = "*"
+JSON-log-formatter = "*"
+# WARNING: tavern 0.34.0 only works with paho-mqtt 1.3.1 and below
+# New tavern major release is 1.0.0, check then if we can update paho-mqtt
+paho-mqtt = "~=1.3.1"
+
+[dev-packages]
+tox = "*"
+tox-pyenv = "*"
+tox-docker = "*"
+# WARNING: tavern 0.34.0 only works with pytest < 4.6.0 and >= 3.6.0
+# New tavern major release is 1.0.0, check then if we can update pytest
+pytest = "~=5.4.1"
+pytest-cov = "*"
+pytest-env = "*"
+pytest_cases = "*"
+mbtest = "*"
+brunns-matchers="*"
+#tavern = "*"

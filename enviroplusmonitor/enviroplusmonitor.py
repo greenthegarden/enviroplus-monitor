@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 __author__ = "Philip Cutler"
 
 """
@@ -15,7 +17,7 @@ import sys
 import time
 from pathlib import Path, PurePath
 
-from enviroplusmonitor.utilities import configurationhandler, logginghandler
+from utilities import configurationhandler, logginghandler
 
 logger = logging.getLogger(__name__)
 
@@ -23,20 +25,6 @@ logger = logging.getLogger(__name__)
 resources_folder = Path("./enviroplusmonitor/resources/")
 
 default_configuration_file = resources_folder / "config.ini"
-
-
-def parse_args(args):
-    # """Parse the args from main."""
-    parser = argparse.ArgumentParser(description="Enviro+ Monitor Project")
-    parser.add_argument(
-        "-c",
-        "--config",
-        type=str,
-        required=False,
-        default=str(default_configuration_file),
-        help="Specify configuration file",
-    )
-    return parser.parse_args()
 
 
 def run(parser):
@@ -73,20 +61,30 @@ def run(parser):
     mqttclienthandler.configure_client()
     mqttclienthandler.connect_to_broker()
 
-    # # from enviroplusmonitor.utilities import influxdbclienthandler
-    # # influxdbclienthandler.configure_client()
+    # # # from enviroplusmonitor.utilities import influxdbclienthandler
+    # # # influxdbclienthandler.configure_client()
 
-    from enviroplusmonitor.utilities import unitregistryhandler
+    # from enviroplusmonitor.utilities import unitregistryhandler
 
-    unitregistryhandler.configure()
+    # unitregistryhandler.configure()
 
-    from enviroplusmonitor.utilities import jobhandler
+    # from enviroplusmonitor.utilities import jobhandler
 
-    jobhandler.publish_configuration_topics()
+    # jobhandler.publish_configuration_topics()
 
-    jobhandler.tl.start(block=True)
+    # jobhandler.tl.start(block=True)
 
 
 if __name__ == "__main__":
-    args = parse_args(sys.argv[1:])
+    # """Parse the args from main."""
+    parser = argparse.ArgumentParser(description="Enviro+ Monitor Project")
+    parser.add_argument(
+        "-c",
+        "--config",
+        type=str,
+        required=False,
+        default=str(default_configuration_file),
+        help="Specify configuration file",
+    )
+    args = parser.parse_args()
     run(args)
