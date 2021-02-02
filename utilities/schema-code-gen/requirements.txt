@@ -2,3 +2,4 @@ jacobs-jinja-too
 json-schema-codegen
 pydash
 pyyaml
+jinja2>=2.11.3 # not directly required, pinned by Snyk to avoid a vulnerability
